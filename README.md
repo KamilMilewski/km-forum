@@ -1,24 +1,49 @@
-# README
+#1. What is km-forum?
+	km-forum is a discussion board application written in ROR.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#2. What is purpose of km-forum?
+	km-forum is written mainly for educational purposes.
 
-Things you may want to cover:
+#3. User stories.
+	-As a user I want to be able to create my own account and log in into it.
+	-As a user I want to be able to create topic in given category.
+	-As a user I want to be able to write posts to others topics.
+	-As a user I want to be able to edit my replies and my topics.
 
-* Ruby version
+	-As an admin I want to be able to do all that regular user can do.
+	-As an admin I want to be able to create, edit and delete categories.
+	-As an admin I want to be able to delete any post or topic.
+	-As an admin I want to be able to delete user account.
 
-* System dependencies
+#4. Data models.
+	Category
+		-title:string
+		-description:text
+	Topic
+		-title:string
+		-content:text
+	post
+		-content:text
+	User
+		-name:string
+		-email:string
+		-type:string
 
-* Configuration
+#5. Data model relations.
+	Category
+		-has many topics
+	Topic
+		-has many posts
+		-belongs to User
+	-User
+		-has many topics & posts
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+#6. Pages.
+	-Home page where all categories are listed.
+	-Category page where all its topics are listed.
+	-Topic page where all posts are listed.
+	-Admin control panel.
+	-Category new/edit page.
+	-Topic new/edit page.
+	-Post new/edit page.
+	-User new/show page.
