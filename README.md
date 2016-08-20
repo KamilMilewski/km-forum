@@ -27,6 +27,7 @@
 	User
 		-name:string
 		-email:string
+		-password_digest:string
 		-type:string
 
 #5. Data model relations.
@@ -35,7 +36,10 @@
 	Topic
 		-has many posts
 		-belongs to User
-	-User
+		-belongs to Category
+	Post
+		-belongs to User and Topic
+	User
 		-has many topics & posts
 
 #6. Pages.
