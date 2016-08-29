@@ -1,0 +1,10 @@
+<% @categories.each do |category| %>
+	<a href="#" class="list-group-item">
+		<h4 class="list-group-item-heading"><%= category.title %></h4>
+		<p class="list-group-item-text">
+			<%= category.description %>
+		</p>
+	</a>
+  <a href="<%= edit_category_path(category) %>" class="btn btn-default btn-sm" role="button">Edit</a>
+  <a href="#" class="btn btn-default btn-sm" role="button">Delete</a>
+<% end %>
