@@ -6,7 +6,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-
+    @topics = @category.topics
   end
 
   def new
@@ -43,11 +43,11 @@ class CategoriesController < ApplicationController
   end
 
   private
-    def category_params
-      params.require(:category).permit(:title, :description)
-    end
-
     def find_category
       @category = Category.find(params[:id])
+    end
+
+    def category_params
+      params.require(:category).permit(:title, :description)
     end
 end

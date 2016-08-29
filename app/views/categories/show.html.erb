@@ -1,1 +1,29 @@
 <% provide :title, @category.title %>
+
+<hr>
+<a href="<%= new_topic_path %>"
+	class="btn btn-primary btn-md" role="button">Add Topic</a>
+<hr>
+
+<% @topics.each do |topic| %>
+	<a href="<%= topic_path(topic) %>" 
+	   class="list-group-item list-group-item-warning">
+		<h4 class="list-group-item-heading"><%= topic.title %></h4>
+		<p class="list-group-item-text">
+			<%= topic.content %>
+		</p>
+	</a>
+
+	<%= link_to "Edit",
+				edit_category_path(topic),
+				class: "btn btn-warning btn-xs" %>
+	<%= link_to "Delete", 
+				topic_path(topic),
+				method: :delete,
+				class: "btn btn-danger btn-xs" %>
+<% end %>
+
+<hr>
+
+<a href="<%= new_topic_path %>"
+	class="btn btn-primary btn-md" role="button">Add Topic</a>
