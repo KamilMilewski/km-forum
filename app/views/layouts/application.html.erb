@@ -5,6 +5,16 @@
   	<div class="container">
   		<%= render 'layouts/navbar' %>
   		<div class="km-body-container">
+
+  			<!-- notices -->
+  			<% if flash[:notice] %>
+  				<div class="alert alert-success">
+  					<a href="#" class="close" data-dismis="alert" aria-label="close">
+  						&times;</a>
+  					<p><%= flash[:notice] %></p>
+  				</div>
+  			<% end %>
+
     		<%= yield %>
     	</div>
     </div>

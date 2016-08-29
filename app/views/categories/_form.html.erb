@@ -1,5 +1,28 @@
 <div class="form-group">
 	<%= form_for @category do |f| %>
+
+		<!-- Error notices -->
+		<% if @category.errors.any? %>
+			<div class="alert alert-warning">
+
+				<a href="#" class="close" data-dismis="alert" aria-label="close">
+					&times;</a>
+
+				<p><strong>
+					<%= pluralize(@category.errors.count, 'error') %>
+					prevented this category from being created:
+				</strong></p>
+
+				<ul>
+					<% @category.errors.full_messages.each do |msg| %>
+						<li><%= msg %></li>
+					<% end %>
+				</ul>
+				
+			</div>
+		<% end %>
+
+
 		<p>
 			<%= f.label :title %><br>
 			<%= f.text_field :title, 
