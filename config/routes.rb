@@ -2,8 +2,8 @@ Rails.application.routes.draw do
 
   root 'categories#index'
 
-  get 'static_pages/contact'
-  get 'static_pages/about'
+  get '/contact', to: 'static_pages#contact'
+  get '/about', to: 'static_pages#about'
 
 
   resources :categories do
