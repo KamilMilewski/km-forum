@@ -1,0 +1,17 @@
+<div class="form-group">
+	<%= form_for @category do |f| %>
+		<p>
+			<%= f.label :title %><br>
+			<%= f.text_field :title, 
+				class: "form-control", placeholder: "Put category title here..." %>
+		</p>
+		<p>
+			<%= f.label :description %><br>
+			<%= f.text_area :description,
+				class: "form-control", placeholder: "Put category description here..." %>
+		</p>
+		<p>
+			<%= f.submit class: "btn btn-default" %>
+		</p>
+	<% end %>
+</div>

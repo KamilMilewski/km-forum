@@ -1,16 +1,24 @@
+<hr>
+
 <% @categories.each do |category| %>
-	<a href="#" class="list-group-item list-group-item-warning">
+	<a href="<%= category_path(category) %>" 
+	   class="list-group-item list-group-item-warning">
 		<h4 class="list-group-item-heading"><%= category.title %></h4>
 		<p class="list-group-item-text">
 			<%= category.description %>
 		</p>
 	</a>
-	<a href="<%= edit_category_path(category) %>" 
-		 class="btn btn-warning btn-sm" role="button">Edit</a>
-	<a href="<%= category_path category, method: :delete %>" 
-		 class="btn btn-danger btn-sm" role="button">Delete</a>
+
+	<%= link_to "Edit",
+				edit_category_path(category),
+				class: "btn btn-warning btn-sm" %>
+	<%= link_to "Delete", 
+				category_path(category),
+				method: :delete,
+				class: "btn btn-danger btn-sm" %>
 <% end %>
 
 <hr>
+
 <a href="<%= new_category_path %>"
 	class="btn btn-primary btn-md" role="button">Add Category</a>
