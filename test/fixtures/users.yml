@@ -4,10 +4,10 @@ one:
   name: MyString
   email: MyString
   password_digest: MyString
-  type: 
+  permissions: MyString 
 
 two:
   name: MyString
   email: MyString
   password_digest: MyString
-  type: 
+  permissions: MyString
