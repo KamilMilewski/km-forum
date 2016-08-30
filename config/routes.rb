@@ -16,14 +16,16 @@ Rails.application.routes.draw do
   # We are using:
 
   resources :categories do
-    resources :topics, name_prefix: 'category_'
+    resources :topics, name_prefix: 'category_', 
+                except: [:index, :show, :edit, :update, :destroy]
   end
 
-  resources :topics do
-    resources :posts, name_prefix: 'topic_'
+  resources :topics, only: [:show, :edit, :update, :destroy] do
+    resources :posts, name_prefix: 'topic_', 
+                except: [:index, :show, :edit, :update, :destroy]
   end
 
-  resources :posts
+  resources :posts, only: [:edit, :update, :destroy]
   resources :users
 
 end
