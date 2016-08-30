@@ -5,11 +5,13 @@ class TopicsController < ApplicationController
   end
 
   def new
-    @topic = Topics.new
+    @category = Category.find(params[:category_id])
+    @topic = Topic.new
   end
 
   def create
-    @topic = Topics.new(topic_params)
+    @category = Category.find(params[:topic][:category_id])
+    @topic = @category.topics.new(topic_params.merge! user_id: 2)
     if @topic.save
       flash[:notice] = 'Topic successfully created.'
       redirect_to @topic
@@ -28,21 +30,22 @@ class TopicsController < ApplicationController
     else
       render 'edit'
     end
-
   end
 
   def destroy
+    @category = Category.find(params[:category_id])
     if @topic.destroy
       flash[:notice] = 'Topic successfully deleted.'
-      redirect_to topics_path
+      redirect_to @category
+    end
   end
 
   private
     def find_topic
-      @topic = Topics.find(params[:id])
+      @topic = Topic.find(params[:id])
     end
 
     def topic_params
-      params.require(:topic).permit(:title, :content, :category_id)
+      params.require(:topic).permit(:title, :content)
     end
 end

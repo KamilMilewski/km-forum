@@ -1,7 +1,7 @@
 <% provide :title, @category.title %>
 
 <hr>
-<a href="<%= new_topic_path %>"
+<a href="<%= new_category_topic_path(@category) %>"
 	class="btn btn-primary btn-md" role="button">Add Topic</a>
 <hr>
 
@@ -15,15 +15,15 @@
 	</a>
 
 	<%= link_to "Edit",
-				edit_category_path(topic),
+				edit_topic_path(topic),
 				class: "btn btn-warning btn-xs" %>
 	<%= link_to "Delete", 
-				topic_path(topic),
+				category_topic_path(@category, topic),
 				method: :delete,
 				class: "btn btn-danger btn-xs" %>
 <% end %>
 
 <hr>
 
-<a href="<%= new_topic_path %>"
+<a href="<%= new_category_topic_path(@category) %>"
 	class="btn btn-primary btn-md" role="button">Add Topic</a>
