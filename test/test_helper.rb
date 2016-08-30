@@ -14,4 +14,7 @@ class ActiveSupport::TestCase
   include ApplicationHelper
 
   # Add more helper methods to be used by all tests here...
+  def setup
+    @base_title = "KM-Forum"
+  end
 end
