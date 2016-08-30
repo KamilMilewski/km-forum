@@ -22,7 +22,7 @@ class TopicCRUDTest <ActionDispatch::IntegrationTest
 
 
 		#Get to edit topic page and assure that correct template is used	
-		get edit_category_topic_path(categories(:one))
+		get edit_topic_path(topics(:one))
 		assert_response :success
 		assert_template 'topics/edit'
 

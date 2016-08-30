@@ -11,7 +11,7 @@ class TopicsController < ApplicationController
   end
 
   def create
-    @category = Category.find(params[:topic][:category_id])
+    @category = Category.find(params[:category_id])
     #We dont yet implemented User resource so we will use the one created earlier
     #in the console
     @topic = @category.topics.new(topic_params.merge! user_id: User.all.first.id)
@@ -36,8 +36,7 @@ class TopicsController < ApplicationController
   end
 
   def destroy
-
-    @category = Category.find(params[:category_id])
+    @category = @topic.category
     if @topic.destroy
       flash[:notice] = 'Topic successfully deleted.'
       redirect_to @category

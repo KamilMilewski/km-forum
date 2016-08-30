@@ -1,5 +1,5 @@
 <div class="form-group">
-	<%= form_for @topic do |f| %>
+	<%= form_for [@category, @topic] do |f| %>
 
 		<!-- Error notices -->
 		<% if @topic.errors.any? %>
@@ -33,13 +33,7 @@
 			<%= f.text_area :content,
 				class: "form-control", placeholder: "Put topic content here..." %>
 		</p>
-		<p>
-			<!-- This hidden field is necessarry to send info about category_id to
-				 topics controller create action -->
-			<% unless @category.nil? %> <!-- for editing topic we dont need this field -->
-				<%= f.hidden_field :category_id, value: @category.id %>
-			<% end %>
-		</p>
+
 		<p>
 			<%= f.submit class: "btn btn-default" %>
 		</p>
