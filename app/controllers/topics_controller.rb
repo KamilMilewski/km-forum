@@ -2,6 +2,7 @@ class TopicsController < ApplicationController
   before_action :find_topic, only: [:show, :edit, :update, :destroy]
 
   def show
+
   end
 
   def new
@@ -11,7 +12,9 @@ class TopicsController < ApplicationController
 
   def create
     @category = Category.find(params[:topic][:category_id])
-    @topic = @category.topics.new(topic_params.merge! user_id: 2)
+    #We dont yet implemented User resource so we will use the one created earlier
+    #in the console
+    @topic = @category.topics.new(topic_params.merge! user_id: User.all.first.id)
     if @topic.save
       flash[:notice] = 'Topic successfully created.'
       redirect_to @topic
@@ -33,6 +36,7 @@ class TopicsController < ApplicationController
   end
 
   def destroy
+
     @category = Category.find(params[:category_id])
     if @topic.destroy
       flash[:notice] = 'Topic successfully deleted.'
@@ -46,6 +50,6 @@ class TopicsController < ApplicationController
     end
 
     def topic_params
-      params.require(:topic).permit(:title, :content)
+      params.require(:topic).permit(:title, :content, :user_id)
     end
 end
