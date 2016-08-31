@@ -14,7 +14,7 @@ class TopicTest < ActiveSupport::TestCase
   test "title can't be blank" do
     @topic.title = ' '
     assert_not @topic.valid?,
-              "Topic model validaton shouldn't allow title attr. to be blank."
+              "Topic model validation shouldn't allow title attr. to be blank."
   end
 
   test "title cant't be too long" do
@@ -27,6 +27,6 @@ class TopicTest < ActiveSupport::TestCase
   test "content can't be blank" do
     @topic.content = "  "
     assert_not @topic.valid?,
-              "Topic model validaton shouldn't allow content attr. to be blank."
+              "Topic model validation shouldn't allow content attr. to be blank."
   end
 end
