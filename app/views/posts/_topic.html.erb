@@ -1,0 +1,23 @@
+<div class="media">
+	<div class="media-left media-top">
+		<a href="#">
+			<img class="media-object" src='<%= image_url 'default_avatar.jpg' %>'
+					alt="default_avatar">
+		</a>
+	</div>
+
+	<div class="media-body bg-warning">
+		<h4 class="media-heading"><strong>Topic title:</strong> <%= @topic.title %></h4>
+		<p><%= @topic.content %></p>
+	</div>
+
+  <div class="pull-right">
+    <%= link_to "Edit",
+          edit_topic_path(@topic),
+          class: "btn btn-warning btn-xs" %>
+    <%= link_to "Delete",
+          @topic,
+          method: :delete,
+          class: "btn btn-danger btn-xs" %>
+  </div>
+</div>
