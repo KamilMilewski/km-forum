@@ -1,1 +1,28 @@
 <% provide :title, @topic.title %>
+<hr>
+<a href="<%= new_topic_post_path(@topic) %>"
+	class="btn btn-primary btn-md" role="button">Add Post</a>
+<hr>
+
+<% @posts.each do |post| %>
+	<a href="#" 
+	   class="list-group-item list-group-item-warning">
+		<h4 class="list-group-item-heading"><%= @topic.title %></h4>
+		<p class="list-group-item-text">
+			<%= post.content %>
+		</p>
+	</a>
+
+	<%= link_to "Edit",
+				edit_post_path(post),
+				class: "btn btn-warning btn-xs" %>
+	<%= link_to "Delete", 
+				post,
+				method: :delete,
+				class: "btn btn-danger btn-xs" %>
+<% end %>
+
+<hr>
+
+<a href="<%= new_topic_post_path(@topic) %>"
+	class="btn btn-primary btn-md" role="button">Add Post</a>

@@ -2,7 +2,7 @@ class TopicsController < ApplicationController
   before_action :find_topic, only: [:show, :edit, :update, :destroy]
 
   def show
-
+    @posts = @topic.posts
   end
 
   def new
