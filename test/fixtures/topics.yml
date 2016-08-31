@@ -1,8 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  content: MyText
+  title: Fixture topic title
+  content: Fixture topic content
   category_id: 1
   user_id: 1
 
