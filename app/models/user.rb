@@ -1,13 +1,16 @@
 class User < ApplicationRecord
 	has_many :topics
 	has_many :posts
+
+	#For consistency we will store all emails as lower-case
 	before_save { email.downcase! }
 
 	validates :name, presence: true, length: {maximum: 25}
 
 	EMAIL_FORMAT = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 	validates :email, presence: true, length: {maximum: 255},
-										format: {with: EMAIL_FORMAT}
+										format: {with: EMAIL_FORMAT},
+										uniqueness: {case_sensitive: false}
 
 	#User can have only three types of permissions: user, moderator or admin
 	PERMISSIONS_FORMAT = /\Auser\z|\Amoderator\z|\Aadmin\z/

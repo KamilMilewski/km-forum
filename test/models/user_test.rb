@@ -28,10 +28,6 @@ class UserTest < ActiveSupport::TestCase
     " longer than 25 chars."
   end
 
-  test "name should be unique" do
-    
-  end
-
 
 
   #email validation tests
@@ -49,7 +45,18 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "email should be unique" do
+    duplicate_user = @user.dup
+    duplicate_user.email = @user.email.upcase
+    @user.save
+    assert_not duplicate_user.valid?, "User model validation should accept" +
+    " only unique emails."
+  end
 
+  test "email should be saved as lower-case" do
+    mixed_case_email = "ExAmPle@mixedcase.email.com"
+    @user.email = mixed_case_email
+    @user.save
+    assert_equal mixed_case_email.downcase, @user.reload.email
   end
 
   test "should accept valid emails" do
