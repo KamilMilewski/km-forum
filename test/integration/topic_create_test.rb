@@ -1,0 +1,41 @@
+require 'test_helper'
+
+class TopicCreateTest <ActionDispatch::IntegrationTest
+	test 'valid topic creation' do
+		#Get to new category page and assure that correct template is used
+		get new_category_topic_path categories(:one)
+		assert_response :success
+		assert_template 'topics/new'
+
+		#Test if create category with valid data vill succeed
+		assert_difference 'Topic.count', 1 do
+			post category_topics_path(categories(:one)), params: {topic: {
+				title: "test category",
+				content: "test description"
+				}
+			}
+		end
+		assert_response :redirect
+		follow_redirect!
+		assert_template 'topics/show'
+	end
+
+	test 'invalid topic creation' do
+		#Get to new category page and assure that correct template is used
+		get new_category_topic_path categories(:one)
+		assert_response :success
+		assert_template 'topics/new'
+
+		#Test if create category with valid data vill succeed
+		assert_no_difference 'Topic.count' do
+			post category_topics_path(categories(:one)), params: {topic: {
+				title: "	",
+				content: "	"
+				}
+			}
+		end
+
+		assert_template 'topics/new'
+		assert_select 'div.alert-danger'
+	end
+end

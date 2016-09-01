@@ -3,7 +3,7 @@
 
 		<!-- Error notices -->
 		<% if @topic.errors.any? %>
-			<div class="alert alert-warning">
+			<div class="alert alert-danger">
 
 				<a href="#" class="close" data-dismis="alert" aria-label="close">
 					&times;</a>
@@ -18,14 +18,14 @@
 						<li><%= msg %></li>
 					<% end %>
 				</ul>
-				
+
 			</div>
 		<% end %>
 
 
 		<p>
 			<%= f.label :title %><br>
-			<%= f.text_field :title, 
+			<%= f.text_field :title,
 				class: "form-control", placeholder: "Put topic title here..." %>
 		</p>
 		<p>
