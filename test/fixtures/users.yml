@@ -2,10 +2,10 @@
 
 one:
   id: 1
-  name: MyString
-  email: MyString
+  name: Fixture User name
+  email: Fixture@user.email
+  permissions: admin
   password_digest: MyString
-  permissions: MyString
 
 two:
   name: MyString
