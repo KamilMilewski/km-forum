@@ -89,11 +89,7 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-<<<<<<< HEAD
-=======
 
-
->>>>>>> user-model
   #permissions validation tests
 
   test "permissions validation should accept valid permissions" do
