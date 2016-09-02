@@ -18,6 +18,8 @@ class TopicCreateTest <ActionDispatch::IntegrationTest
 		assert_response :redirect
 		follow_redirect!
 		assert_template 'topics/show'
+		#check if success flash massage shows up
+		assert_select 'div.alert-success'
 	end
 
 	test 'invalid topic creation' do
@@ -36,6 +38,7 @@ class TopicCreateTest <ActionDispatch::IntegrationTest
 		end
 
 		assert_template 'topics/new'
+		#check if error flash massage shows up
 		assert_select 'div.alert-danger'
 	end
 end

@@ -1,27 +1,7 @@
+<%= render 'shared/errors_explanation' %>
+
 <div class="form-group">
 	<%= form_for [@category, @topic] do |f| %>
-
-		<!-- Error notices -->
-		<% if @topic.errors.any? %>
-			<div class="alert alert-danger">
-
-				<a href="#" class="close" data-dismis="alert" aria-label="close">
-					&times;</a>
-
-				<p><strong>
-					<%= pluralize(@topic.errors.count, 'error') %>
-					prevented this topic from being created:
-				</strong></p>
-
-				<ul>
-					<% @topic.errors.full_messages.each do |msg| %>
-						<li><%= msg %></li>
-					<% end %>
-				</ul>
-
-			</div>
-		<% end %>
-
 
 		<p>
 			<%= f.label :title %><br>
