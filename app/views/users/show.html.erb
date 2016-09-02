@@ -1,0 +1,28 @@
+<% provide :title, "#{@user.name} Profile Page" %>
+<div class="media">
+  <div class="media-left media-top">
+     <%= image_tag gravatar_url(@user), alt: @user.name,
+                              class: 'media-object' %>
+  </div>
+  <div class="media-body">
+    <p>
+      <strong>Name: </strong>
+      <%= @user.name %>
+    </p>
+
+    <p>
+      <strong>Email: </strong>
+      <%= @user.email %>
+    </p>
+
+    <p>
+      <strong>Account type: </strong>
+      <%= @user.permissions %>
+    </p>
+
+    <p>
+      <strong>Joined: </strong>
+      <%= @user.created_at.strftime("%d-%m-%Y at %H:%M ") %>
+    </p>
+  </div>
+</div>
