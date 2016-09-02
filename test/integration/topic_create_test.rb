@@ -22,13 +22,14 @@ class TopicCreateTest <ActionDispatch::IntegrationTest
 		assert_select 'div.alert-success'
 	end
 
+
 	test 'invalid topic creation' do
 		#Get to new category page and assure that correct template is used
 		get new_category_topic_path categories(:one)
 		assert_response :success
 		assert_template 'topics/new'
 
-		#Test if create category with valid data vill succeed
+		#Test if create category with valid data will fail
 		assert_no_difference 'Topic.count' do
 			post category_topics_path(categories(:one)), params: {topic: {
 				title: "	",

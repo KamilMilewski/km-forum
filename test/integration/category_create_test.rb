@@ -27,7 +27,7 @@ class CategoryCreateTest <ActionDispatch::IntegrationTest
 		assert_response :success
 		assert_template 'categories/new'
 
-		#Test if create category with valid data vill succeed
+		#Test if create category with valid data will fail
 		assert_no_difference 'Category.count' do
 			post categories_path, params: {category: {
 				title: "	", description: "test description"
