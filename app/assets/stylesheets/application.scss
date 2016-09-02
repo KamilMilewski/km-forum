@@ -32,10 +32,18 @@ $navbar-default-color: #F8E6E4;
 	padding-top: 0.25em;
 }
 
-.km-body-container {
-	margin-top: 4.5em;
-}
-
 .list-group-item {
 	margin-top: 0.5em;
+}
+
+/* Rails automagically wraps form fields with errors with div of this class: */
+.field_with_errors {
+	/* Extending with funcionality of bootstrap class */
+	@extend .has-error;
+		color: red;
+}
+
+/* To distance site content from navbar */
+.km-body-container {
+	margin-top: 4.5em;
 }

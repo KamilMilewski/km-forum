@@ -1,20 +1,25 @@
 <!-- form errors moved to partial shared/notices -->
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+		<%= form_for @category do |f| %>
+			<p>
+				<%= f.label :title %><br>
+				<%= f.text_field :title,
+													class: "form-control",
+													placeholder: "Put category title here..." %>
+			</p>
+			<p>
+				<%= f.label :description %><br>
+				<%= f.text_area :description,
+												 class: "form-control",
+												 placeholder: "Put category description here..." %>
+			</p>
 
-<div class="form-group">
-	<%= form_for @category do |f| %>
+			<br>
 
-		<p>
-			<%= f.label :title %><br>
-			<%= f.text_field :title,
-				class: "form-control", placeholder: "Put category title here..." %>
-		</p>
-		<p>
-			<%= f.label :description %><br>
-			<%= f.text_area :description,
-				class: "form-control", placeholder: "Put category description here..." %>
-		</p>
-		<p>
-			<%= f.submit class: "btn btn-default" %>
-		</p>
-	<% end %>
+			<p>
+				<%= f.submit class: "btn btn-primary form-control" %>
+			</p>
+		<% end %>
+	</div>
 </div>
