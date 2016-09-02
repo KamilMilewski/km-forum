@@ -1,4 +1,17 @@
-<!-- Error notices -->
+<!-- This partial handles all application notices-->
+<!-- and is rendered once in layouts/application -->
+
+<!-- Regular notices -->
+<% flash.each do |type, msg| %>
+  <div class="alert alert-<%= type %>">
+    <!-- close button -->
+    <a href="#" class="close" data-dismis="alert" aria-label="close">
+      &times;</a>
+    <%= msg %>
+  </div>
+<% end %>
+
+<!-- Error messages -->
 <% if !@category.nil? and @category.errors.any? %>
   <% entity = @category %>
 <% elsif !@topic.nil? and @topic.errors.any? %>
@@ -11,19 +24,16 @@
 
 <% if !entity.nil? and entity.errors.any? %>
   <div class="alert alert-danger">
-
+    <!-- close button -->
     <a href="#" class="close" data-dismis="alert" aria-label="close">
       &times;</a>
-
     <p><strong>
       <%= pluralize(entity.errors.count, 'error') %> occured:
     </strong></p>
-
     <ul>
       <% entity.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
     </ul>
-
   </div>
 <% end %>

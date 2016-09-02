@@ -13,7 +13,7 @@ class PostsController < ApplicationController
     #in the console
     @post = @topic.posts.new(post_params.merge! user_id: User.all.first.id)
     if @post.save
-      flash[:notice] = "Post successfully created."
+      flash[:success] = "Post successfully created."
       redirect_to @topic
     else
       render 'new'
@@ -25,7 +25,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      flash[:notice] = "Post successfully updated."
+      flash[:success] = "Post successfully updated."
       redirect_to @post.topic
     else
       render 'edit'
@@ -34,7 +34,7 @@ class PostsController < ApplicationController
 
   def destroy
     if @post.destroy
-      flash[:notice] = "Post successfully deleted."
+      flash[:success] = "Post successfully deleted."
       redirect_to @post.topic
     end
   end

@@ -16,7 +16,7 @@ class TopicsController < ApplicationController
     #in the console
     @topic = @category.topics.new(topic_params.merge! user_id: User.all.first.id)
     if @topic.save
-      flash[:notice] = 'Topic successfully created.'
+      flash[:success] = 'Topic successfully created.'
       redirect_to @topic
     else
       render 'new'
@@ -28,7 +28,7 @@ class TopicsController < ApplicationController
 
   def update
     if @topic.update(topic_params)
-      flash[:notice] = 'Topic successfully updated.'
+      flash[:success] = 'Topic successfully updated.'
       redirect_to @topic
     else
       render 'edit'
