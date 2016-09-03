@@ -2,24 +2,23 @@
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
 		<%= form_for @category do |f| %>
-			<p>
-				<%= f.label :title %><br>
+
+				<%= f.label :title %>
 				<%= f.text_field :title,
 													class: "form-control",
 													placeholder: "Put category title here..." %>
-			</p>
-			<p>
-				<%= f.label :description %><br>
+
+        <br>
+
+				<%= f.label :description %>
 				<%= f.text_area :description,
 												 class: "form-control",
 												 placeholder: "Put category description here..." %>
-			</p>
 
-			<br>
+        <br>
 
-			<p>
 				<%= f.submit class: "btn btn-primary form-control" %>
-			</p>
+
 		<% end %>
 	</div>
 </div>

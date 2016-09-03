@@ -2,18 +2,16 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
 		<%= form_for [@topic, @post] do |f| %>
-			<p>
-				<%= f.label :content %><br>
+
+				<%= f.label :content %>
 				<%= f.text_area :content,
 												class: "form-control",
 												placeholder: "Put post content here..." %>
-			</p>
 
 			<br>
 
-			<p>
 				<%= f.submit class: "btn btn-primary form-control" %>
-			</p>
+
 		<% end %>
 	</div>
 </div>

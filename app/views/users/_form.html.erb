@@ -2,40 +2,37 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for @user, url: signup_path do |f| %>
-      <p>
-        <%= f.label :name %><br>
+
+        <%= f.label :name %>
         <%= f.text_field :name,
                           class: 'form-control',
                           placeholder: 'Put your name here...' %>
-      </p>
 
-      <p>
-        <%= f.label :email %><br>
+        <br>
+
+        <%= f.label :email %>
         <%= f.email_field :email,
                            class: 'form-control',
              placeholder: 'Put your email address here (account id)...' %>
-      </p>
 
-      <p>
-        <%= f.label :password %><br>
+        <br>
+
+        <%= f.label :password %>
         <%= f.password_field :password,
                               class: 'form-control',
               placeholder: 'Put your password here (minimum 6 characters)...' %>
-      </p>
 
-      <p>
-        <%= f.label :password_confirmation %><br>
+        <br>
+
+        <%= f.label :password_confirmation %>
         <%= f.password_field :password_confirmation,
                               class: 'form-control',
                               placeholder: 'Confirm password here...' %>
-      </p>
 
-      <br>
+        <br>
 
-      <p>
         <%= f.submit 'Create your account',
                               class: 'btn btn-primary form-control' %>
-      </p>
     <% end %>
   </div>
 </div>
