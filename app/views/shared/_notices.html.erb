@@ -25,7 +25,14 @@
 <% if !entity.nil? and entity.errors.any? %>
   <div class="alert alert-danger">
     <!-- close button -->
-    <a href="#" class="close" data-dismis="alert" aria-label="close">
+    <%
+      #this monstrosity is for closing bootstrap error dialog to work correctly.
+      #If 'href' attribute of 'a' tag is just ='#' then upon clicking 'x'
+      #we are issuing get request to /resources. This leads to routing errors or
+      #invoking index action in controller.
+      path = "#{entity.class.to_s.downcase.pluralize}\\new"
+    %>
+    <a href="<%= path %>" class="close" data-dismis="alert" aria-label="close">
       &times;</a>
     <p><strong>
       <%= pluralize(entity.errors.count, 'error') %> occured:
