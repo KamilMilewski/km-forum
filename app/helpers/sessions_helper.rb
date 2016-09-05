@@ -9,7 +9,7 @@ module SessionsHelper
   end
 
   def find_current_user
-    #Thanks to using ||= operator application is hitting database only first time
+    # Thanks to using ||= operator application is hitting database only first time
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
