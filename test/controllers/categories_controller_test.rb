@@ -19,14 +19,14 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
   test "should get new" do
     get new_category_url
     assert_response :success
-    assert_select "title", "New Category | #{@base_title}"
+    assert_select "title", "New category | #{@base_title}"
     assert_template 'categories/new'
   end
 
   test "should get edit" do
     get edit_category_url(categories(:one))
     assert_response :success
-    assert_select "title", "Edit Category | #{@base_title}"
+    assert_select "title", "Edit category | #{@base_title}"
     assert_template 'categories/edit'
   end
 end
