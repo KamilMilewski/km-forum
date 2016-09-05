@@ -37,7 +37,7 @@ class TopicsController < ApplicationController
 
   def destroy
     if @topic.destroy
-      flash[:notice] = 'Topic successfully deleted.'
+      flash[:success] = 'Topic successfully deleted.'
       redirect_to @topic.category
     end
   end

@@ -19,6 +19,7 @@ class CategoryCreateTest <ActionDispatch::IntegrationTest
 		assert_template 'categories/show'
 		#check if success flash massage shows up
 		assert_select 'div.alert-success'
+		
 	end
 
 	test 'invalid category creation' do
