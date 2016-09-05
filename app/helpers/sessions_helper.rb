@@ -1,5 +1,5 @@
 module SessionsHelper
-  def log_in(user)
+  def login(user)
     session[:user_id] = user.id
   end
 
@@ -8,11 +8,12 @@ module SessionsHelper
     @current_user = nil
   end
 
-  def current_user
-    @current_user = User.find_by(id: session[:user_id])
+  def find_current_user
+    #Thanks to using ||= operator application is hitting database only first time
+    @current_user ||= User.find_by(id: session[:user_id])
   end
 
   def logged_in?
-    !@current_user.nil?
+    !find_current_user.nil?
   end
 end
