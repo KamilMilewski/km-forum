@@ -1,12 +1,13 @@
 <% provide :title, @category.title %>
 
 <hr>
-<a href="<%= new_category_topic_path(@category) %>"
-	class="btn btn-primary btn-md" role="button">Add Topic</a>
+
+<%= render 'topics/new_topic_button' %>
+
 <hr>
 
 <% @topics.each do |topic| %>
-	<a href="<%= topic_path(topic) %>" 
+	<a href="<%= topic_path(topic) %>"
 	   class="list-group-item list-group-item-warning">
 		<h4 class="list-group-item-heading"><%= topic.title %></h4>
 		<p class="list-group-item-text">
@@ -14,16 +15,17 @@
 		</p>
 	</a>
 
-	<%= link_to "Edit",
-				edit_topic_path(topic),
-				class: "btn btn-warning btn-xs" %>
-	<%= link_to "Delete", 
-				topic,
-				method: :delete,
-				class: "btn btn-danger btn-xs" %>
+	<% if logged_in? %>
+		<%= link_to "Edit",
+					edit_topic_path(topic),
+					class: "btn btn-warning btn-xs" %>
+		<%= link_to "Delete",
+					topic,
+					method: :delete,
+					class: "btn btn-danger btn-xs" %>
+	<% end %>
 <% end %>
 
 <hr>
 
-<a href="<%= new_category_topic_path(@category) %>"
-	class="btn btn-primary btn-md" role="button">Add Topic</a>
+<%= render 'topics/new_topic_button' %>

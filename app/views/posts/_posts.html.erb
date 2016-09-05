@@ -10,14 +10,16 @@
 			<p><%= post.content %></p>
 		</div>
 
-    <div class="pull-right">
-  		<%= link_to "Edit",
-  					edit_post_path(post),
-  					class: "btn btn-warning btn-xs" %>
-  		<%= link_to "Delete",
-  					post,
-  					method: :delete,
-  					class: "btn btn-danger btn-xs" %>
-    </div>
+		<% if logged_in? %>
+	    <div class="pull-right">
+	  		<%= link_to "Edit",
+	  					edit_post_path(post),
+	  					class: "btn btn-warning btn-xs" %>
+	  		<%= link_to "Delete",
+	  					post,
+	  					method: :delete,
+	  					class: "btn btn-danger btn-xs" %>
+	    </div>
+		<% end %>
 	</div>
 <% end %>

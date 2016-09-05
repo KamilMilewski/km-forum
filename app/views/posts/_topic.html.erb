@@ -11,13 +11,15 @@
 		<p><%= @topic.content %></p>
 	</div>
 
-  <div class="pull-right">
-    <%= link_to "Edit",
-          edit_topic_path(@topic),
-          class: "btn btn-warning btn-xs" %>
-    <%= link_to "Delete",
-          @topic,
-          method: :delete,
-          class: "btn btn-danger btn-xs" %>
-  </div>
+	<% if logged_in? %>
+	  <div class="pull-right">
+	    <%= link_to "Edit",
+	          edit_topic_path(@topic),
+	          class: "btn btn-warning btn-xs" %>
+	    <%= link_to "Delete",
+	          @topic,
+	          method: :delete,
+	          class: "btn btn-danger btn-xs" %>
+	  </div>
+	<% end %>
 </div>

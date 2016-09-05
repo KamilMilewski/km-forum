@@ -1,5 +1,4 @@
-<a href="<%= new_category_path %>"
-	class="btn btn-primary btn-md" role="button">Add Category</a>
+<%= render 'new_category_button' %>
 
 <hr>
 
@@ -11,17 +10,17 @@
 			<%= category.description %>
 		</p>
 	</a>
-
-		<%= link_to "Edit",
-					edit_category_path(category),
-					class: "btn btn-warning btn-xs" %>
-		<%= link_to "Delete",
-					category_path(category),
-					method: :delete,
-					class: "btn btn-danger btn-xs" %>
-<% end %>
+		<% if logged_in? && find_current_user.permissions == 'admin' %>
+			<%= link_to "Edit",
+						edit_category_path(category),
+						class: "btn btn-warning btn-xs" %>
+			<%= link_to "Delete",
+						category_path(category),
+						method: :delete,
+						class: "btn btn-danger btn-xs" %>
+		<% end %>
+	<% end %>
 
 <hr>
 
-<a href="<%= new_category_path %>"
-	class="btn btn-primary btn-md" role="button">Add Category</a>
+<%= render 'new_category_button' %>

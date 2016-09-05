@@ -1,2 +1,4 @@
-<a href="<%= new_topic_post_path(@topic) %>"
-	class="btn btn-primary btn-md" role="button">Add Post</a>
+<% if logged_in? %>
+	<a href="<%= new_topic_post_path(@topic) %>"
+		class="btn btn-primary btn-md" role="button">Add Post</a>
+<% end %>
