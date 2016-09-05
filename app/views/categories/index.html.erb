@@ -2,24 +2,28 @@
 
 <hr>
 
-<% @categories.each do |category| %>
-	<a href="<%= category_path(category) %>"
-	   class="list-group-item list-group-item-warning">
-		<h4 class="list-group-item-heading"><%= category.title %></h4>
-		<p class="list-group-item-text">
-			<%= category.description %>
-		</p>
-	</a>
-		<% if logged_in? && find_current_user.permissions == 'admin' %>
-			<%= link_to "Edit",
-						edit_category_path(category),
-						class: "btn btn-warning btn-xs" %>
-			<%= link_to "Delete",
-						category_path(category),
-						method: :delete,
-						class: "btn btn-danger btn-xs" %>
+<% if @categories.empty? %>
+	<p class="empty-resource-notice">There are no categories yet.</p>
+<% else %>
+	<% @categories.each do |category| %>
+		<a href="<%= category_path(category) %>"
+		   class="list-group-item list-group-item-warning">
+			<h4 class="list-group-item-heading"><%= category.title %></h4>
+			<p class="list-group-item-text">
+				<%= category.description %>
+			</p>
+		</a>
+			<% if logged_in? && find_current_user.permissions == 'admin' %>
+				<%= link_to "Edit",
+							edit_category_path(category),
+							class: "btn btn-warning btn-xs" %>
+				<%= link_to "Delete",
+							category_path(category),
+							method: :delete,
+							class: "btn btn-danger btn-xs" %>
+			<% end %>
 		<% end %>
-	<% end %>
+<% end %>
 
 <hr>
 

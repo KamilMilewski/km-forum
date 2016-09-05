@@ -6,23 +6,27 @@
 
 <hr>
 
-<% @topics.each do |topic| %>
-	<a href="<%= topic_path(topic) %>"
-	   class="list-group-item list-group-item-warning">
-		<h4 class="list-group-item-heading"><%= topic.title %></h4>
-		<p class="list-group-item-text">
-			<%= topic.content %>
-		</p>
-	</a>
+<% if @topics.empty? %>
+	<p class="empty-resource-notice">There are no topics yet in this category.</p>
+<% else %>
+	<% @topics.each do |topic| %>
+		<a href="<%= topic_path(topic) %>"
+		   class="list-group-item list-group-item-warning">
+			<h4 class="list-group-item-heading"><%= topic.title %></h4>
+			<p class="list-group-item-text">
+				<%= topic.content %>
+			</p>
+		</a>
 
-	<% if logged_in? %>
-		<%= link_to "Edit",
-					edit_topic_path(topic),
-					class: "btn btn-warning btn-xs" %>
-		<%= link_to "Delete",
-					topic,
-					method: :delete,
-					class: "btn btn-danger btn-xs" %>
+		<% if logged_in? %>
+			<%= link_to "Edit",
+						edit_topic_path(topic),
+						class: "btn btn-warning btn-xs" %>
+			<%= link_to "Delete",
+						topic,
+						method: :delete,
+						class: "btn btn-danger btn-xs" %>
+		<% end %>
 	<% end %>
 <% end %>
 
