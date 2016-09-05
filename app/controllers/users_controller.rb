@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.permissions = 'admin'
     if @user.save
+      login(@user)
       redirect_to @user
       flash[:success] = 'Account successfully created. Welcome aboard!'
     else
