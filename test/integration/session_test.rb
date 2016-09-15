@@ -62,4 +62,14 @@ class SessionTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", login_path
     assert_select "a[href=?]", logout_path, count: 0
   end
+
+  test 'login with remember_me checkbox checked' do
+    log_in_as(users(:admin), password: 'aaaaaa', remember_me_checkbox: '1' )
+    assert_not_nil cookies['remember_token']
+  end
+
+  test 'login with remember_me checkbox unchecked' do
+    log_in_as(users(:admin), password: 'aaaaaa', remember_me_checkbox: '0' )
+    assert_nil cookies['remember_token']
+  end
 end
