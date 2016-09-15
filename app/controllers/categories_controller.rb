@@ -3,7 +3,6 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = Category.all
-    cookies[:rpg] = 'the best'
   end
 
   def show

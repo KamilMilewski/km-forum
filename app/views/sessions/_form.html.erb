@@ -1,7 +1,7 @@
 <!-- form errors moved to partial shared/notices -->
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <% #we use ":session, url..." because :session isn't an ActiveRecord resource %>
+    <% # we use ":session, url..." because :session isn't an ActiveRecord resource %>
     <%= form_for :session, url: login_path do |f| %>
       <%= f.label :email %>
       <%= f.email_field :email,
@@ -13,8 +13,18 @@
       <%= f.label :password %>
       <%= f.password_field :password,
                            class: 'form-control',
-                           placeholder: 'Put your password here...'%>
+                           placeholder: 'Put your password here...' %>
 
+      <br>
+
+      <% # bootstrap checkbox has to have nested label to be both in oneline %>
+      <%= f.label 'remember me', class: 'checkbox-inline' do %>
+        <%= f.check_box :remember_me_checkbox, class: 'checkbox-inline' %>
+        <span>remember me</span>
+      <% end %>
+
+
+      <br>
       <br>
 
       <%= f.submit 'Log in', class: 'btn btn-primary form-control ' %>
