@@ -11,6 +11,8 @@ gem 'turbolinks',   '5.0.1'
 gem 'jbuilder',     '2.4.1'
 gem 'bootstrap-sass', '3.3.6'
 gem 'autoprefixer-rails'
+# Provides generator of names etc...
+gem 'faker',        '1.6.6'
 
 group :development, :test do
   gem 'byebug', platform: :mri
