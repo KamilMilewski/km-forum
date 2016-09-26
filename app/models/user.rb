@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+	# Virtual field connected to remember_token_digest in db
 	attr_accessor :remember_token
 
 	has_many :topics
@@ -28,6 +29,10 @@ class User < ApplicationRecord
 	has_secure_password
 	validates :password, presence: true, length: {minimum: 6}
 
+
+
+
+
 	# User class method. Create digest of a given string
 	def User.digest(string)
 		# cost defines computational cost of decrypting digested password. The lower
@@ -39,6 +44,9 @@ class User < ApplicationRecord
 		BCrypt::Password.create(string, cost: cost)
 	end
 
+
+
+	
 	# remember and forget methods cancel each other out. update_attribute method
 	# is used in both to avoid ActiveRecord data validation
 	def remember
@@ -51,7 +59,29 @@ class User < ApplicationRecord
 		update_attribute(:remember_token_digest, nil)
 	end
 
+
+
 	def authenticated?(remember_token)
 		BCrypt::Password.new(remember_token_digest).is_password?(remember_token)
 	end
+
+
+
+	###
+	# User permissions check methods:
+	###
+	def admin?
+		permissions == 'admin'
+	end
+
+	def moderator?
+		permissions == 'moderator'
+	end
+
+	def user?
+		permissions == 'user'
+	end
+
+
+
 end
