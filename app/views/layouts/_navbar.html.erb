@@ -22,6 +22,15 @@
 		<!-- navbar actual body -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
+
+				<% if logged_in? %>
+					<li>
+						<a href="<%= users_path %>">
+							Users<span class="sr-only">Users</span>
+						</a>
+					</li>
+				<% end %>
+
 				<li class="active">
 					<a href="<%= contact_path %>">
 						Contact<span class="sr-only">Contact</span>

@@ -22,8 +22,9 @@ class SessionTest < ActionDispatch::IntegrationTest
     assert_select 'div.alert-success'
     # Check if proper links are rendered
     assert_select "a[href=?]", login_path, count: 0
-    assert_select "a[href=?]", logout_path
+    assert_select "a[href=?]", logout_path, count: 1
     assert_select "a[href=?]", user_path(users(:admin))
+    assert_select "a[href=?]", users_path, count: 1
 
     # Try to logout
     delete logout_path
@@ -36,8 +37,9 @@ class SessionTest < ActionDispatch::IntegrationTest
     # Check if proper flash notice is displayed
     assert_select 'div.alert-success'
     # Check if proper links are rendered
-    assert_select "a[href=?]", login_path
+    assert_select "a[href=?]", login_path, count: 1
     assert_select "a[href=?]", logout_path, count: 0
+    assert_select "a[href=?]", users_path, count: 0
   end
 
   test 'user login with invalid data' do
