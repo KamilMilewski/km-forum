@@ -1,5 +1,11 @@
 <!-- form errors moved to partial shared/notices -->
-<%= form_for @user do |f| %>
+
+<% # Since there is a custom path for creating new users (signup_path), %>
+<% # we need to provide proper url key for form_for function. %>
+<% # Without this, after invalid form submission we have 'users/new' in %>
+<% # webbrowser address bar instead of '/signup' %>
+
+<%= form_for @user, url: yield(:form_url) do |f| %>
 
     <%= f.label :name %>
     <%= f.text_field :name,

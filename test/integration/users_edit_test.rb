@@ -56,13 +56,13 @@ class UsersEditTest < ActionDispatch::IntegrationTest
       }
     }
 
-    # Assert edit form is rerendered
+    # Assert edit form is rerendered.
     assert_template 'users/edit'
 
-    # Check if error flash message shows up
+    # Check if error flash message shows up.
     assert_select 'div.alert-danger'
 
-    # Assert no changes to user has ben made
+    # Assert no changes to user has ben made.
     @user.reload
     assert_not_equal new_user_name, @user.name
     assert_not_equal new_user_email, @user.email

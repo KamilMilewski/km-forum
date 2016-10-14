@@ -1,9 +1,13 @@
 <% provide :title, 'New account' %>
 <% provide :form_button_text, 'Create account' %>
+<% provide :form_url, signup_path %>
+
 <h3 class="form-title"><%= yield :title %></h3>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+
     <%= render 'form' %>
+
   </div>
 </div>
