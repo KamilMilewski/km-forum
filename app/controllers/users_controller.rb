@@ -54,6 +54,8 @@ class UsersController < ApplicationController
 
     def redirect_if_not_logged_in
       unless logged_in?
+        # Store for desired url for friendly forwarding.
+        store_intended_url
         flash[:danger] = 'You must be logged in.'
         redirect_to login_path
       end

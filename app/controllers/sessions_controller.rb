@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       login @user
       params[:session][:remember_me_checkbox] == '1' ? remember(@user) : forget(@user)
       flash[:success] = 'You have been logged in successfully'
-      redirect_to root_path
+      redirect_back_or root_url
     else
       flash.now[:danger] = 'Invalid login/password combination.'
       render 'new'

@@ -46,4 +46,21 @@ module SessionsHelper
   def logged_in?
     !find_current_user.nil?
   end
+
+  # Friendly forwarding: if non logged in user tries to access page that require
+  # to be logged in - he should be redirected first to logging page and then,
+  # after logging in - to the page he was trying to access from the beginning.
+
+  # Friendly forwarding helper. Stores desired url in session cookie - but only
+  # if it was GET request.
+  def store_intended_url
+    session[:forwarding_url] = request.original_url if request.get?
+  end
+
+  # Friendly forwarding helper. Redirects to forwarding_url if exist - otherwise
+  # forwards to default_url
+  def redirect_back_or(default_url)
+    redirect_to(session[:forwarding_url] || default_url)
+    session.delete(:forwarding_url)
+  end
 end
