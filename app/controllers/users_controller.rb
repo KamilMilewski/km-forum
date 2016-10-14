@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :find_user, only: [:show, :edit, :update, :destroy]
-  before_action :redirect_if_not_logged_in, only: [:edit, :update]
+  before_action :redirect_if_not_logged_in, only: [:index, :edit, :update]
   before_action :redirect_if_not_current_user, only: [:edit, :update]
 
   def index

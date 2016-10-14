@@ -1,7 +1,13 @@
 require 'test_helper'
 
 class UserIndexTest < ActionDispatch::IntegrationTest
+  def setup
+    @user = users(:user)
+  end
+
   test "user index page with will_paginate" do
+    get login_path
+    log_in_as(@user, password: 'uuuuuu')
     get users_path
     assert_response :success
     assert_template 'users/index'

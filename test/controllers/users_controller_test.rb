@@ -8,6 +8,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get user index page" do
+    log_in_as(@user, password: 'uuuuuu')
     get users_path
     assert_response :success
     assert_select "title", "User index | #{@base_title}"
