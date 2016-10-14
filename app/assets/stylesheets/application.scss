@@ -57,3 +57,32 @@ $navbar-default-color: #F8E6E4;
 .empty-resource-notice {
 	text-align: center;
 }
+
+.users-list {
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-bottom: 1.5px solid $gray-lighter;
+
+		/* unvisited link */
+		a:link {
+			color: #4B515D;
+		}
+
+		/* visited link */
+		a:visited {
+			color: #4B515D;
+		}
+
+		/* mouse over link */
+		a:hover {
+			color: black;
+			text-decoration: none;
+		}
+
+		/* selected link */
+		a:active {
+			color: #0d47a1;
+		}
+  }
+}
