@@ -38,4 +38,15 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
   end
 
+  test "should redirect when issuing patch request to different user" do
+    log_in_as(@user, password: 'uuuuuu')
+    patch user_path(@other_user), params: {
+      user: {
+        name: 'some valid name',
+        email: 'valid@email.com'
+      }
+    }
+    assert_redirected_to root_url
+  end
+
 end
