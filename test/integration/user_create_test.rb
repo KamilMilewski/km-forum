@@ -50,8 +50,7 @@ class UserCreateTest < ActionDispatch::IntegrationTest
     end
 
     assert_template 'users/new'
-    #check if error flash massage shows up
+    # Check if error flash massage shows up
     assert_select 'div.alert-danger'
-
   end
 end

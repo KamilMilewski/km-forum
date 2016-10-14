@@ -40,6 +40,31 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test "unsuccessful user edit" do
+    # Get to user edit page.
+    get edit_user_path(@user)
+    assert_template 'users/edit'
 
+    # New valid values for user name and email fields.
+    new_user_name = ''
+    new_user_email = 'new_invalid_user.email'
+
+    # Request to edit given user record in db.
+    patch user_path(@user), params: {
+      user: {
+        name: new_user_name,
+        email: new_user_email
+      }
+    }
+
+    # Assert edit form is rerendered
+    assert_template 'users/edit'
+
+    # Check if error flash message shows up
+    assert_select 'div.alert-danger'
+
+    # Assert no changes to user has ben made
+    @user.reload
+    assert_not_equal new_user_name, @user.name
+    assert_not_equal new_user_email, @user.email
   end
 end
