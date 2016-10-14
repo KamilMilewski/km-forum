@@ -4,6 +4,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   def setup
     @base_title = "KM-Forum"
     @user = users(:user)
+    @other_user = users(:user_1)
   end
 
   test "should get user index page" do
@@ -29,6 +30,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_template 'sessions/new'
+  end
+
+  test "should redirect when accessing different user edit profile page" do
+    log_in_as(@user, password: 'uuuuuu')
+    get edit_user_path(@other_user)
+    assert_redirected_to root_url
   end
 
 end

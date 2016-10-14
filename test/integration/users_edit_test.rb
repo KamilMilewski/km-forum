@@ -7,7 +7,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
 
   test "successful user edit" do
     # User has to be logged in before entering edit page.
-    log_in_as(@user, password: 'aaaaaa')
+    log_in_as(@user, password: 'uuuuuu')
 
     # Get to user edit page.
     get edit_user_path(@user)
@@ -44,7 +44,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
 
   test "unsuccessful user edit" do
     # User has to be logged in before entering edit page.
-    log_in_as(@user, password: 'aaaaaa')
+    log_in_as(@user, password: 'uuuuuu')
 
     # Get to user edit page.
     get edit_user_path(@user)

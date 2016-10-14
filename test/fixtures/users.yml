@@ -9,22 +9,22 @@ moderator:
   id: 2
   name: moderator
   email: moderator@moderator.com
-  password_digest: <%= User.digest('aaaaaa') %>
+  password_digest: <%= User.digest('mmmmmm') %>
   permissions: moderator
 
 user:
   id: 3
   name: user
   email: user@user.com
-  password_digest: <%= User.digest('aaaaaa') %>
+  password_digest: <%= User.digest('uuuuuu') %>
   permissions: user
 
 <% i = 0 %>
 <% 50.times do |user| %>
   <% i += 1 %>
-user<%= "#{i}" %>:
+user_<%= "#{i}" %>:
   name: <%= "name#{i}" %>
   email: <%= "email#{i}@email.com" %>
-  password_digest: <%= User.digest('aaaaaa') %>
+  password_digest: <%= User.digest('uuuuuu') %>
   permissions: user
 <% end %>

@@ -1,5 +1,3 @@
-User.delete_all
-
 User.create!(
   name: 'admin',
   email: 'admin@admin.com',
@@ -11,27 +9,36 @@ User.create!(
 User.create!(
   name: 'moderator',
   email: 'moderator@moderator.com',
-  password: 'aaaaaa',
-  password_confirmation: 'aaaaaa',
+  password: 'mmmmmm',
+  password_confirmation: 'mmmmmm',
   permissions: 'moderator'
 )
 
 User.create!(
   name: 'user',
   email: 'user@user.com',
-  password: 'ssssss',
-  password_confirmation: 'ssssss',
+  password: 'uuuuuu',
+  password_confirmation: 'uuuuuu',
   permissions: 'user'
 )
 
-50.times do |user|
-  # all normal users are superheroes genrated by faker gem
+50.times do
+  # All normal users are superheroes genrated by faker gem.
   name = Faker::Superhero.name.truncate(25, omission: '')
-  User.create!(
-    name: name,
-    email: "#{name}#{rand(99)}@#{Faker::Superhero.power}.com".gsub(' ', ''),
-    password: 'ssssss',
-    password_confirmation: 'ssssss',
-    permissions: 'user'
-)
+
+  # faker gem sometimes creates strings with symbols forbidden in emails
+  # (such as "Al'Rashid"). When this happens, the user is recreated
+  # - in 'until' loop below.
+  user = User.new
+  until user.valid?
+    user = User.new(
+      name: name,
+      email: "#{name}#{rand(99)}@#{Faker::Superhero.power}.com".gsub(' ', '.'),
+      password: 'uuuuuu',
+      password_confirmation: 'uuuuuu',
+      permissions: 'user'
+    )
+  end
+  user.save
+
 end

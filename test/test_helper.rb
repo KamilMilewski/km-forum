@@ -13,19 +13,19 @@ class ActiveSupport::TestCase
   # We need ApplicationHelper methods in tests.
   include ApplicationHelper
 
-  # Add more helper methods to be used by all tests here...
+  # Methods used by all tests:
   def is_logged_in?
     !session[:user_id].nil?
   end
 
-  def log_in_as(user)
-    session[:user_id] = user.id
-  end
+  # def log_in_as(user)
+  #   session[:user_id] = user.id
+  # end
 end
 
 # Helper methods for integration tests.
 class ActionDispatch::IntegrationTest
-  def log_in_as(user, password: 'password', remember_me_checkbox: '1')
+  def log_in_as(user, password: 'uuuuuu', remember_me_checkbox: '1')
     # Log in as particular user.
     post login_path, params: { session: {
         email: user.email,
