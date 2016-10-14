@@ -2,8 +2,8 @@ require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   def setup
-    @user = users(:user)
     @base_title = "KM-Forum"
+    @user = users(:user)
   end
 
   test "should get user index page" do

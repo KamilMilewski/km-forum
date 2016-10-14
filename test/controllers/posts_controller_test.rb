@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
+	def setup
+		@base_title = "KM-Forum"
+	end
+	
 	test "should get new" do
 		get new_topic_post_url(topics(:one))
 		assert_response :success

@@ -1,6 +1,9 @@
 require 'test_helper'
 
 class CategoriesControllerTest < ActionDispatch::IntegrationTest
+  def setup
+    @base_title = "KM-Forum"
+  end
 
   test "should get index" do
     get categories_url

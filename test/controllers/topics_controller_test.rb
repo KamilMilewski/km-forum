@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class TopicsControllerTest < ActionDispatch::IntegrationTest
+	def setup
+		@base_title = "KM-Forum"
+	end
+	
 	test "should get show" do
 		get topic_url(topics(:one))
 		assert_response :success
