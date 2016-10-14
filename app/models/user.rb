@@ -1,11 +1,11 @@
 class User < ApplicationRecord
-	# Virtual field connected to remember_token_digest in db
+	# Virtual field connected to remember_token_digest in db.
 	attr_accessor :remember_token
 
 	has_many :topics
 	has_many :posts
 
-	# For consistency we will store all emails as lower-case
+	# For consistency we will store all emails as lower-case.
 	before_save { email.downcase! }
 
 	validates :name, presence: true, length: {maximum: 25}
@@ -15,7 +15,7 @@ class User < ApplicationRecord
 										format: {with: EMAIL_FORMAT},
 										uniqueness: {case_sensitive: false}
 
-	# User can have only three types of permissions: user, moderator or admin
+	# User can have only three types of permissions: user, moderator or admin.
 	PERMISSIONS_FORMAT = /\Auser\z|\Amoderator\z|\Aadmin\z/
 	validates :permissions, presence: true, format: {with: PERMISSIONS_FORMAT}
 
@@ -24,13 +24,13 @@ class User < ApplicationRecord
 	# -Save securely hashed password digest to the database.
 	# -It adds up a pair of virtual attributes: password and password_confirmation.
 	# -It adds validation if those two are present and match.
-	# -It provides authenticate method that returns user if password is correct and
-	#  false otherwise.
+	# -It provides authenticate method that returns user if password is correct
+	# and false otherwise.
 	has_secure_password
-	validates :password, presence: true, length: {minimum: 6}
 
-
-
+	# has_secure_password checks if password is not nil during creation. After
+	# then we can allow password to be nil during user profile edit for example.
+	validates :password, presence: true, length: {minimum: 6}, allow_nil: true
 
 
 	# User class method. Create digest of a given string
@@ -45,8 +45,6 @@ class User < ApplicationRecord
 	end
 
 
-
-	
 	# remember and forget methods cancel each other out. update_attribute method
 	# is used in both to avoid ActiveRecord data validation
 	def remember
@@ -59,12 +57,9 @@ class User < ApplicationRecord
 		update_attribute(:remember_token_digest, nil)
 	end
 
-
-
 	def authenticated?(remember_token)
 		BCrypt::Password.new(remember_token_digest).is_password?(remember_token)
 	end
-
 
 
 	###
@@ -81,7 +76,5 @@ class User < ApplicationRecord
 	def user?
 		permissions == 'user'
 	end
-
-
 
 end

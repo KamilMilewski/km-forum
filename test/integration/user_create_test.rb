@@ -25,6 +25,7 @@ class UserCreateTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_template 'users/show'
+
     # Check if success flash message shows up
     assert_select 'div.alert-success'
   end
