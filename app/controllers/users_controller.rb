@@ -19,17 +19,22 @@ class UsersController < ApplicationController
     if @user.save
       login @user
       redirect_to @user
-      flash[:success] = 'Account successfully created. Welcome aboard!'
+      flash[:success] = 'Account successfuly created. Welcome aboard!'
     else
       render 'new'
     end
   end
 
   def edit
-    
   end
 
   def update
+    if @user.update_attributes(user_params)
+      redirect_to @user
+      flash[:success] = 'Account successfuly updated.'
+    else
+      render 'edit'
+    end
   end
 
   def destroy

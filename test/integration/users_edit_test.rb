@@ -16,8 +16,10 @@ class UsersEditTest < ActionDispatch::IntegrationTest
 
     # Request to edit given user record in db.
     patch user_path(@user), params: {
-      name: new_user_name,
-      email: new_user_email
+      user: {
+        name: new_user_name,
+        email: new_user_email
+      }
     }
 
     # Reload user from db. Thanks to this @user object will have updated
@@ -29,13 +31,12 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_equal new_user_email, @user.email
 
     # Assert redirect to user profile.
-    assert_response :reditect
+    assert_response :redirect
     follow_redirect!
     assert_template 'users/show'
 
     # Assert correct flash message.
     assert_select 'div.alert-success'
-
   end
 
   test "unsuccessful user edit" do
