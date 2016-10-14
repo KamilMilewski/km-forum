@@ -6,6 +6,9 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test "successful user edit" do
+    # User has to be logged in before entering edit page.
+    log_in_as(@user, password: 'aaaaaa')
+
     # Get to user edit page.
     get edit_user_path(@user)
     assert_template 'users/edit'
@@ -40,6 +43,9 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test "unsuccessful user edit" do
+    # User has to be logged in before entering edit page.
+    log_in_as(@user, password: 'aaaaaa')
+
     # Get to user edit page.
     get edit_user_path(@user)
     assert_template 'users/edit'

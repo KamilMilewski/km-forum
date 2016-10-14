@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :find_user, only: [:show, :edit, :update, :destroy]
+  before_action :redirect_if_not_logged_in, only: [:edit, :update]
 
   def index
     @users = User.paginate(page: params[:page])
@@ -30,8 +31,8 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      redirect_to @user
       flash[:success] = 'Account successfuly updated.'
+      redirect_to @user
     else
       render 'edit'
     end
@@ -48,5 +49,12 @@ class UsersController < ApplicationController
 
     def find_user
       @user = User.find(params[:id])
+    end
+
+    def redirect_if_not_logged_in
+      unless logged_in?
+        flash[:danger] = 'You must be logged in.'
+        redirect_to login_path
+      end
     end
 end
