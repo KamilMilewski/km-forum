@@ -9,30 +9,30 @@ module SessionsHelper
     @current_user = nil
   end
 
-  # Sets two cookies related to remembering user
-  # first cookie: user_id is an encrypted and signed user id
-  # second cookie: remember_token is an random string. Its digested version is
+  # Sets two cookies related to remembering user.
+  # First cookie: user_id is an encrypted and signed user id.
+  # Second cookie: remember_token is an random string. Its digested version is
   # stored in db.
   def remember(user)
-    # in this method virutal user attr 'remember_token' is set.
-    # After that, based on 'remember_token', 'remember_token_digest' attr is set
+    # In this method virutal user attr 'remember_token' is set.
+    # After that, based on 'remember_token', 'remember_token_digest' attr. is set.
     user.remember
     cookies.permanent.signed[:user_id] = user.id
     cookies.permanent[:remember_token] = user.remember_token
   end
 
-  # Assigns nil to user remember_token and remember_token_digest attributes
-  # Deletes all cookies related to remembering user
+  # Assigns nil to user remember_token and remember_token_digest attributes.
+  # Deletes all cookies related to remembering user.
   def forget(user)
     user.forget
     cookies.delete(:user_id)
     cookies.delete(:remember_token)
   end
 
-  # returns current logged in user if any exist.
+  # Returns current logged in user if any exist.
   def find_current_user
     if(user_id = session[:user_id])
-      # Thanks to using ||= operator application is hitting database only first time
+      # Thanks to using ||= operator application is hitting database only first time.
       @current_user ||= User.find_by(id: user_id)
     elsif(user_id = cookies.signed[:user_id])
       user = User.find_by(id: user_id)
@@ -41,6 +41,11 @@ module SessionsHelper
         @current_user = user
       end
     end
+  end
+
+  # Checks if given user is a current logged in user.
+  def current_user?(user)
+    find_current_user == user
   end
 
   def logged_in?
@@ -52,13 +57,13 @@ module SessionsHelper
   # after logging in - to the page he was trying to access from the beginning.
 
   # Friendly forwarding helper. Stores desired url in session cookie - but only
-  # if it was GET request.
+  # if it was a GET request.
   def store_intended_url
     session[:forwarding_url] = request.original_url if request.get?
   end
 
   # Friendly forwarding helper. Redirects to forwarding_url if exist - otherwise
-  # forwards to default_url
+  # forwards to default_url.
   def redirect_back_or(default_url)
     redirect_to(session[:forwarding_url] || default_url)
     session.delete(:forwarding_url)

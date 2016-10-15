@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :find_user, only: [:show, :edit, :update, :destroy]
-  before_action :redirect_if_not_logged_in, only: [:index, :edit, :update]
+  before_action :redirect_if_not_logged_in, only: [:index, :edit, :update, :delete]
   before_action :redirect_if_not_current_user, only: [:edit, :update]
 
   def index
@@ -8,7 +8,6 @@ class UsersController < ApplicationController
   end
 
   def show
-
   end
 
   def new
@@ -40,6 +39,13 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    if !find_current_user.nil? && find_current_user.admin?
+      @user.destroy
+      flash[:success] = "He deserved it. Bastard."
+      redirect_to users_path
+    else
+      redirect_to root_path
+    end
   end
 
   private
@@ -62,6 +68,6 @@ class UsersController < ApplicationController
     end
 
     def redirect_if_not_current_user
-      redirect_to root_path if params[:id].to_i != find_current_user.id
+      redirect_to root_path if !current_user?(User.find params[:id])
     end
 end
