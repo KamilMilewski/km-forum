@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.permissions = 'admin'
+    @user.permissions = 'user'
     if @user.save
       login @user
       redirect_to @user

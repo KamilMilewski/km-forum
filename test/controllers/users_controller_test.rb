@@ -50,4 +50,18 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
   end
 
+  test "should not allow permissions attribute to be editted via web" do
+    post signup_path, params: {
+      user: {
+        name: 'sinister user name',
+        email: 'sinister@user.email',
+        password: 'uuuuuu',
+        password_confirmation: 'uuuuuu',
+        permissions: 'admin'
+      }
+    }
+    @sinister_user = User.find_by(email: 'sinister@user.email')
+    assert_equal 'user', @sinister_user.permissions
+  end
+
 end
