@@ -12,8 +12,6 @@ class TopicsController < ApplicationController
 
   def create
     @category = Category.find(params[:category_id])
-    #We dont yet implemented User resource so we will use the one created earlier
-    #in the console
     @topic = @category.topics.new(topic_params.merge! user_id: User.all.first.id)
     if @topic.save
       flash[:success] = 'Topic successfully created.'
@@ -43,11 +41,11 @@ class TopicsController < ApplicationController
   end
 
   private
-    def find_topic
-      @topic = Topic.find(params[:id])
-    end
-
     def topic_params
       params.require(:topic).permit(:title, :content, :user_id)
+    end
+
+    def find_topic
+      @topic = Topic.find(params[:id])
     end
 end
