@@ -15,7 +15,8 @@ User.create!(
   password_confirmation: 'aaaaaa',
   permissions: 'admin',
   activated: true,
-  activated_at: Time.zone.now
+  activated_at: Time.zone.now,
+  activation_token_digest: User.digest(User.new_token)
 )
 # Console feedback.
 puts "  Admin user created."
@@ -27,7 +28,8 @@ User.create!(
   password_confirmation: 'mmmmmm',
   permissions: 'moderator',
   activated: true,
-  activated_at: Time.zone.now
+  activated_at: Time.zone.now,
+  activation_token_digest: User.digest(User.new_token)
 )
 # Console feedback.
 puts "  Moderator user created."
@@ -39,7 +41,8 @@ User.create!(
   password_confirmation: 'uuuuuu',
   permissions: 'user',
   activated: true,
-  activated_at: Time.zone.now
+  activated_at: Time.zone.now,
+  activation_token_digest: User.digest(User.new_token)
 )
 # Console feedback.
 puts "  Regular user created."
@@ -60,7 +63,8 @@ puts "  Regular user created."
       password_confirmation: 'uuuuuu',
       permissions: 'user',
       activated: true,
-      activated_at: Time.zone.now
+      activated_at: Time.zone.now,
+      activation_token_digest: User.digest(User.new_token)
     )
   end
   user.save

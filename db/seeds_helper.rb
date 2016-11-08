@@ -6,10 +6,10 @@ module SeedsHelper
     # Console feedback.
     puts "Database cleaning: begins."
 
-    User.destroy_all
-    Category.destroy_all
-    Topic.destroy_all
-    Post.destroy_all
+    Post.delete_all
+    Topic.delete_all
+    Category.delete_all
+    User.delete_all
 
     # Console feedback.
     puts "Database cleaning: finished."
