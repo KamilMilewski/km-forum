@@ -2,9 +2,9 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   def setup
-    # We can't use fixture data here because of user virtual fields: password and
-    # password_confirmation. Since we can't populate those virtual fields in
-    # fixture file every record will be invalid.
+    # We can't use fixture data here because of user virtual fields: password
+    # and password_confirmation. Since we can't populate those virtual fields in
+    # fixture file every record would be invalid.
     @valid_user = User.new(
         name: 'valid user name',
         email: 'valid@email.com',
@@ -18,36 +18,35 @@ class UserTest < ActiveSupport::TestCase
     assert @valid_user.valid?, "Valid example user should pass validation."
   end
 
-
-  # Name validation tests.
-
+  # Name validation test.
   test "name can't be blank" do
     @valid_user.name = '  '
     assert_not @valid_user.valid?,
         "User model validation shouldn't allow name attr. to be blank."
   end
 
+  # Name validation test.
   test "name can't be too long" do
     @valid_user.name = 'a' * 26
     assert_not @valid_user.valid?, "User model validation shouldn't accept name" +
     " longer than 25 chars."
   end
 
-
-  # Email validation tests.
-
+  # Email validation test.
   test "email can't be blank" do
     @valid_user.email = '  '
     assert_not @valid_user.valid?,
         "User model validation shouldn't allow email attr. to be blank."
   end
 
+  # Email validation test.
   test "email can't be too long" do
     @valid_user.email = 'a' * 244 + "@example.com"
     assert_not @valid_user.valid?, "User model validation shouldn't accept email" +
     " longer than 255 chars."
   end
 
+  # Email validation test.
   test "email should be unique" do
     duplicate_user = @valid_user.dup
     duplicate_user.email = @valid_user.email.upcase
@@ -56,6 +55,7 @@ class UserTest < ActiveSupport::TestCase
     " only unique emails."
   end
 
+  # Email validation test.
   test "email should be saved as lower-case" do
     mixed_case_email = @valid_user.email.upcase
     @valid_user.email = mixed_case_email
@@ -63,6 +63,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal mixed_case_email.downcase, @valid_user.reload.email
   end
 
+  # Email validation test.
   test "should accept valid emails" do
     valid_emails = %w[
       valid@email.com
@@ -77,6 +78,7 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  # Email validation test.
   test "should reject invalid emails" do
     invalid_emails = %w[
       user@example,com
@@ -93,8 +95,7 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-
-  # Permissions validation tests.
+  # Permissions validation test.
   test "permissions validation should accept valid permissions" do
     valid_nouns = %w[admin moderator user]
     valid_nouns.each do |noun|
@@ -104,6 +105,7 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  # Permissions validation test.
   test "permissions validation shouldn't accept invalid permissions" do
     invalid_nouns = %w[foo bar baz]
     invalid_nouns.each do |noun|
@@ -113,16 +115,14 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-
-
-  #password validation tests
-
+  # Password validation test.
   test "password can't be blank" do
     @valid_user.password = ' ' * 6
     assert_not @valid_user.valid?,
         "User model validation shouldn't allow password attr. to be blank."
   end
 
+  # Password validation test.
   test "password can't be too short" do
     #We should set both because otherwise @valid_user.valid? will always false due to
     #password and password_confirmation not matching.
@@ -131,7 +131,12 @@ class UserTest < ActiveSupport::TestCase
     " passwords shorter than 6 chars."
   end
 
+  # FIXME: So what? Still it needs to be tested.
   # test "password can't be too long" do
   #  This is already done by bcrypt gem validation
   # end
+
+  test "authenticated? should return false for a user with nil digest" do
+    assert_not @valid_user.authenticated?(:remember, '')
+  end
 end

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   get 'sessions/new'
 
   get 'sessions/create'
@@ -23,21 +22,27 @@ Rails.application.routes.draw do
 
   resources :categories do
     resources :topics, name_prefix: 'category_',
-                except: [:index, :show, :edit, :update, :destroy]
+                       except: [:index, :show, :edit, :update, :destroy]
   end
 
   resources :topics, only: [:show, :edit, :update, :destroy] do
     resources :posts, name_prefix: 'topic_',
-                except: [:index, :show, :edit, :update, :destroy]
+                      except: [:index, :show, :edit, :update, :destroy]
   end
 
   resources :posts, only: [:edit, :update, :destroy]
 
   resources :users
+  # Custom user resources.
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'
 
+  # Sessions resources.
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+
+  # Account activation path - it is used in activation links in emails sent to
+  # new users.
+  resources :account_activations, only: [:edit]
 end

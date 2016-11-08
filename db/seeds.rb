@@ -13,7 +13,9 @@ User.create!(
   email: 'admin@admin.com',
   password: 'aaaaaa',
   password_confirmation: 'aaaaaa',
-  permissions: 'admin'
+  permissions: 'admin',
+  activated: true,
+  activated_at: Time.zone.now
 )
 # Console feedback.
 puts "  Admin user created."
@@ -23,7 +25,9 @@ User.create!(
   email: 'moderator@moderator.com',
   password: 'mmmmmm',
   password_confirmation: 'mmmmmm',
-  permissions: 'moderator'
+  permissions: 'moderator',
+  activated: true,
+  activated_at: Time.zone.now
 )
 # Console feedback.
 puts "  Moderator user created."
@@ -33,7 +37,9 @@ User.create!(
   email: 'user@user.com',
   password: 'uuuuuu',
   password_confirmation: 'uuuuuu',
-  permissions: 'user'
+  permissions: 'user',
+  activated: true,
+  activated_at: Time.zone.now
 )
 # Console feedback.
 puts "  Regular user created."
@@ -52,7 +58,9 @@ puts "  Regular user created."
       email: "#{name}#{rand(99)}@#{Faker::Superhero.power}.com".gsub(' ', '.'),
       password: 'uuuuuu',
       password_confirmation: 'uuuuuu',
-      permissions: 'user'
+      permissions: 'user',
+      activated: true,
+      activated_at: Time.zone.now
     )
   end
   user.save
