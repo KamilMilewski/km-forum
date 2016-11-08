@@ -24,7 +24,11 @@ class UsersController < ApplicationController
     @user.permissions = 'user'
     if @user.save
       @user.send_activation_email
-      flash[:info] = 'Please check your email for an activation link.'
+      flash[:info] = "Please check your email for an activation link."
+      flash[:info] += " Since this is only a demo page, here is your activation
+      link:   "
+      flash[:info] += edit_account_activation_url(@user.activation_token,
+                                                          email: @user.email)
       redirect_to root_url
     else
       render 'new'
