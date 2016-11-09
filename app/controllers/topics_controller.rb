@@ -1,5 +1,10 @@
 class TopicsController < ApplicationController
   before_action :find_topic, only: [:show, :edit, :update, :destroy]
+  before_action :redirect_if_not_logged_in, only: [:new,
+                                                   :create,
+                                                   :edit,
+                                                   :update,
+                                                   :destroy]
 
   def show
     @posts = @topic.posts
@@ -13,6 +18,8 @@ class TopicsController < ApplicationController
   def create
     @category = Category.find(params[:category_id])
     @topic = @category.topics.new(topic_params)
+    # User whos created topic must be the current user so:
+    @topic.user_id = find_current_user.id
     if @topic.save
       flash[:success] = 'Topic successfully created.'
       redirect_to @topic
@@ -43,6 +50,15 @@ class TopicsController < ApplicationController
   private
     def topic_params
       params.require(:topic).permit(:title, :content, :user_id)
+    end
+
+    def redirect_if_not_logged_in
+      unless logged_in?
+        # Store for desired url for friendly forwarding.
+        store_intended_url
+        flash[:danger] = 'You must be logged in.'
+        redirect_to login_path
+      end
     end
 
     def find_topic

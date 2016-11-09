@@ -29,6 +29,7 @@ user:
 <% 50.times do |user| %>
   <% i += 1 %>
 user_<%= "#{i}" %>:
+  id: <%= "#{i+3}" %>
   name: <%= "name#{i}" %>
   email: <%= "email#{i}@email.com" %>
   password_digest: <%= User.digest('uuuuuu') %>
