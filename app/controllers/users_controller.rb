@@ -20,8 +20,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    # FIXME: @user should have user permissions level by default on db level.
-    @user.permissions = 'user'
     if @user.save
       @user.send_activation_email
       flash[:info] = "Please check your email for an activation link."
