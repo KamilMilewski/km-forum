@@ -8,10 +8,10 @@
 												class: "form-control",
 												placeholder: "Put post content here..." %>
 
+        <%= f.hidden_field :user_id, value: find_current_user.id %>
+
 			<br>
-
 				<%= f.submit class: "btn btn-primary form-control" %>
-
 		<% end %>
 	</div>
 </div>

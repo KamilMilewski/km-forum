@@ -71,9 +71,6 @@ puts "  Regular user created."
   puts "  Regular user ##{i} with name #{user.name} created."
 end
 
-
-
-
 # Categories
 # Code below generates 6 categories populated with random hacker phrases and
 # one empty category.

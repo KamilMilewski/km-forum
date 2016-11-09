@@ -8,10 +8,7 @@ class PostsController < ApplicationController
 
   def create
     @topic = Topic.find(params[:topic_id])
-
-    #We dont yet implemented User resource so we will use the one created earlier
-    #in the console
-    @post = @topic.posts.new(post_params.merge! user_id: User.all.first.id)
+    @post = @topic.posts.new(post_params)
     if @post.save
       flash[:success] = "Post successfully created."
       redirect_to @topic

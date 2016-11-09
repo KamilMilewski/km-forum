@@ -12,7 +12,7 @@ class TopicsController < ApplicationController
 
   def create
     @category = Category.find(params[:category_id])
-    @topic = @category.topics.new(topic_params.merge! user_id: User.all.first.id)
+    @topic = @category.topics.new(topic_params)
     if @topic.save
       flash[:success] = 'Topic successfully created.'
       redirect_to @topic
