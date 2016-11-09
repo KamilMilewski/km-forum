@@ -6,7 +6,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @topics = @category.topics
+    @topics = @category.topics.order('updated_at DESC')
   end
 
   def new
