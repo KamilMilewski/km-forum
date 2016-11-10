@@ -1,6 +1,10 @@
+# :nodoc:
 class UsersController < ApplicationController
   before_action :find_user, only: [:show, :edit, :update, :destroy]
-  before_action :redirect_if_not_logged_in, only: [:index, :edit, :update, :delete]
+  before_action :redirect_if_not_logged_in, only: [:index,
+                                                   :edit,
+                                                   :update,
+                                                   :delete]
   before_action :redirect_if_not_current_user, only: [:edit, :update]
 
   def index
@@ -10,7 +14,7 @@ class UsersController < ApplicationController
 
   def show
     # If given user isn't activated then only admin can see his profile.
-    redirect_to root_url and return unless @user.activated? or
+    redirect_to(root_url) && return unless @user.activated? ||
                                            find_current_user.admin?
   end
 
@@ -22,11 +26,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       @user.send_activation_email
-      flash[:info] = "Please check your email for an activation link."
+      flash[:info] = 'Please check your email for an activation link.'
       flash[:info] += " Since this is only a demo page, here is your activation
       link:   "
       flash[:info] += edit_account_activation_url(@user.activation_token,
-                                                          email: @user.email)
+                                                  email: @user.email)
       redirect_to root_url
     else
       render 'new'
@@ -56,25 +60,25 @@ class UsersController < ApplicationController
   end
 
   private
-    def user_params
-      params.require(:user).permit(:name, :email,
-                                   :password, :password_confirmation)
-    end
 
-    def find_user
-      @user = User.find(params[:id])
-    end
+  def user_params
+    params.require(:user).permit(:name, :email,
+                                 :password, :password_confirmation)
+  end
 
-    def redirect_if_not_logged_in
-      unless logged_in?
-        # Store for desired url for friendly forwarding.
-        store_intended_url
-        flash[:danger] = 'You must be logged in.'
-        redirect_to login_path
-      end
-    end
+  def find_user
+    @user = User.find(params[:id])
+  end
 
-    def redirect_if_not_current_user
-      redirect_to root_path if !current_user?(User.find params[:id])
-    end
+  def redirect_if_not_logged_in
+    return if logged_in?
+    # Store for desired url for friendly forwarding.
+    store_intended_url
+    flash[:danger] = 'You must be logged in.'
+    redirect_to login_path
+  end
+
+  def redirect_if_not_current_user
+    redirect_to root_path unless current_user?(User.find(params[:id]))
+  end
 end

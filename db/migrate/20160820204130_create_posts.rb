@@ -1,4 +1,4 @@
-class CreatePosts < ActiveRecord::Migration[5.0]
+class CreatePosts < ActiveRecord::Migration[5.0] # :nodoc:
   def change
     create_table :posts do |t|
       t.text :content

@@ -5,9 +5,10 @@ class FriendlyForwardingTest < ActionDispatch::IntegrationTest
     @user = users(:user)
   end
 
-  # Those tests check if user will be forwarded to intended page after logging in.
+  # Those tests check if user will be forwarded to intended page after logging
+  # in.
 
-  test "user edit friendly forwarding" do
+  test 'user edit friendly forwarding' do
     get edit_user_path(@user)
     assert_redirected_to login_path
     log_in_as(@user, password: 'uuuuuu')

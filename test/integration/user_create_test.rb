@@ -15,11 +15,11 @@ class UserCreateTest < ActionDispatch::IntegrationTest
     assert_no_difference 'User.count' do
       post users_path, params: {
         user: {
-          name:                   "valid test name",
-          email:                  "valid@user.email",
-          permissions:            "villainous_hacker",
-          password:               "validpassword",
-          password_confirmation:  ""
+          name:                   'valid test name',
+          email:                  'valid@user.email',
+          permissions:            'villainous_hacker',
+          password:               'validpassword',
+          password_confirmation:  ''
         }
       }
     end
@@ -28,7 +28,6 @@ class UserCreateTest < ActionDispatch::IntegrationTest
     assert_select 'div.alert-danger'
     # Check if there are fields with erroes.
     assert_select 'div.field_with_errors'
-
   end
 
   test 'valid user creation (signup) with account activation' do
@@ -54,14 +53,14 @@ class UserCreateTest < ActionDispatch::IntegrationTest
     assert_not user.activated?
     # Try to log in before account activatin and assure it fails.
     log_in_as(user)
-    assert_not is_logged_in?
+    assert_not logged_in?
     # Try to activate account with INVALID token and assure it fails.
-    get edit_account_activation_path("invalid token", email: user.email)
-    assert_not is_logged_in?
+    get edit_account_activation_path('invalid token', email: user.email)
+    assert_not logged_in?
     # Try to activate account with VALID token but INVALID email and assure it
     # fails.
     get edit_account_activation_path(user.activation_token, email: 'invalid')
-    assert_not is_logged_in?
+    assert_not logged_in?
     # Finally try to activate account with VALID token and email and assure it
     # will succeed.
     get edit_account_activation_path(user.activation_token, email: user.email)
@@ -69,7 +68,6 @@ class UserCreateTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_template 'users/show'
     assert_select 'div.alert-success'
-    assert is_logged_in?
-
+    assert logged_in?
   end
 end

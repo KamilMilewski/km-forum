@@ -1,4 +1,4 @@
-require_relative "seeds_helper.rb"
+require_relative 'seeds_helper.rb'
 
 # Before seeding db we have to clean it first.
 SeedsHelper.clean_db
@@ -6,7 +6,7 @@ SeedsHelper.clean_db
 # Users
 
 # Console feedback.
-puts "Start creating users."
+puts 'Start creating users.'
 
 User.create!(
   name: 'admin',
@@ -19,7 +19,7 @@ User.create!(
   activation_token_digest: User.digest(User.new_token)
 )
 # Console feedback.
-puts "  Admin user created."
+puts '  Admin user created.'
 
 User.create!(
   name: 'moderator',
@@ -32,7 +32,7 @@ User.create!(
   activation_token_digest: User.digest(User.new_token)
 )
 # Console feedback.
-puts "  Moderator user created."
+puts '  Moderator user created.'
 
 User.create!(
   name: 'user',
@@ -45,7 +45,7 @@ User.create!(
   activation_token_digest: User.digest(User.new_token)
 )
 # Console feedback.
-puts "  Regular user created."
+puts '  Regular user created.'
 
 50.times do |i|
   # All normal users are superheroes genrated by faker gem.
@@ -58,7 +58,7 @@ puts "  Regular user created."
   until user.valid?
     user = User.new(
       name: name,
-      email: "#{name}#{rand(99)}@#{Faker::Superhero.power}.com".gsub(' ', '.'),
+      email: "#{name}#{rand(99)}@#{Faker::Superhero.power}.com".tr(' ', '.'),
       password: 'uuuuuu',
       password_confirmation: 'uuuuuu',
       permissions: 'user',
@@ -104,17 +104,19 @@ SeedsHelper.populate_category(category)
 
 category = Category.create!(
   title: 'JavaScript',
-  description: 'High-level, dynamic, untyped, and interpreted programming language.'
+  description: 'High-level, dynamic, untyped, and interpreted programming ' \
+               'language.'
 )
 SeedsHelper.populate_category(category)
 
 category = Category.create!(
   title: 'AngularJS',
-  description: 'JavaScript-based open-source front-end web application framework'
+  description: 'JavaScript-based open-source front-end web application ' \
+               'framework'
 )
 SeedsHelper.populate_category(category)
 
-category = Category.create!(
+Category.create!(
   title: 'Empty category',
   description: ''
 )

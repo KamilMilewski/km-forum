@@ -1,3 +1,4 @@
+# :nodoc:
 class SessionsController < ApplicationController
   def new
   end
@@ -7,13 +8,16 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:session][:password])
       if @user.activated?
         login @user
-        params[:session][:remember_me_checkbox] == '1' ? remember(@user) :
-                                                         forget(@user)
+        if params[:session][:remember_me_checkbox] == '1'
+          remember(@user)
+        else
+          forget(@user)
+        end
         flash[:success] = 'You have been logged in successfully'
         redirect_back_or root_url
       else
-        message = "Account not activated. "
-        message += "Check your email for the activation link."
+        message = 'Account not activated. '
+        message += 'Check your email for the activation link.'
         flash[:warning] = message
         redirect_to root_url
       end

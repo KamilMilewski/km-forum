@@ -5,7 +5,7 @@ class UserEditTest < ActionDispatch::IntegrationTest
     @user = users(:user)
   end
 
-  test "successful user edit" do
+  test 'successful user edit' do
     # User has to be logged in before entering edit page.
     log_in_as(@user, password: 'uuuuuu')
 
@@ -42,7 +42,7 @@ class UserEditTest < ActionDispatch::IntegrationTest
     assert_select 'div.alert-success'
   end
 
-  test "unsuccessful user edit" do
+  test 'unsuccessful user edit' do
     # User has to be logged in before entering edit page.
     log_in_as(@user, password: 'uuuuuu')
 

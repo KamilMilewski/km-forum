@@ -1,3 +1,4 @@
+# :nodoc:
 module SessionsHelper
   def login(user)
     session[:user_id] = user.id
@@ -15,7 +16,8 @@ module SessionsHelper
   # stored in db.
   def remember(user)
     # In this method virutal user attr 'remember_token' is set.
-    # After that, based on 'remember_token', 'remember_token_digest' attr. is set.
+    # After that, based on 'remember_token', 'remember_token_digest' attributes
+    # is set.
     user.remember
     cookies.permanent.signed[:user_id] = user.id
     cookies.permanent[:remember_token] = user.remember_token
@@ -31,10 +33,11 @@ module SessionsHelper
 
   # Returns current logged in user if any exist.
   def find_current_user
-    if(user_id = session[:user_id])
-      # Thanks to using ||= operator application is hitting database only first time.
+    if (user_id = session[:user_id])
+      # Thanks to using ||= operator application is hitting database only first
+      # time.
       @current_user ||= User.find_by(id: user_id)
-    elsif(user_id = cookies.signed[:user_id])
+    elsif (user_id = cookies.signed[:user_id])
       user = User.find_by(id: user_id)
       if user && user.authenticated?(:remember, cookies[:remember_token])
         login user

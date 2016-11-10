@@ -1,3 +1,4 @@
+# :nodoc:
 class CategoriesController < ApplicationController
   before_action :find_category, only: [:show, :edit, :update, :destroy]
 
@@ -16,7 +17,7 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.new(category_params)
     if @category.save
-      flash[:success] = "Category successfully created."
+      flash[:success] = 'Category successfully created.'
       redirect_to @category
     else
       render 'new'
@@ -24,30 +25,30 @@ class CategoriesController < ApplicationController
   end
 
   def edit
-
   end
 
   def update
     if @category.update(category_params)
-      flash[:success] = "Category successfully updated."
+      flash[:success] = 'Category successfully updated.'
       redirect_to categories_path
     else
-      render "edit"
+      render 'edit'
     end
   end
 
   def destroy
     @category.destroy
-    flash[:success] = "Category successfully deleted."
+    flash[:success] = 'Category successfully deleted.'
     redirect_to categories_path
   end
 
   private
-    def find_category
-      @category = Category.find(params[:id])
-    end
 
-    def category_params
-      params.require(:category).permit(:title, :description)
-    end
+  def find_category
+    @category = Category.find(params[:id])
+  end
+
+  def category_params
+    params.require(:category).permit(:title, :description)
+  end
 end

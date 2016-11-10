@@ -6,32 +6,36 @@ require 'rails/test_help'
 require 'minitest/reporters'
 Minitest::Reporters.use!
 
-class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  fixtures :all
+module ActiveSupport
+  class TestCase
+    # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical
+    # order.
+    fixtures :all
 
-  # We need ApplicationHelper methods in tests.
-  include ApplicationHelper
+    # We need ApplicationHelper methods in tests.
+    include ApplicationHelper
 
-  # Methods used by all tests:
-  def is_logged_in?
-    !session[:user_id].nil?
+    # Methods used by all tests:
+    def logged_in?
+      !session[:user_id].nil?
+    end
+
+    # def log_in_as(user)
+    #   session[:user_id] = user.id
+    # end
   end
-
-  # def log_in_as(user)
-  #   session[:user_id] = user.id
-  # end
 end
 
 # Helper methods for integration tests.
-class ActionDispatch::IntegrationTest
-  def log_in_as(user, password: 'uuuuuu', remember_me_checkbox: '1')
-    # Log in as particular user.
-    post login_path, params: { session: {
+module ActionDispatch
+  class IntegrationTest
+    def log_in_as(user, password: 'uuuuuu', remember_me_checkbox: '1')
+      # Log in as particular user.
+      post login_path, params: { session: {
         email: user.email,
         password: password,
         remember_me_checkbox: remember_me_checkbox
-      }
-    }
+      } }
+    end
   end
 end
