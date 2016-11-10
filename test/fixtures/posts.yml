@@ -1,5 +1,8 @@
 one:
-  content: MyText
+  content: First post content
 
 two:
-  content: MyText
+  content: Second post content
+
+three:
+  content: Third post content

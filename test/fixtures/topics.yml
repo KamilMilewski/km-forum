@@ -1,11 +1,27 @@
 one:
-  title: Fixture topic title
-  content: Fixture topic content
-  category_id: 1
-  user_id: 1
+  title: First fixture topic title
+  content: First fixture topic content
+  user: user
+  category: one
 
 two:
-  title: MyString
-  content: MyText
-  category_id: 1
-  user_id: 1
+  title: Second fixture topic title
+  content: Second fixture topic content
+  user: user
+  category: one
+
+three:
+  title: Third fixture topic title
+  content: Third fixture topic content
+  user: user
+  category: one
+
+<% i = 0 %>
+<% 50.times do |topic| %>
+  <% i += 1 %>
+topic_<%= "#{i+3}" %>:
+  title: <%= "#{i}. fixture topic title" %>
+  content: <%= "#{i}. fixture topic content" %>
+  category: one
+  user: user
+<% end %>

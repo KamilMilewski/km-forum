@@ -4,7 +4,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   def setup
     @base_title = 'KM-Forum'
     @user = users(:user)
-    @other_user = users(:user_1)
+    @other_user = users(:user_4)
   end
 
   test 'should get user index page' do

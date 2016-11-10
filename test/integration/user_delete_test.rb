@@ -4,7 +4,7 @@ class UserDeleteTest < ActionDispatch::IntegrationTest
   def setup
     @admin = users(:admin)
     @unfortunate_user = users(:user)
-    @villanous_user = users(:user_1)
+    @villanous_user = users(:user_4)
   end
 
   test 'successful user delete from users index page' do

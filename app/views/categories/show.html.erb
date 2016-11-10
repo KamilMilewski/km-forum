@@ -5,10 +5,13 @@
 <%= render 'topics/new_topic_button' %>
 
 <hr>
+	<%= will_paginate @topics, renderer: BootstrapPagination::Rails %>
+<hr>
 
 <% if @topics.empty? %>
 	<p class="empty-resource-notice">There are no topics yet in this category.</p>
 <% else %>
+
 	<% @topics.each do |topic| %>
 		<a href="<%= topic_path(topic) %>"
 		   class="list-group-item list-group-item-warning">
@@ -28,8 +31,11 @@
 						class: "btn btn-danger btn-xs" %>
 		<% end %>
 	<% end %>
+
 <% end %>
 
+<hr>
+	<%= will_paginate @topics, renderer: BootstrapPagination::Rails %>
 <hr>
 
 <%= render 'topics/new_topic_button' %>

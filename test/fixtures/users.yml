@@ -1,5 +1,4 @@
 admin:
-  id: 1
   name: admin
   email: admin@admin.com
   password_digest: <%= User.digest('aaaaaa') %>
@@ -8,7 +7,6 @@ admin:
   activated_at: <%= Time.zone.now %>
 
 moderator:
-  id: 2
   name: moderator
   email: moderator@moderator.com
   password_digest: <%= User.digest('mmmmmm') %>
@@ -17,7 +15,6 @@ moderator:
   activated_at: <%= Time.zone.now %>
 
 user:
-  id: 3
   name: user
   email: user@user.com
   password_digest: <%= User.digest('uuuuuu') %>
@@ -28,8 +25,7 @@ user:
 <% i = 0 %>
 <% 50.times do |user| %>
   <% i += 1 %>
-user_<%= "#{i}" %>:
-  id: <%= "#{i+3}" %>
+user_<%= "#{i+3}" %>:
   name: <%= "name#{i}" %>
   email: <%= "email#{i}@email.com" %>
   password_digest: <%= User.digest('uuuuuu') %>

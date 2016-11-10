@@ -3,6 +3,5 @@ one:
   description: Fixture category description
 
 two:
-  id: 1
   title: MyString
   description: MyText
