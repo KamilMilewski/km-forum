@@ -18,11 +18,11 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
     # Assure there are two will_paginate controls on the page.
     assert_select 'ul.pagination', count: 2
 
-    posts = @topic.posts.paginate(page: 1, per_page: 10)
-    posts.each do |post|
+    @topic.posts.paginate(page: 1, per_page: 10)
+    .each do |post|
       # Assure there is each post's content.
       assert_select 'p', text: post.content, count: 1
-      # Assure there is link to edit and delete actions for each post.
+      # Assure there is link to 'edit' and 'delete' actions for each post.
       assert_select 'a[href=?]', edit_post_path(post), count: 1
       assert_select 'a[data-method=delete][href=?]', post_path(post), count: 1
     end
@@ -39,18 +39,18 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
     # Assure there are two will_paginate controls on the page.
     assert_select 'ul.pagination', count: 2
 
-    posts = @topic.posts.paginate(page: 1, per_page: 10)
-    posts.each do |post|
+    @topic.posts.paginate(page: 1, per_page: 10)
+    .each do |post|
       # Assure there is each post's content.
       assert_select 'p', text: post.content, count: 1
       # If the current logged in user...
       if @user.owner_of(post)
-        # Is owner of the post then he should see edit and delete links on a
+        # Is owner of the post then he should see 'edit' & 'delete' links on a
         # given post...
         assert_select 'a[href=?]', edit_post_path(post), count: 1
         assert_select 'a[data-method=delete][href=?]', post_path(post), count: 1
       else
-        # And shouldn't be able to see such links on other's users posts.
+        # And shouldn't be able to see such links on other users posts.
         assert_select 'a[href=?]', edit_post_path(post), count: 0
         assert_select 'a[data-method=delete][href=?]', post_path(post), count: 0
       end

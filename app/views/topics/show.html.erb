@@ -1,4 +1,5 @@
 <% provide :title, @topic.title %>
+
 <hr>
 
 <%= render 'posts/add_post_button' %>
@@ -7,9 +8,9 @@
   <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
 <hr>
 
-<%= render 'posts/topic' %>
+<%= render 'topics/topic' %>
 
-<%= render 'posts/posts' %>
+<%= render 'topics/posts' %>
 
 <hr>
   <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>

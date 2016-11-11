@@ -1,13 +1,13 @@
 first:
   title: First fixture topic title
   content: First fixture topic content
-  user: user
+  user: admin
   category: first
 
 second:
   title: Second fixture topic title
   content: Second fixture topic content
-  user: user
+  user: moderator
   category: first
 
 third:
@@ -21,5 +21,5 @@ topic_<%= "#{i+3}" %>:
   title: <%= "#{i}. fixture topic title" %>
   content: <%= "#{i}. fixture topic content" %>
   category: first
-  user: user
+  user: user_<%= rand(4..10) %>
 <% end %>

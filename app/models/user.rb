@@ -59,14 +59,13 @@ class User < ApplicationRecord
     BCrypt::Password.create(string, cost: cost)
   end
 
-  # FIXME: this comment sucks!
-  # remember and forget methods cancel each other out. update_attribute method
-  # is used in both to avoid ActiveRecord data validation.
+  # Remembers logged in user (when remember me checkbox is checked).
   def remember
     self.remember_token = User.new_token
     update_attribute(:remember_token_digest, User.digest(remember_token))
   end
 
+  # Forgets previously remembered user.
   def forget
     self.remember_token = nil
     update_attribute(:remember_token_digest, nil)
