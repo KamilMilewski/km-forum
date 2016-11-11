@@ -1,11 +1,11 @@
 first:
   content: First fixture post content
-  user: user
+  user: admin
   topic: first
 
 second:
   content: Second fixture post content
-  user: user
+  user: moderator
   topic: first
 
 third:
@@ -13,11 +13,9 @@ third:
   user: user
   topic: first
 
-<% i = 0 %>
-<% 50.times do |post| %>
-  <% i += 1 %>
+<% 50.times do |i| %>
 post_<%= "#{i+3}" %>:
   content: <%= "#{i}. fixture post content" %>
-  user: user
+  user: user_<%= rand(4..10) %>
   topic: first
 <% end %>

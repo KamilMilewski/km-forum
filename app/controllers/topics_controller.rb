@@ -20,7 +20,7 @@ class TopicsController < ApplicationController
     @category = Category.find(params[:category_id])
     @topic = @category.topics.new(topic_params)
     # User whos created topic must be the current user so:
-    @topic.user_id = find_current_user.id
+    @topic.user_id = current_user.id
     if @topic.save
       flash[:success] = 'Topic successfully created.'
       redirect_to @topic

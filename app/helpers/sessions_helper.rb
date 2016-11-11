@@ -32,7 +32,7 @@ module SessionsHelper
   end
 
   # Returns current logged in user if any exist.
-  def find_current_user
+  def current_user
     if (user_id = session[:user_id])
       # Thanks to using ||= operator application is hitting database only first
       # time.
@@ -48,11 +48,11 @@ module SessionsHelper
 
   # Checks if given user is a current logged in user.
   def current_user?(user)
-    find_current_user == user
+    current_user == user
   end
 
   def logged_in?
-    !find_current_user.nil?
+    !current_user.nil?
   end
 
   # Friendly forwarding: if non logged in user tries to access page that require

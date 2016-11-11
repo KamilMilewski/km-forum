@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   def show
     # If given user isn't activated then only admin can see his profile.
     redirect_to(root_url) && return unless @user.activated? ||
-                                           find_current_user.admin?
+                                           current_user.admin?
   end
 
   def new
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if !find_current_user.nil? && find_current_user.admin?
+    if !current_user.nil? && current_user.admin?
       @user.destroy
       flash[:success] = 'He deserved it. Bastard.'
       redirect_to users_path

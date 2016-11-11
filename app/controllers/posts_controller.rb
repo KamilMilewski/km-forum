@@ -15,7 +15,7 @@ class PostsController < ApplicationController
     @topic = Topic.find(params[:topic_id])
     @post = @topic.posts.new(post_params)
     # User whos created post must be the current user so:
-    @post.user_id = find_current_user.id
+    @post.user_id = current_user.id
     if @post.save
       flash[:success] = 'Post successfully created.'
       redirect_to @topic

@@ -105,6 +105,11 @@ class User < ApplicationRecord
     permissions == 'user'
   end
 
+  # Check if user is a owner of given resource. For example post or topic.
+  def owner_of(resource)
+    self.id == resource.user_id ? true : false
+  end
+
   private
 
   # Callbacks methods. No need for them to be public.

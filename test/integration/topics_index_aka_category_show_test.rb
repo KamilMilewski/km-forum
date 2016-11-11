@@ -19,7 +19,7 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     assert_select 'ul.pagination', count: 2
 
     # Assure there is link to show, edit and delete actions for each topic.
-    topics = Topic.paginate(page: 1, per_page: 10)
+    topics = @category.topics.paginate(page: 1, per_page: 10)
     topics.each do |topic|
       assert_select 'a[href=?]', topic_path(topic)
       assert_select 'a[href=?]', edit_topic_path(topic), count: 1

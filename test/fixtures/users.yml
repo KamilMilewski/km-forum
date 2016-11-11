@@ -22,9 +22,7 @@ user:
   activated: true
   activated_at: <%= Time.zone.now %>
 
-<% i = 0 %>
-<% 50.times do |user| %>
-  <% i += 1 %>
+<% 50.times do |i| %>
 user_<%= "#{i+3}" %>:
   name: <%= "name#{i}" %>
   email: <%= "email#{i}@email.com" %>

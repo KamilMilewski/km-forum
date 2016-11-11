@@ -13,7 +13,7 @@
 				<%= category.description %>
 			</p>
 		</a>
-			<% if logged_in? && find_current_user.permissions == 'admin' %>
+			<% if logged_in? && current_user.permissions == 'admin' %>
 				<%= link_to "Edit",
 							edit_category_path(category),
 							class: "btn btn-warning btn-xs" %>

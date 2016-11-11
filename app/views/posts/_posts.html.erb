@@ -10,7 +10,9 @@
 			<p><%= post.content %></p>
 		</div>
 
-		<% if logged_in? %>
+		<% if logged_in? &&
+					( current_user.admin? || current_user.owner_of(post) )
+					%>
 	    <div class="pull-right">
 	  		<%= link_to "Edit",
 	  					edit_post_path(post),

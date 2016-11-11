@@ -16,9 +16,7 @@ third:
   user: user
   category: first
 
-<% i = 0 %>
-<% 50.times do |topic| %>
-  <% i += 1 %>
+<% 50.times do |i| %>
 topic_<%= "#{i+3}" %>:
   title: <%= "#{i}. fixture topic title" %>
   content: <%= "#{i}. fixture topic content" %>
