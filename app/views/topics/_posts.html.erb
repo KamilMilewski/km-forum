@@ -20,6 +20,7 @@
 	  		<%= link_to "Delete",
 	  					post,
 	  					method: :delete,
+							data: {confirm: "Are You sure You want to delete this post?"},
 	  					class: "btn btn-danger btn-xs" %>
 	    </div>
 		<% end %>

@@ -23,6 +23,8 @@
 					<%= link_to "Delete",
 								category_path(category),
 								method: :delete,
+								data: {confirm: 'Are You sure You want to delete this' \
+																' category along with all it\'s topics?'},
 								class: "btn btn-danger btn-xs" %>
 				</div>
 			<% end %>

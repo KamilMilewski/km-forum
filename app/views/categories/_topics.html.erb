@@ -22,6 +22,8 @@
 					<%= link_to "Delete",
 								topic,
 								method: :delete,
+								data: {confirm: 'Are You sure You want to delete this topic' \
+																' along with all it\'s posts?'},
 								class: "btn btn-danger btn-xs" %>
 				</div>
 			<% end %>
