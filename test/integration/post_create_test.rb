@@ -3,17 +3,19 @@ require 'test_helper'
 class PostCreateTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:user)
+    @post = posts(:first)
+    @topic = topics(:first)
   end
 
   test 'valid post creation' do
     log_in_as(@user)
     # Get to new category page and assure that correct template is used.
-    get new_topic_post_path topics(:one)
+    get new_topic_post_path @topic
     assert_response :success
     assert_template 'posts/new'
     # Test if create category with valid data vill succeed.
     assert_difference 'Post.count', 1 do
-      post topic_posts_path(posts(:one)), params: { post: {
+      post topic_posts_path(@post), params: { post: {
         content: 'test description'
       } }
     end
@@ -27,12 +29,12 @@ class PostCreateTest < ActionDispatch::IntegrationTest
   test 'invalid post creation' do
     log_in_as(@user)
     # Get to new category page and assure that correct template is used.
-    get new_topic_post_path topics(:one)
+    get new_topic_post_path @topic
     assert_response :success
     assert_template 'posts/new'
     # Test if create category with valid data will fail.
     assert_no_difference 'Post.count' do
-      post topic_posts_path(posts(:one)), params: { post: {
+      post topic_posts_path(@post), params: { post: {
         content: "\t",
         user_id: @user.id
       } }
@@ -46,8 +48,8 @@ class PostCreateTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     # id of the user we want maliciously impersonate during post creation.
     target_user_id = 6
-    get new_topic_post_path topics(:one)
-    post topic_posts_path(posts(:one)), params: { post: {
+    get new_topic_post_path @topic
+    post topic_posts_path(@post), params: { post: {
       content: 'some content',
       user_id: target_user_id
     } }

@@ -1,7 +1,11 @@
-one:
-  title: Fixture category title
-  description: Fixture category description
+first:
+  title: First fixture category title
+  description: First fixture category description
 
-two:
-  title: MyString
-  description: MyText
+second:
+  title: Second fixture category title
+  description: Second fixture category description
+
+third:
+  title: Third fixture category title
+  description: Third fixture category description

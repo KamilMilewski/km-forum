@@ -1,20 +1,20 @@
-one:
+first:
   title: First fixture topic title
   content: First fixture topic content
   user: user
-  category: one
+  category: first
 
-two:
+second:
   title: Second fixture topic title
   content: Second fixture topic content
   user: user
-  category: one
+  category: first
 
-three:
+third:
   title: Third fixture topic title
   content: Third fixture topic content
   user: user
-  category: one
+  category: first
 
 <% i = 0 %>
 <% 50.times do |topic| %>
@@ -22,6 +22,6 @@ three:
 topic_<%= "#{i+3}" %>:
   title: <%= "#{i}. fixture topic title" %>
   content: <%= "#{i}. fixture topic content" %>
-  category: one
+  category: first
   user: user
 <% end %>

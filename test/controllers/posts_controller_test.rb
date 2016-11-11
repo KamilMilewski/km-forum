@@ -8,7 +8,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get new' do
     log_in_as(@user)
-    get new_topic_post_url(topics(:one))
+    get new_topic_post_url(topics(:first))
     assert_response :success
     assert_select 'title', "New post | #{@base_title}"
     assert_template 'posts/new'
@@ -16,7 +16,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get edit' do
     log_in_as(@user)
-    get edit_post_url(posts(:one))
+    get edit_post_url(posts(:first))
     assert_response :success
     assert_select 'title', "Edit post | #{@base_title}"
     assert_template 'posts/edit'

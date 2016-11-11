@@ -4,7 +4,7 @@ class UserTest < ActiveSupport::TestCase
   def setup
     # We can't use fixture data here because of user virtual fields: password
     # and password_confirmation. Since we can't populate those virtual fields in
-    # fixture file every record would be invalid.
+    # fixture file - every record would be invalid.
     @valid_user = User.new(
       name: 'valid user name',
       email: 'valid@email.com',

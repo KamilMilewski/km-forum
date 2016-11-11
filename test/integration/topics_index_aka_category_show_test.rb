@@ -4,14 +4,14 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
   def setup
     @admin = users(:admin)
     @user = users(:user)
-    @category = categories(:one)
+    @category = categories(:first)
   end
 
-  test 'topic index page(category show) with will_paginate, as an admin' do
+  test 'topics index page(category show) with will_paginate, as an admin' do
     # Get to the login page and log in user.
     get login_path
     log_in_as(@admin, password: 'aaaaaa')
-    # Get to the category show page(topic index) and assure correct template.
+    # Get to the category show page(topics index) and assure correct template.
     get category_path(@category)
     assert_response :success
     assert_template 'categories/show'

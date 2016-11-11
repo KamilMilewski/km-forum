@@ -2,7 +2,7 @@ require 'test_helper'
 
 class TopicTest < ActiveSupport::TestCase
   def setup
-    @topic = topics(:one)
+    @topic = topics(:first)
   end
 
   test 'valid topic should be... valid' do

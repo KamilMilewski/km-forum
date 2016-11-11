@@ -8,7 +8,7 @@ class TopicsController < ApplicationController
                                                    :destroy]
 
   def show
-    @posts = @topic.posts
+    @posts = @topic.posts.paginate(page: params[:page], per_page: 10)
   end
 
   def new

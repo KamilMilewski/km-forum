@@ -1,8 +1,23 @@
-one:
-  content: First post content
+first:
+  content: First fixture post content
+  user: user
+  topic: first
 
-two:
-  content: Second post content
+second:
+  content: Second fixture post content
+  user: user
+  topic: first
 
-three:
-  content: Third post content
+third:
+  content: Third fixture post content
+  user: user
+  topic: first
+
+<% i = 0 %>
+<% 50.times do |post| %>
+  <% i += 1 %>
+post_<%= "#{i+3}" %>:
+  content: <%= "#{i}. fixture post content" %>
+  user: user
+  topic: first
+<% end %>

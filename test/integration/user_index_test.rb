@@ -25,7 +25,7 @@ class UserIndexTest < ActionDispatch::IntegrationTest
       # profile. One in user list and one in site top navbar: "account settings"
       # In this test we are only interested in the one in user list thus
       # addition of text: /edit/ in line below.
-      assert_select 'a[href=?]', edit_user_path(user), text: /edit/, count: 1
+      assert_select 'a[href=?]', edit_user_path(user), text: 'edit', count: 1
       # Current logged in admin sholdn't be abble to delete himself.
       if user != @admin
         assert_select 'a[data-method=delete][href=?]', user_path(user), count: 1
@@ -37,8 +37,8 @@ class UserIndexTest < ActionDispatch::IntegrationTest
     get login_path
     log_in_as(@user, password: 'uuuuuu')
     get users_path
-    @users = User.paginate(page: 1, per_page: 30)
-    @users.each do |user|
+    users = User.paginate(page: 1, per_page: 30)
+    users.each do |user|
       # Check if there is a link issuing a delete action on users resource.
       assert_select 'a[data-method=delete][href=?]', user_path(user), count: 0
     end

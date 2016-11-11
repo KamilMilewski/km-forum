@@ -2,7 +2,7 @@ require 'test_helper'
 
 class CategoryTest < ActiveSupport::TestCase
   def setup
-    @category = categories(:one)
+    @category = categories(:first)
   end
 
   test 'valid category should be... valid' do

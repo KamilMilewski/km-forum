@@ -4,11 +4,15 @@
 <%= render 'posts/add_post_button' %>
 
 <hr>
+  <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+<hr>
 
 <%= render 'posts/topic' %>
 
 <%= render 'posts/posts' %>
 
+<hr>
+  <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
 <hr>
 
 <%= render 'posts/add_post_button' %>
