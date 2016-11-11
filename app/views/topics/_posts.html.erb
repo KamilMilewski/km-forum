@@ -13,7 +13,7 @@
 		<% if logged_in? &&
 					( current_user.admin? || current_user.owner_of(post) )
 					%>
-	    <div class="pull-right">
+	    <div class="edit-delete-btns">
 	  		<%= link_to "Edit",
 	  					edit_post_path(post),
 	  					class: "btn btn-warning btn-xs" %>

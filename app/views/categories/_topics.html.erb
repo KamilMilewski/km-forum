@@ -3,25 +3,29 @@
 <% else %>
 
 	<% @topics.each do |topic| %>
-		<a href="<%= topic_path(topic) %>"
-		   class="list-group-item list-group-item-warning">
-			<h4 class="list-group-item-heading"><%= topic.title %></h4>
-			<p class="list-group-item-text">
-				<%= topic.content %>
-			</p>
-		</a>
+		<div>
+			<a href="<%= topic_path(topic) %>"
+			   class="list-group-item list-group-item-warning">
+				<h4 class="list-group-item-heading"><%= topic.title %></h4>
+				<p class="list-group-item-text">
+					<%= topic.content %>
+				</p>
+			</a>
 
-		<% if logged_in? &&
-					( current_user.admin? || current_user.owner_of(topic) )
-					%>
-			<%= link_to "Edit",
-						edit_topic_path(topic),
-						class: "btn btn-warning btn-xs" %>
-			<%= link_to "Delete",
-						topic,
-						method: :delete,
-						class: "btn btn-danger btn-xs" %>
-		<% end %>
+			<% if logged_in? &&
+						( current_user.admin? || current_user.owner_of(topic) )
+						%>
+				<div class="edit-delete-btns">
+					<%= link_to "Edit",
+								edit_topic_path(topic),
+								class: "btn btn-warning btn-xs" %>
+					<%= link_to "Delete",
+								topic,
+								method: :delete,
+								class: "btn btn-danger btn-xs" %>
+				</div>
+			<% end %>
+		</div>
 	<% end %>
 
 <% end %>

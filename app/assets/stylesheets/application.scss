@@ -58,6 +58,11 @@ $navbar-default-color: #F8E6E4;
 	text-align: center;
 }
 
+/* edit/delete resource buttons */
+.edit-delete-btns {
+	text-align: right;
+}
+
 .users-list {
   li {
     overflow: auto;

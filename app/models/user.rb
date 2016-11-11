@@ -106,7 +106,7 @@ class User < ApplicationRecord
 
   # Check if user is a owner of given resource. For example post or topic.
   def owner_of(resource)
-    self.id == resource.user_id ? true : false
+    id == resource.user_id ? true : false
   end
 
   private

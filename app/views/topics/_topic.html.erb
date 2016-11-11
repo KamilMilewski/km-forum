@@ -7,11 +7,15 @@
 	</div>
 
 	<div class="media-body bg-warning">
-		<h4 class="media-heading"><strong>Topic title:</strong> <%= @topic.title %></h4>
+		<h4 class="media-heading">
+			<strong>Topic title:</strong> <%= @topic.title %>
+		</h4>
 		<p><%= @topic.content %></p>
 	</div>
 
-	<% if logged_in? %>
+	<% if logged_in? &&
+				( current_user.admin? || current_user.owner_of(@topic) )
+				%>
 	  <div class="pull-right">
 	    <%= link_to "Edit",
 	          edit_topic_path(@topic),

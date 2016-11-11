@@ -1,17 +1,17 @@
-<!-- This partial handles all application notices-->
-<!-- and is rendered once in layouts/application -->
+<% # This partial handles all application notices %>
+<% # and is rendered once in layouts/application  %>
 
-<!-- Regular notices -->
+<% # Regular notices %>
 <% flash.each do |type, msg| %>
   <div class="alert alert-<%= type %>">
-    <!-- close button -->
+    <% # close button %>
     <a href="#" class="close" data-dismis="alert" aria-label="close">
       &times;</a>
     <%= msg %>
   </div>
 <% end %>
 
-<!-- Error messages -->
+<% #  Error messages %>
 <% if !@category.nil? and @category.errors.any? %>
   <% entity = @category %>
 <% elsif !@topic.nil? and @topic.errors.any? %>
@@ -24,7 +24,7 @@
 
 <% if !entity.nil? and entity.errors.any? %>
   <div class="alert alert-danger">
-    <!-- close button -->
+    <% # close button %>
     <%
       #this monstrosity is for closing bootstrap error dialog to work correctly.
       #If 'href' attribute of 'a' tag is just ='#' then upon clicking 'x'
