@@ -27,12 +27,22 @@ module ActiveSupport
 end
 
 # Helper methods for integration tests.
-# TODO: improve this method to automatically know password on a basis of
-# passed user permission - if no password parameter has been specified.
 module ActionDispatch
   class IntegrationTest
-    def log_in_as(user, password: 'uuuuuu', remember_me_checkbox: '1')
-      # Log in as particular user.
+    def log_in_as(user, password: nil, remember_me_checkbox: '0')
+      # If password hasn't been specified then method checks if passed user
+      # isn't one of the three generic users in fixtures: admin, moderator or
+      # user. If not then generic password 'uuuuuu' is used.
+      if password.nil?
+        password = case user.email
+                   when 'admin@admin.com'         then 'aaaaaa'
+                   when 'moderator@moderator.com' then 'mmmmmm'
+                   when 'user@user.com'           then 'uuuuuu'
+                   else                                'uuuuuu'
+                   end
+      end
+
+      # Finally try to log in given user.
       post login_path, params: { session: {
         email: user.email,
         password: password,

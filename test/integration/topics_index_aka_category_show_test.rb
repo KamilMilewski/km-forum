@@ -10,7 +10,7 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
   test 'topics index page(category show) with will_paginate, as an admin' do
     # Get to the login page and log in user.
     get login_path
-    log_in_as(@admin, password: 'aaaaaa')
+    log_in_as(@admin)
     # Get to the category show page(topics index) and assure correct template.
     get category_path(@category)
     assert_response :success
@@ -31,7 +31,7 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
        'as an regular user' do
     # Get to the login page and log in regular user.
     get login_path
-    log_in_as(@user, password: 'uuuuuu')
+    log_in_as(@user)
     # Get to the category show page(topics index) and assure correct template.
     get category_path(@category)
     assert_response :success

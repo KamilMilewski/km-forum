@@ -11,7 +11,7 @@ class FriendlyForwardingTest < ActionDispatch::IntegrationTest
   test 'user edit friendly forwarding' do
     get edit_user_path(@user)
     assert_redirected_to login_path
-    log_in_as(@user, password: 'uuuuuu')
+    log_in_as(@user)
     assert_redirected_to edit_user_path(@user)
   end
 end

@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class SessionTest < ActionDispatch::IntegrationTest
+  def setup
+    @admin = users(:admin)
+  end
+
   test 'user login with valid data followed by logout' do
     # Get to login path
     get login_path
@@ -72,12 +76,12 @@ class SessionTest < ActionDispatch::IntegrationTest
   end
 
   test 'login with remember_me checkbox checked' do
-    log_in_as(users(:admin), password: 'aaaaaa', remember_me_checkbox: '1')
+    log_in_as(@admin, remember_me_checkbox: '1')
     assert_not_nil cookies['remember_token']
   end
 
   test 'login with remember_me checkbox unchecked' do
-    log_in_as(users(:admin), password: 'aaaaaa', remember_me_checkbox: '0')
+    log_in_as(@admin, remember_me_checkbox: '0')
     assert_nil cookies['remember_token']
   end
 end

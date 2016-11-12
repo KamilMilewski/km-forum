@@ -8,7 +8,7 @@ class UserEditTest < ActionDispatch::IntegrationTest
 
   test 'successful user edit' do
     # User has to be logged in before entering edit page.
-    log_in_as(@user, password: 'uuuuuu')
+    log_in_as(@user)
 
     # Get to user edit page.
     get edit_user_path(@user)
@@ -44,7 +44,7 @@ class UserEditTest < ActionDispatch::IntegrationTest
   end
 
   test 'successful another user edit, as an admin' do
-    log_in_as(@admin, password: 'aaaaaa')
+    log_in_as(@admin)
 
     # Get to user edit page. Admin should be allowed to edit other's users
     # profiles.
@@ -79,7 +79,7 @@ class UserEditTest < ActionDispatch::IntegrationTest
 
   test 'unsuccessful user edit' do
     # User has to be logged in before entering edit page.
-    log_in_as(@user, password: 'uuuuuu')
+    log_in_as(@user)
 
     # Get to user edit page.
     get edit_user_path(@user)

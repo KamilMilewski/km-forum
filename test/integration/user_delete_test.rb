@@ -9,7 +9,7 @@ class UserDeleteTest < ActionDispatch::IntegrationTest
 
   test 'successful user delete from users index page' do
     # Log in as admin. Only he can delete users.
-    log_in_as(@admin, password: 'aaaaaa')
+    log_in_as(@admin)
     # Get to user index page.
     get users_path
     assert_template 'users/index'
@@ -25,7 +25,7 @@ class UserDeleteTest < ActionDispatch::IntegrationTest
 
   test 'villanous attempt to delete user by non admin user should fail' do
     # Log in as non admin user. He should not be able to delete users.
-    log_in_as(@villanous_user, password: 'uuuuuu')
+    log_in_as(@villanous_user)
 
     assert_no_difference 'User.count' do
       delete user_path(@unfortunate_user)

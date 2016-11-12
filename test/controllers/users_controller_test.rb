@@ -8,7 +8,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should get user index page' do
-    log_in_as(@user, password: 'uuuuuu')
+    log_in_as(@user)
     get users_path
     assert_response :success
     assert_select 'title', "User index | #{@base_title}"
@@ -34,13 +34,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should redirect when accessing different user edit profile page' do
-    log_in_as(@user, password: 'uuuuuu')
+    log_in_as(@user)
     get edit_user_path(@other_user)
     assert_redirected_to root_url
   end
 
   test 'should redirect when issuing patch request to different user' do
-    log_in_as(@user, password: 'uuuuuu')
+    log_in_as(@user)
     patch user_path(@other_user), params: {
       user: {
         name: 'some valid name',

@@ -10,7 +10,7 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
   test 'posts index page(topic show) with will_paginate, as an admin' do
     # Get to the login page and log in admin.
     get login_path
-    log_in_as(@admin, password: 'aaaaaa')
+    log_in_as(@admin)
     # Get to the topic show page(posts index) and assure correct template.
     get topic_path(@topic)
     assert_response :success
@@ -41,7 +41,7 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
   test 'posts index page(topic show) with will_paginate, as an regular user' do
     # Get to the login page and log in regular user.
     get login_path
-    log_in_as(@user, password: 'uuuuuu')
+    log_in_as(@user)
     # Get to the topic show page(posts index) and assure correct template.
     get topic_path(@topic)
     assert_response :success

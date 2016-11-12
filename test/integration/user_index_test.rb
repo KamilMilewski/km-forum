@@ -9,7 +9,7 @@ class UserIndexTest < ActionDispatch::IntegrationTest
   test 'user index page with will_paginate, as an admin' do
     # Get to the login page and log in user.
     get login_path
-    log_in_as(@admin, password: 'aaaaaa')
+    log_in_as(@admin)
     # Get to the user index page and assure correct template.
     get users_path
     assert_response :success
@@ -36,7 +36,7 @@ class UserIndexTest < ActionDispatch::IntegrationTest
 
   test 'user index page with will_paginate, as an regular user' do
     get login_path
-    log_in_as(@user, password: 'uuuuuu')
+    log_in_as(@user)
     get users_path
     users = User.paginate(page: 1, per_page: 30)
     users.each do |user|
