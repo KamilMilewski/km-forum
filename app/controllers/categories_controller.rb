@@ -1,6 +1,8 @@
 # :nodoc:
 class CategoriesController < ApplicationController
   before_action :find_category, only: [:show, :edit, :update, :destroy]
+  before_action :redirect_if_not_logged_in, only: [:destroy]
+  before_action :redirect_if_not_an_admin, only: [:destroy]
 
   def index
     @categories = Category.all
@@ -45,11 +47,19 @@ class CategoriesController < ApplicationController
 
   private
 
+  def category_params
+    params.require(:category).permit(:title, :description)
+  end
+
   def find_category
     @category = Category.find(params[:id])
   end
 
-  def category_params
-    params.require(:category).permit(:title, :description)
+  def redirect_if_not_logged_in
+    redirect_to root_path unless logged_in?
+  end
+
+  def redirect_if_not_an_admin
+    redirect_to root_path unless current_user.admin?
   end
 end
