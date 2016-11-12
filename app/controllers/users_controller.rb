@@ -5,7 +5,7 @@ class UsersController < ApplicationController
                                                    :edit,
                                                    :update,
                                                    :delete]
-  before_action :redirect_if_not_current_user, only: [:edit, :update]
+  before_action :redirect_if_user_cant_access, only: [:edit, :update]
 
   def index
     # Index only activated users.
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      flash[:success] = 'Account successfuly updated.'
+      flash[:success] = 'Account successfully updated.'
       redirect_to @user
     else
       render 'edit'
@@ -78,7 +78,9 @@ class UsersController < ApplicationController
     redirect_to login_path
   end
 
-  def redirect_if_not_current_user
-    redirect_to root_path unless current_user?(User.find(params[:id]))
+  def redirect_if_user_cant_access
+    # editing user is restricted to user who owns the profile or to an admin
+    # who can edit every profile.
+    redirect_to root_path unless current_user?(@user) || current_user.admin?
   end
 end

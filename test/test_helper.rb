@@ -27,6 +27,8 @@ module ActiveSupport
 end
 
 # Helper methods for integration tests.
+# TODO: improve this method to automatically know password on a basis of
+# passed user permission - if no password parameter has been specified.
 module ActionDispatch
   class IntegrationTest
     def log_in_as(user, password: 'uuuuuu', remember_me_checkbox: '1')
