@@ -1,23 +1,20 @@
 # :nodoc:
 class TopicsController < ApplicationController
   before_action :find_topic, only: [:show, :edit, :update, :destroy]
-  before_action :redirect_if_not_logged_in, only: [:new,
-                                                   :create,
-                                                   :edit,
-                                                   :update,
-                                                   :destroy]
+  before_action :find_category, only: [:new, :create]
+  before_action :friendly_forwarding, only: [:new, :create, :edit, :update]
+  before_action :redirect_if_not_logged_in, only: [:destroy]
+  before_action :redirect_if_not_owner_or_admin, only: [:destroy]
 
   def show
     @posts = @topic.posts.paginate(page: params[:page], per_page: 10)
   end
 
   def new
-    @category = Category.find(params[:category_id])
     @topic = Topic.new
   end
 
   def create
-    @category = Category.find(params[:category_id])
     @topic = @category.topics.new(topic_params)
     # User whos created topic must be the current user so:
     @topic.user_id = current_user.id
@@ -42,7 +39,7 @@ class TopicsController < ApplicationController
   end
 
   def destroy
-    return unless @topic.destroy
+    @topic.destroy
     flash[:success] = 'Topic successfully deleted.'
     redirect_to @topic.category
   end
@@ -53,7 +50,15 @@ class TopicsController < ApplicationController
     params.require(:topic).permit(:title, :content, :user_id)
   end
 
-  def redirect_if_not_logged_in
+  def find_topic
+    @topic = Topic.find(params[:id])
+  end
+
+  def find_category
+    @category = Category.find(params[:category_id])
+  end
+
+  def friendly_forwarding
     return if logged_in?
     # Store for desired url for friendly forwarding.
     store_intended_url
@@ -61,7 +66,14 @@ class TopicsController < ApplicationController
     redirect_to login_path
   end
 
-  def find_topic
-    @topic = Topic.find(params[:id])
+  def redirect_if_not_logged_in
+    flash[:danger] = 'Access denied'
+    redirect_to root_path unless logged_in?
+  end
+
+  def redirect_if_not_owner_or_admin
+    return if @topic.user_id == current_user.id || current_user.admin?
+    flash[:danger] = 'Access denied'
+    redirect_to root_path
   end
 end
