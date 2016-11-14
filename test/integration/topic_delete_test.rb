@@ -40,9 +40,10 @@ class TopicDeleteTest < ActionDispatch::IntegrationTest
     assert_select 'div.alert-success'
   end
 
+  # :FIXME: FOR GODS SAKE !!!
   test 'villanous attempt to delete topic by non admin user who do not own' \
        ' given topic should fail' do
-    # Log in as non admin user. He shouldn't be able to delete categories.
+    # Log in as non admin user.
     log_in_as(@villanous_user)
     get category_path(@category)
 
@@ -56,8 +57,8 @@ class TopicDeleteTest < ActionDispatch::IntegrationTest
        'fail' do
     get category_path(@category)
 
-    assert_no_difference 'Category.count' do
-      delete category_path(@category)
+    assert_no_difference 'Topic.count' do
+      delete topic_path(@topic)
     end
     assert_redirected_to root_path
   end

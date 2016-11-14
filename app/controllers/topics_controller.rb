@@ -2,8 +2,8 @@
 class TopicsController < ApplicationController
   before_action :find_topic, only: [:show, :edit, :update, :destroy]
   before_action :find_category, only: [:new, :create]
-  before_action :friendly_forwarding, only: [:new, :create, :edit, :update]
-  before_action :redirect_if_not_logged_in, only: [:destroy]
+  before_action :friendly_forwarding, only: [:new, :edit]
+  before_action :redirect_if_not_logged_in, only: [:create, :update, :destroy]
   before_action :redirect_if_not_owner_or_admin, only: [:destroy]
 
   def show
