@@ -1,11 +1,11 @@
 # :nodoc:
 class UsersController < ApplicationController
   before_action :find_user, only: [:show, :edit, :update, :destroy]
-  before_action :redirect_if_not_logged_in, only: [:index,
-                                                   :edit,
-                                                   :update,
-                                                   :delete]
-  before_action :redirect_if_user_cant_access, only: [:edit, :update]
+  before_action :friendly_forwarding, only: [:index, :show, :edit]
+  before_action :redirect_if_not_logged_in, only: [:update, :destroy]
+  before_action :redirect_if_not_owner_or_admin, only: [:edit,
+                                                        :update,
+                                                        :destroy]
 
   def index
     # Index only activated users.
@@ -50,13 +50,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if !current_user.nil? && current_user.admin?
-      @user.destroy
-      flash[:success] = 'He deserved it. Bastard.'
-      redirect_to users_path
-    else
-      redirect_to root_path
-    end
+    @user.destroy
+    flash[:success] = 'He deserved it. Bastard.'
+    redirect_to users_path
   end
 
   private
@@ -70,7 +66,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def redirect_if_not_logged_in
+  def friendly_forwarding
     return if logged_in?
     # Store for desired url for friendly forwarding.
     store_intended_url
@@ -78,9 +74,15 @@ class UsersController < ApplicationController
     redirect_to login_path
   end
 
-  def redirect_if_user_cant_access
-    # editing user is restricted to user who owns the profile or to an admin
-    # who can edit every profile.
-    redirect_to root_path unless current_user?(@user) || current_user.admin?
+  def redirect_if_not_logged_in
+    return if logged_in?
+    flash[:danger] = 'Access denied.'
+    redirect_to root_path
+  end
+
+  def redirect_if_not_owner_or_admin
+    return if current_user == @user || current_user.admin?
+    flash[:danger] = 'Access denied.'
+    redirect_to root_path
   end
 end

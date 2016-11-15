@@ -28,9 +28,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         email: 'valid@email.com'
       }
     }
-    assert_response :redirect
-    follow_redirect!
-    assert_template 'sessions/new'
+    assert_redirected_to root_url
   end
 
   test 'should redirect when accessing different user edit profile page' do
@@ -60,7 +58,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         permissions: 'admin'
       }
     }
+
     @sinister_user = User.find_by(email: 'sinister@user.email')
+    log_in_as(@sinister_user)
     assert_equal 'user', @sinister_user.permissions
   end
 end

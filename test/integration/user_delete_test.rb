@@ -15,7 +15,6 @@ class UserDeleteTest < ActionDispatch::IntegrationTest
     log_in_as(@admin)
     # Get to user index page.
     get users_path
-    assert_template 'users/index'
 
     assert_difference 'User.count', -1 do
       delete user_path(@unfortunate_user)
@@ -30,7 +29,6 @@ class UserDeleteTest < ActionDispatch::IntegrationTest
     # Log in as non admin user. He should not be able to delete users.
     log_in_as(@villanous_user)
     get users_path
-    assert_template 'users/index'
 
     assert_no_difference 'User.count' do
       delete user_path(@unfortunate_user)

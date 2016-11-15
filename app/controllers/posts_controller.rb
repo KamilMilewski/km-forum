@@ -63,13 +63,13 @@ class PostsController < ApplicationController
   end
 
   def redirect_if_not_logged_in
-    flash[:danger] = 'Access denied'
+    flash[:danger] = 'Access denied.'
     redirect_to root_path unless logged_in?
   end
 
   def redirect_if_not_owner_or_admin
     return if @post.user_id == current_user.id || current_user.admin?
-    flash[:danger] = 'Access denied'
+    flash[:danger] = 'Access denied.'
     redirect_to root_path
   end
 end

@@ -56,12 +56,12 @@ class CategoriesController < ApplicationController
   end
 
   def redirect_if_not_logged_in
-    flash[:danger] = 'Access denied'
+    flash[:danger] = 'Access denied.'
     redirect_to root_path unless logged_in?
   end
 
   def redirect_if_not_an_admin
-    flash[:danger] = 'Access denied'
+    flash[:danger] = 'Access denied.'
     redirect_to root_path unless current_user.admin?
   end
 end
