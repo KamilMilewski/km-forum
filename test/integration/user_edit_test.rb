@@ -141,7 +141,7 @@ class UserEditTest < ActionDispatch::IntegrationTest
     assert_not_equal new_user_email, @unfortunate_user.email
   end
 
-  test 'sinister attempt to edit user by non logged in villain should fail' do
+  test 'sinister attempt to edit user by non logged in villain' do
     # New valid values for user name and email fields.
     new_user_name = 'new valid user name'
     new_user_email = 'new_valid@user.email'

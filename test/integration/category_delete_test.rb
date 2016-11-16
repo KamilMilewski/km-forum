@@ -17,7 +17,7 @@ class CategoryDeleteTest < ActionDispatch::IntegrationTest
       delete category_path(@category)
     end
 
-    assert_redirected_to categories_path
+    assert_redirected_to root_path
     follow_redirect!
     assert_select 'div.alert-success'
   end

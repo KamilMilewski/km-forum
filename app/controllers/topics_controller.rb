@@ -67,8 +67,9 @@ class TopicsController < ApplicationController
   end
 
   def redirect_if_not_logged_in
+    return if logged_in?
     flash[:danger] = 'Access denied'
-    redirect_to root_path unless logged_in?
+    redirect_to root_path
   end
 
   def redirect_if_not_owner_or_admin

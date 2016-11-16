@@ -1,8 +1,9 @@
 # :nodoc:
 class CategoriesController < ApplicationController
   before_action :find_category, only: [:show, :edit, :update, :destroy]
-  before_action :redirect_if_not_logged_in, only: [:destroy]
-  before_action :redirect_if_not_an_admin, only: [:destroy]
+  before_action :friendly_forwarding, only: [:new, :edit]
+  before_action :redirect_if_not_logged_in, only: [:create, :update, :destroy]
+  before_action :redirect_if_not_an_admin, only: [:edit, :update, :destroy]
 
   def index
     @categories = Category.all
@@ -33,7 +34,7 @@ class CategoriesController < ApplicationController
   def update
     if @category.update(category_params)
       flash[:success] = 'Category successfully updated.'
-      redirect_to categories_path
+      redirect_to root_path
     else
       render 'edit'
     end
@@ -42,7 +43,7 @@ class CategoriesController < ApplicationController
   def destroy
     @category.destroy
     flash[:success] = 'Category successfully deleted.'
-    redirect_to categories_path
+    redirect_to root_path
   end
 
   private
@@ -55,13 +56,28 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
   end
 
-  def redirect_if_not_logged_in
-    flash[:danger] = 'Access denied.'
-    redirect_to root_path unless logged_in?
+  # Friendly forwarding works only for non logged in user and only for
+  # HTTP GET requests.
+  def friendly_forwarding
+    return if logged_in?
+    # Store for desired url for friendly forwarding.
+    store_intended_url
+    flash[:danger] = 'You must be logged in.'
+    redirect_to login_path
   end
 
+  # Should be used only for non-GET HTTP requests. Otherwise use
+  # friendly_forwarding instead.
+  def redirect_if_not_logged_in
+    return if logged_in?
+    flash[:danger] = 'Access denied'
+    redirect_to root_path
+  end
+
+  # Should be used when logged in user don't have rights to perform given action
   def redirect_if_not_an_admin
+    return if current_user.admin?
     flash[:danger] = 'Access denied.'
-    redirect_to root_path unless current_user.admin?
+    redirect_to root_path
   end
 end

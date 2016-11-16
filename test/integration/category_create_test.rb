@@ -1,7 +1,12 @@
 require 'test_helper'
 
 class CategoryCreateTest < ActionDispatch::IntegrationTest
+  def setup
+    @admin = users(:admin)
+  end
+
   test 'valid category creation' do
+    log_in_as(@admin)
     # Get to new category page and assure that correct template is used
     get new_category_path
     assert_response :success
@@ -21,6 +26,7 @@ class CategoryCreateTest < ActionDispatch::IntegrationTest
   end
 
   test 'invalid category creation' do
+    log_in_as(@admin)
     # Get to new category page and assure that correct template is used
     get new_category_path
     assert_response :success
