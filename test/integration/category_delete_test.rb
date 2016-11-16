@@ -19,7 +19,7 @@ class CategoryDeleteTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to root_path
     follow_redirect!
-    assert_select 'div.alert-success'
+    assert_flash_notices success: { count: 1 }
   end
 
   test 'villanous attempt to delete category by non admin user should fail' do

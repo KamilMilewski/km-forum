@@ -23,7 +23,7 @@ class TopicCreateTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_template 'topics/show'
     # Check if success flash massage shows up.
-    assert_select 'div.alert-success'
+    assert_flash_notices success: { count: 1 }
   end
 
   test 'invalid topic creation' do
@@ -40,8 +40,7 @@ class TopicCreateTest < ActionDispatch::IntegrationTest
       } }
     end
     assert_template 'topics/new'
-    # Check if error flash massage shows up.
-    assert_select 'div.alert-danger'
+    assert_flash_notices danger: { count: 1 }
   end
 
   test 'trying to create a topic as another user' do

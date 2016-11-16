@@ -23,7 +23,7 @@ class PostDeleteTest < ActionDispatch::IntegrationTest
     # Aka posts index
     assert_redirected_to @topic
     follow_redirect!
-    assert_select 'div.alert-success'
+    assert_flash_notices success: { count: 1 }
   end
 
   test 'user should be able to delete his post' do
@@ -37,7 +37,7 @@ class PostDeleteTest < ActionDispatch::IntegrationTest
     # Aka posts index
     assert_redirected_to @topic
     follow_redirect!
-    assert_select 'div.alert-success'
+    assert_flash_notices success: { count: 1 }
   end
 
   test 'villanous attempt to delete post by non admin user who do not own' \

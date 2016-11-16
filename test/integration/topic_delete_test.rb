@@ -23,7 +23,7 @@ class TopicDeleteTest < ActionDispatch::IntegrationTest
     # Aka topics index
     assert_redirected_to @category
     follow_redirect!
-    assert_select 'div.alert-success'
+    assert_flash_notices success: { count: 1 }
   end
 
   test 'user should be able to delete his topic' do
@@ -37,7 +37,7 @@ class TopicDeleteTest < ActionDispatch::IntegrationTest
     # Aka topics index
     assert_redirected_to @category
     follow_redirect!
-    assert_select 'div.alert-success'
+    assert_flash_notices success: { count: 1 }
   end
 
   # :FIXME: FOR GODS SAKE !!!

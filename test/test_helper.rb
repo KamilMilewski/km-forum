@@ -53,17 +53,21 @@ module ActionDispatch
     def assert_access_denied_notice
       assert_redirected_to root_path
       follow_redirect!
-      assert_flash_notices danger_count: 1
+      assert_flash_notices danger: { count: 1, text: 'Access denied.' }
     end
 
-    def assert_flash_notices(danger_count: 0,
-                             success_count: 0,
-                             info_count: 0,
-                             warning_count: 0)
-      assert_select 'div.alert-danger', count: danger_count
-      assert_select 'div.alert-success', count: success_count
-      assert_select 'div.alert-info', count: info_count
-      assert_select 'div.alert-warning', count: warning_count
+    def assert_flash_notices(danger: { count: 0, text: nil },
+                             success: { count: 0, text: nil },
+                             info:    { count: 0, text: nil },
+                             warning: { count: 0, text: nil })
+      assert_select 'div.alert-danger',   count: danger[:count],
+                                          text: /#{danger[:text]}/
+      assert_select 'div.alert-success',  count: success[:count],
+                                          text: /#{success[:text]}/
+      assert_select 'div.alert-info',     count: info[:count],
+                                          text: /#{info[:text]}/
+      assert_select 'div.alert-warning',  count: warning[:count],
+                                          text: /#{warning[:text]}/
     end
   end
 end

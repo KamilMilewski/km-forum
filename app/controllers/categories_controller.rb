@@ -70,7 +70,7 @@ class CategoriesController < ApplicationController
   # friendly_forwarding instead.
   def redirect_if_not_logged_in
     return if logged_in?
-    flash[:danger] = 'Access denied'
+    flash[:danger] = 'Access denied.'
     redirect_to root_path
   end
 

@@ -44,8 +44,7 @@ class UserEditTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_template 'users/show'
 
-    # Assert correct flash message.
-    assert_select 'div.alert-success'
+    assert_flash_notices success: { count: 1 }
   end
 
   test 'successful another user edit, as an admin' do
@@ -104,9 +103,7 @@ class UserEditTest < ActionDispatch::IntegrationTest
 
     # Assert edit form is rerendered.
     assert_template 'users/edit'
-
-    # Check if error flash message shows up.
-    assert_select 'div.alert-danger'
+    assert_flash_notices danger: { count: 1 }
 
     # Assert no changes to user has ben made.
     @user.reload

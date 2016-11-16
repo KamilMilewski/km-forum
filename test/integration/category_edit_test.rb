@@ -30,7 +30,7 @@ class CategoryEditTest < ActionDispatch::IntegrationTest
     assert_category_update
     assert_redirected_to root_path
     follow_redirect!
-    assert_flash_notices success_count: 1
+    assert_flash_notices success: { count: 1 }
   end
 
   test 'unsuccessful category edit' do
@@ -42,7 +42,7 @@ class CategoryEditTest < ActionDispatch::IntegrationTest
     @new_category_title = ''
 
     assert_category_update(is_not: true)
-    assert_flash_notices danger_count: 1
+    assert_flash_notices danger: { count: 1 }
     assert_template 'categories/edit'
   end
 

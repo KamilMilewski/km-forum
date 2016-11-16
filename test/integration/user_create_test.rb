@@ -24,8 +24,7 @@ class UserCreateTest < ActionDispatch::IntegrationTest
       }
     end
     assert_template 'users/new'
-    # Check if error flash massage shows up.
-    assert_select 'div.alert-danger'
+    assert_flash_notices danger: { count: 1 }
     # Check if there are fields with erroes.
     assert_select 'div.field_with_errors'
   end
@@ -67,7 +66,7 @@ class UserCreateTest < ActionDispatch::IntegrationTest
     assert user.reload.activated?
     follow_redirect!
     assert_template 'users/show'
-    assert_select 'div.alert-success'
+    assert_flash_notices success: { count: 1 }
     assert logged_in?
   end
 end

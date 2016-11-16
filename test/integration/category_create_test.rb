@@ -21,8 +21,7 @@ class CategoryCreateTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_template 'categories/show'
-    # check if success flash massage shows up
-    assert_select 'div.alert-success'
+    assert_flash_notices success: { count: 1 }
   end
 
   test 'invalid category creation' do
@@ -40,7 +39,6 @@ class CategoryCreateTest < ActionDispatch::IntegrationTest
     end
 
     assert_template 'categories/new'
-    # check if error flash massage shows up
-    assert_select 'div.alert-danger'
+    assert_flash_notices danger: { count: 1 }
   end
 end

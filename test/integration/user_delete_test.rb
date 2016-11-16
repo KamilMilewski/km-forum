@@ -22,7 +22,7 @@ class UserDeleteTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to users_path
     follow_redirect!
-    assert_select 'div.alert-success'
+    assert_flash_notices success: { count: 1 }
   end
 
   test 'villanous attempt to delete user by non admin user should fail' do

@@ -22,8 +22,7 @@ class SessionTest < ActionDispatch::IntegrationTest
     # Check if proper page is displayed
     assert_response :redirect
     follow_redirect!
-    # Check if proper flash notice is displayed
-    assert_select 'div.alert-success'
+    assert_flash_notices success: { count: 1 }
     # Check if proper links are rendered
     assert_select 'a[href=?]', login_path, count: 0
     # Dropdown menu
@@ -41,8 +40,7 @@ class SessionTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
     follow_redirect!
 
-    # Check if proper flash notice is displayed
-    assert_select 'div.alert-success'
+    assert_flash_notices success: { count: 1 }
     # Check if proper links are rendered
     assert_select 'a[href=?]', login_path, count: 1
     # Dropdown menu
@@ -68,8 +66,7 @@ class SessionTest < ActionDispatch::IntegrationTest
 
     # Check if proper page is displayed
     assert_template 'sessions/new'
-    # Check if proper flash notice is displayed
-    assert_select 'div.alert-danger'
+    assert_flash_notices danger: { count: 1 }
     # Check if proper links are rendered
     assert_select 'a[href=?]', login_path
     assert_select 'a[href=?]', logout_path, count: 0
