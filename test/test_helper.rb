@@ -56,6 +56,9 @@ module ActionDispatch
       assert_flash_notices danger: { count: 1, text: 'Access denied.' }
     end
 
+    # Asserts if proper flash notices has been displayed. If no params has been
+    # passed then by default method asserts that there are no flash notices at
+    # all.
     def assert_flash_notices(danger: { count: 0, text: nil },
                              success: { count: 0, text: nil },
                              info:    { count: 0, text: nil },

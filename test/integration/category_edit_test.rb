@@ -2,18 +2,24 @@ require 'test_helper'
 
 class CategoryEditTest < ActionDispatch::IntegrationTest
   def setup
+    # Only admins can edit categories.
     @admin = users(:admin)
-    # Just regular villain(user) who will try to perform action forbidden to him
-    @villanous_user = users(:user_4)
+
+    # Moderators and regular users can't enter category edit page.
+    @moderator = users(:moderator)
+    @user = users(:user)
+    @denied_users = [@moderator, @user]
+    # A villain(regular user) who will try to perform action forbidden to him.
+    @villain = users(:user_4)
+
     @category = categories(:first)
 
     # New valid values for category title and description.
-    @new_category_title = 'New valid category title'
-    @new_category_description = 'New valid category description'
+    @new_title = 'New valid category title'
+    @new_description = 'New valid category description'
   end
 
-  test 'visit category edit page' do
-    # Only admin  can edit category.
+  test 'should allow admin to enter category edit page' do
     log_in_as(@admin)
     assert_redirected_to root_path
     follow_redirect!
@@ -22,71 +28,105 @@ class CategoryEditTest < ActionDispatch::IntegrationTest
     assert_flash_notices
   end
 
-  test 'successfull category edit as an admin' do
-    # Only admin can edit category.
-    log_in_as(@admin)
-    get edit_category_path(@category)
+  test 'should NOT allow users other than admin to enter category edit page' do
+    @denied_users.each do |user|
+      log_in_as(user)
+      assert_redirected_to root_path
+      follow_redirect!
+      get edit_category_path(@category)
+      assert_access_denied_notice
+    end
+  end
 
-    assert_category_update
+  test 'should NOT allow not logged in user to enter category edit page' do
+    get edit_category_path(@category)
+    assert_redirected_to login_path
+    follow_redirect!
+    assert_flash_notices danger: { count: 1, text: 'You must be logged in.' }
+  end
+
+  test 'should allow admin to update category' do
+    log_in_as(@admin)
+    assert_redirected_to root_path
+    follow_redirect!
+
+    patch category_path(@category), params: {
+      category: {
+        title: @new_title,
+        description: @new_description
+      }
+    }
+
+    # Assert category has been updated.
+    @category.reload
+    assert_equal @new_title, @category.title
+    assert_equal @new_description, @category.description
+
     assert_redirected_to root_path
     follow_redirect!
     assert_flash_notices success: { count: 1 }
   end
 
-  test 'unsuccessful category edit' do
-    # Only admin can edit category.
+  test 'should NOT allow to update category with invalid data' do
+    # Invalid data for category.
+    @new_title = ''
+    @new_content = ''
+
     log_in_as(@admin)
-    get edit_category_path(@category)
+    assert_redirected_to root_path
+    follow_redirect!
 
-    # New invalid value for category title.
-    @new_category_title = ''
+    patch category_path(@category), params: {
+      category: {
+        title: @new_title,
+        description: @new_description
+      }
+    }
 
-    assert_category_update(is_not: true)
+    # Assert category has NOT been updated.
+    @category.reload
+    assert_not_equal @new_title, @category.title
+    assert_not_equal @new_description, @category.description
+
     assert_flash_notices danger: { count: 1 }
     assert_template 'categories/edit'
   end
 
-  test 'sinister attempt to edit category by regular user' do
-    # Log in as regular user. He can't edit categories.
-    log_in_as(@villanous_user)
+  test 'should NOT allow users other than admin to update category' do
+    @denied_users.each do |user|
+      log_in_as(user)
+      assert_redirected_to root_path
+      follow_redirect!
 
-    # First he tries to enter category edit page.
-    get edit_category_path(@category)
-    assert_redirected_to root_path
+      patch category_path(@category), params: {
+        category: {
+          title: @new_title,
+          description: @new_description
+        }
+      }
 
-    # He tries direct patch request.
-    assert_category_update(is_not: true)
-    assert_access_denied_notice
+      # Assert category has NOT been updated.
+      @category.reload
+      assert_not_equal @new_title, @category.title
+      assert_not_equal @new_description, @category.description
+
+      assert_access_denied_notice
+    end
   end
 
-  test 'sinister attempt to edit category by non logged in villain' do
-    # First he tries to enter category edit page.
-    get edit_category_path(@category)
-    assert_redirected_to login_path
-
-    # He tries direct patch request.
-    assert_category_update(is_not: true)
-    assert_access_denied_notice
-  end
-
-  # helper method for updating category record in db. It also checks if record
-  # update succeeded. By default success category record update is verified.
-  def assert_category_update(is_not: false)
-    # Request to edit given category record in db.
+  test 'should NOT allow non logged in user to update category' do
     patch category_path(@category), params: {
       category: {
-        title: @new_category_title,
-        description: @new_category_description
+        title: @new_title,
+        description: @new_description
       }
     }
 
+    # Assert category has NOT been updated.
     @category.reload
-    if is_not
-      assert_not_equal @new_category_title, @category.title
-      assert_not_equal @new_category_description, @category.description
-    else
-      assert_equal @new_category_title, @category.title
-      assert_equal @new_category_description, @category.description
-    end
+    assert_not_equal @new_title, @category.title
+    assert_not_equal @new_description, @category.description
+
+    assert_access_denied_notice
   end
 end

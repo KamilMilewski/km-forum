@@ -7,7 +7,7 @@ class UserDeleteTest < ActionDispatch::IntegrationTest
     # deeds.
     @unfortunate_user = users(:user)
     # Just regular villain(user) who will try to perform action forbidden to him
-    @villanous_user = users(:user_4)
+    @villain = users(:user_4)
   end
 
   test 'successful user delete from users index page' do
@@ -27,7 +27,7 @@ class UserDeleteTest < ActionDispatch::IntegrationTest
 
   test 'villanous attempt to delete user by non admin user should fail' do
     # Log in as non admin user. He should not be able to delete users.
-    log_in_as(@villanous_user)
+    log_in_as(@villain)
     get users_path
 
     assert_no_difference 'User.count' do

@@ -5,7 +5,7 @@ class TopicDeleteTest < ActionDispatch::IntegrationTest
     # Only admin should be able to delete category.
     @admin = users(:admin)
     # Just regular villain(user) who will try to perform action forbidden to him
-    @villanous_user = users(:user_4)
+    @villain = users(:user_4)
     @user = users(:user)
     @category = categories(:first)
     # @topic belongs to @category, created by user
@@ -44,7 +44,7 @@ class TopicDeleteTest < ActionDispatch::IntegrationTest
   test 'villanous attempt to delete topic by non admin user who do not own' \
        ' given topic should fail' do
     # Log in as non admin user.
-    log_in_as(@villanous_user)
+    log_in_as(@villain)
     get category_path(@category)
 
     assert_no_difference 'Topic.count' do

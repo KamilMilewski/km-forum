@@ -57,7 +57,7 @@ topics as well.
 ## User stories
 
 * As a non logged-in user,
-  * I want to access categories index (root) page
+  * I want to access categories index (root) page.
   * I want to access category show (topics index) page.
   * I want to access topic show (posts index) page.
 

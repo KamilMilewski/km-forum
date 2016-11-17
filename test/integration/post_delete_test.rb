@@ -5,7 +5,7 @@ class PostDeleteTest < ActionDispatch::IntegrationTest
     # Only admin should be able to delete category.
     @admin = users(:admin)
     # Just regular villain(user) who will try to perform action forbidden to him
-    @villanous_user = users(:user_4)
+    @villain = users(:user_4)
     @user = users(:user)
     @topic = topics(:first)
     # @post belongs to @topic, created by user
@@ -43,7 +43,7 @@ class PostDeleteTest < ActionDispatch::IntegrationTest
   test 'villanous attempt to delete post by non admin user who do not own' \
        ' given post should fail' do
     # Log in as non admin user.
-    log_in_as(@villanous_user)
+    log_in_as(@villain)
     get topic_path(@topic)
 
     assert_no_difference 'Topic.count' do

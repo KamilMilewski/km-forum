@@ -8,7 +8,7 @@ class UserEditTest < ActionDispatch::IntegrationTest
     # deeds.
     @unfortunate_user = users(:user)
     # Just regular villain(user) who will try to perform action forbidden to him
-    @villanous_user = users(:user_4)
+    @villain = users(:user_4)
   end
 
   test 'successful user edit' do
@@ -112,7 +112,7 @@ class UserEditTest < ActionDispatch::IntegrationTest
   end
 
   test 'villanous attempt to edit another user by non admim should fail' do
-    log_in_as(@villanous_user)
+    log_in_as(@villain)
     get users_path
 
     # Try to get to another user edit page:

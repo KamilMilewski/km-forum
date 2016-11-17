@@ -4,7 +4,9 @@ class TopicsController < ApplicationController
   before_action :find_category, only: [:new, :create]
   before_action :friendly_forwarding, only: [:new, :edit]
   before_action :redirect_if_not_logged_in, only: [:create, :update, :destroy]
-  before_action :redirect_if_not_owner_or_admin, only: [:destroy]
+  before_action :redirect_if_insufficient_permissions, only: [:edit,
+                                                              :update,
+                                                              :destroy]
 
   def show
     @posts = @topic.posts.paginate(page: params[:page], per_page: 10)
@@ -68,13 +70,15 @@ class TopicsController < ApplicationController
 
   def redirect_if_not_logged_in
     return if logged_in?
-    flash[:danger] = 'Access denied'
+    flash[:danger] = 'Access denied.'
     redirect_to root_path
   end
 
-  def redirect_if_not_owner_or_admin
-    return if @topic.user_id == current_user.id || current_user.admin?
-    flash[:danger] = 'Access denied'
+  def redirect_if_insufficient_permissions
+    return if @topic.user_id == current_user.id ||
+              current_user.admin? ||
+              current_user.moderator?
+    flash[:danger] = 'Access denied.'
     redirect_to root_path
   end
 end

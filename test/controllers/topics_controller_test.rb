@@ -4,7 +4,7 @@ class TopicsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @base_title = 'KM-Forum'
     @user = users(:user)
-    @topic = topics(:first)
+    @topic = topics(:third)
   end
 
   test 'should get show' do

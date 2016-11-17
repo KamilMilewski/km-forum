@@ -5,7 +5,7 @@ class CategoryDeleteTest < ActionDispatch::IntegrationTest
     # Only admin should be able to delete category.
     @admin = users(:admin)
     # Just regular villain(user) who will try to perform action forbidden to him
-    @villanous_user = users(:user_4)
+    @villain = users(:user_4)
     @category = categories(:first)
   end
 
@@ -24,7 +24,7 @@ class CategoryDeleteTest < ActionDispatch::IntegrationTest
 
   test 'villanous attempt to delete category by non admin user should fail' do
     # Log in as non admin user. He shouldn't be able to delete categories.
-    log_in_as(@villanous_user)
+    log_in_as(@villain)
     get root_path
 
     assert_no_difference 'Category.count' do
