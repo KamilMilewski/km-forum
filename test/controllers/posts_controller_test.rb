@@ -16,7 +16,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get edit' do
     log_in_as(@user)
-    get edit_post_url(posts(:first))
+    get edit_post_url(posts(:third))
     assert_response :success
     assert_select 'title', "Edit post | #{@base_title}"
     assert_template 'posts/edit'

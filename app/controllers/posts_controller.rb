@@ -4,7 +4,9 @@ class PostsController < ApplicationController
   before_action :find_topic, only: [:new, :create]
   before_action :friendly_forwarding, only: [:new, :edit]
   before_action :redirect_if_not_logged_in, only: [:create, :update, :destroy]
-  before_action :redirect_if_not_owner_or_admin, only: [:destroy]
+  before_action :redirect_if_insufficient_permissions, only: [:edit,
+                                                              :update,
+                                                              :destroy]
 
   def new
     @post = Post.new
@@ -59,17 +61,19 @@ class PostsController < ApplicationController
     # Store for desired url for friendly forwarding.
     store_intended_url
     flash[:danger] = 'You must be logged in.'
-    redirect_to
+    redirect_to login_path
   end
 
   def redirect_if_not_logged_in
     return if logged_in?
-    flash[:danger] = 'Access denied'
+    flash[:danger] = 'Access denied.'
     redirect_to root_path
   end
 
-  def redirect_if_not_owner_or_admin
-    return if @post.user_id == current_user.id || current_user.admin?
+  def redirect_if_insufficient_permissions
+    return if @post.user_id == current_user.id ||
+              current_user.admin? ||
+              current_user.moderator?
     flash[:danger] = 'Access denied.'
     redirect_to root_path
   end

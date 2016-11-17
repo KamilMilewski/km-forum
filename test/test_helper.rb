@@ -56,6 +56,12 @@ module ActionDispatch
       assert_flash_notices danger: { count: 1, text: 'Access denied.' }
     end
 
+    def assert_friendly_forwarding_notice
+      assert_redirected_to login_path
+      follow_redirect!
+      assert_flash_notices danger: { count: 1, text: 'You must be logged in.' }
+    end
+
     # Asserts if proper flash notices has been displayed. If no params has been
     # passed then by default method asserts that there are no flash notices at
     # all.

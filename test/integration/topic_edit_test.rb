@@ -19,7 +19,7 @@ class TopicEditTest < ActionDispatch::IntegrationTest
     @new_content = 'New valid topic content'
   end
 
-  test 'should allow admin, moder. and topic owner to enter topic edit page' do
+  test 'should allow admin, mod. and topic owner to enter topic edit page' do
     # users who can visit edit page: admin, moderator and user who owns @topic
     @accepted_users.each do |user|
       log_in_as(user)
@@ -31,17 +31,17 @@ class TopicEditTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should NOT allow user to enter edit page of another\'s user topic' do
+  test 'should NOT allow user to enter foreign topic edit page' do
     log_in_as(@villain)
+    assert_redirected_to root_path
+    follow_redirect!
     get edit_topic_path(@topic)
     assert_access_denied_notice
   end
 
   test 'should NOT allow not logged in user to enter topic edit page' do
     get edit_topic_path(@topic)
-    assert_redirected_to login_path
-    follow_redirect!
-    assert_flash_notices danger: { count: 1, text: 'You must be logged in.' }
+    assert_friendly_forwarding_notice
   end
 
   test 'should allow admin, moderator and topic owner to update topic' do

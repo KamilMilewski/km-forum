@@ -40,9 +40,7 @@ class CategoryEditTest < ActionDispatch::IntegrationTest
 
   test 'should NOT allow not logged in user to enter category edit page' do
     get edit_category_path(@category)
-    assert_redirected_to login_path
-    follow_redirect!
-    assert_flash_notices danger: { count: 1, text: 'You must be logged in.' }
+    assert_friendly_forwarding_notice
   end
 
   test 'should allow admin to update category' do
