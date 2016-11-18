@@ -2,8 +2,8 @@ require 'test_helper'
 
 class TopicEditTest < ActionDispatch::IntegrationTest
   def setup
-    # Admins and moderators can edit all topics. Users can edit only their
-    # own topics.
+    # Admins can edit all topics. Moderators can edit all topics excluded
+    # admin's topics. Users can edit only their own topics.
     @admin = users(:admin)
     @moderator = users(:moderator)
     @user = users(:user)

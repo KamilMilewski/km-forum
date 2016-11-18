@@ -2,8 +2,8 @@ require 'test_helper'
 
 class PostEditTest < ActionDispatch::IntegrationTest
   def setup
-    # Admins and moderators can edit all posts. Users can edit only their
-    # own posts.
+    # Admins can edit all posts. Moderators can edit all posts excluded
+    # admin's posts. Users can edit only their own posts.
     @admin = users(:admin)
     @moderator = users(:moderator)
     @user = users(:user)

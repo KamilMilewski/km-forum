@@ -2,63 +2,81 @@ require 'test_helper'
 
 class PostDeleteTest < ActionDispatch::IntegrationTest
   def setup
-    # Only admin should be able to delete category.
+    # Admins can delete all posts. Moderators can delete all posts excluded
+    # admin's posts. Users can delete only their own posts.
     @admin = users(:admin)
-    # Just regular villain(user) who will try to perform action forbidden to him
-    @villain = users(:user_4)
+    @moderator = users(:moderator)
     @user = users(:user)
+
+    # A villain(regular user) who will try to perform action forbidden to him.
+    @villain = users(:user_4)
+
     @topic = topics(:first)
-    # @post belongs to @topic, created by user
+    # @post belongs to @topic and is created by @user.
     @post = posts(:third)
+
+    # @admins_post belongs to @topic and is created by @admin.
+    @admins_post = posts(:first)
   end
 
-  test 'successful post delete from posts index page, as an admin' do
-    log_in_as(@admin)
-    get topic_path(@topic)
-
-    assert_difference 'Post.count', -1 do
-      delete post_path(@post)
-    end
-
-    # Aka posts index
-    assert_redirected_to @topic
-    follow_redirect!
-    assert_flash_notices success: { count: 1 }
+  test 'should allow admin delete post' do
+    delete_post_by(@admin)
   end
 
-  test 'user should be able to delete his post' do
-    log_in_as(@user)
-    get topic_path(@topic)
-
-    assert_difference 'Post.count', -1 do
-      delete post_path(@post)
-    end
-
-    # Aka posts index
-    assert_redirected_to @topic
-    follow_redirect!
-    assert_flash_notices success: { count: 1 }
+  test 'should allow moderator delete post' do
+    delete_post_by(@moderator)
   end
 
-  test 'villanous attempt to delete post by non admin user who do not own' \
-       ' given post should fail' do
-    # Log in as non admin user.
-    log_in_as(@villain)
-    get topic_path(@topic)
+  test 'should allow user delete his own post' do
+    delete_post_by(@user)
+  end
 
-    assert_no_difference 'Topic.count' do
-      delete post_path(@post)
-    end
+  # Helper method applicable to successfull post delete tests.
+  def delete_post_by(user)
+    log_in_as(user)
     assert_redirected_to root_path
+    follow_redirect!
+
+    # Assert exactly one post has been deleted.
+    assert_difference 'Post.count', -1 do
+      delete post_path(@post)
+    end
+
+    assert_redirected_to topic_path(@topic)
+    follow_redirect!
+    assert_flash_notices success: { count: 1 }
   end
 
-  test 'villanous attempt to delete post by non logged in user should' \
-       'fail' do
-    get topic_path(@topic)
+  test 'should NOT allow moderator delete admin\' post' do
+    log_in_as(@moderator)
+    assert_redirected_to root_path
+    follow_redirect!
+
+    # Assert no post has been deleted.
+    assert_no_difference 'Post.count' do
+      delete post_path(@admins_post)
+    end
+
+    assert_access_denied_notice
+  end
+
+  test 'should NOT allow user delete foreign post' do
+    log_in_as(@villain)
+    assert_redirected_to root_path
+    follow_redirect!
 
     assert_no_difference 'Post.count' do
       delete post_path(@post)
     end
-    assert_redirected_to root_path
+
+    assert_access_denied_notice
+  end
+
+  test 'should NOT allow not logged in user delete post' do
+    assert_no_difference 'Post.count' do
+      delete post_path(@post)
+    end
+
+    assert_access_denied_notice
   end
 end

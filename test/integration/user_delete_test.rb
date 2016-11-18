@@ -2,22 +2,37 @@ require 'test_helper'
 
 class UserDeleteTest < ActionDispatch::IntegrationTest
   def setup
+    # Admins can delete all users. Moderators can delete all users excluded
+    # admin. :TODO Users for now can't delete their account.
     @admin = users(:admin)
-    # This user is unfortunate enough to be victim of other's users villanous
-    # deeds.
-    @unfortunate_user = users(:user)
-    # Just regular villain(user) who will try to perform action forbidden to him
+    @moderator = users(:moderator)
+    @user = users(:user)
+
+    # A villain(regular user) who will try to perform action forbidden to him.
     @villain = users(:user_4)
   end
 
-  test 'successful user delete from users index page' do
-    # Log in as admin. Only he can delete users.
-    log_in_as(@admin)
-    # Get to user index page.
-    get users_path
+  test 'should allow admin delete user' do
+    delete_user_by(@admin)
+  end
 
+  test 'should allow moderator delete user' do
+    delete_user_by(@moderator)
+  end
+
+  test 'should allow user delete his own account' do
+    # :TODO implement test and app funcionality.
+  end
+
+  # Helper method applicable to successfull user delete tests.
+  def delete_user_by(user)
+    log_in_as(user)
+    assert_redirected_to root_path
+    follow_redirect!
+
+    # Assert exactly one user has been deleted.
     assert_difference 'User.count', -1 do
-      delete user_path(@unfortunate_user)
+      delete user_path(@user)
     end
 
     assert_redirected_to users_path
@@ -25,21 +40,38 @@ class UserDeleteTest < ActionDispatch::IntegrationTest
     assert_flash_notices success: { count: 1 }
   end
 
-  test 'villanous attempt to delete user by non admin user should fail' do
-    # Log in as non admin user. He should not be able to delete users.
-    log_in_as(@villain)
-    get users_path
-
-    assert_no_difference 'User.count' do
-      delete user_path(@unfortunate_user)
-    end
+  test 'should NOT allow moderator delete admin\'s account' do
+    log_in_as(@moderator)
     assert_redirected_to root_path
+    follow_redirect!
+
+    # Assert no users has been deleted.
+    assert_no_difference 'User.count' do
+      delete user_path(@admin)
+    end
+
+    assert_access_denied_notice
   end
 
-  test 'sinister attempt to delete user by non logged in villain should fail' do
-    assert_no_difference 'User.count' do
-      delete user_path(@unfortunate_user)
-    end
+  test 'should NOT allow user delete another user' do
+    log_in_as(@villain)
     assert_redirected_to root_path
+    follow_redirect!
+
+    # Assert no users has been deleted.
+    assert_no_difference 'User.count' do
+      delete user_path(@user)
+    end
+
+    assert_access_denied_notice
+  end
+
+  test 'should NOT allow NOT logged in user delete user' do
+    # Assert no users has been deleted.
+    assert_no_difference 'User.count' do
+      delete user_path(@user)
+    end
+
+    assert_access_denied_notice
   end
 end

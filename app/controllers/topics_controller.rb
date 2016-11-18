@@ -83,6 +83,8 @@ class TopicsController < ApplicationController
     redirect_to root_path
   end
 
+  # If someone is trying to access admin's topic and himself is
+  # not an admin (!current_user.admin?), he should be redirected.
   def redirect_if_not_an_admin
     return unless @topic.user.admin? && !current_user.admin?
     flash[:danger] = 'Access denied.'

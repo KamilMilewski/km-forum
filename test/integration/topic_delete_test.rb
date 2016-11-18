@@ -6,7 +6,6 @@ class TopicDeleteTest < ActionDispatch::IntegrationTest
     @admin = users(:admin)
     @moderator = users(:moderator)
     @user = users(:user)
-    @accepted_users = [@admin, @moderator, @user]
 
     # A villain(regular user) who will try to perform action forbidden to him.
     @villain = users(:user_4)
@@ -20,19 +19,19 @@ class TopicDeleteTest < ActionDispatch::IntegrationTest
   end
 
   test 'should allow admin delete topic' do
-    delete_topic_helper(@admin)
+    delete_topic_by(@admin)
   end
 
   test 'should allow moderator delete topic' do
-    delete_topic_helper(@moderator)
+    delete_topic_by(@moderator)
   end
 
   test 'should allow user delete his own topic' do
-    delete_topic_helper(@user)
+    delete_topic_by(@user)
   end
 
   # Helper method applicable to successfull topic delete tests.
-  def delete_topic_helper(user)
+  def delete_topic_by(user)
     log_in_as(user)
     assert_redirected_to root_path
     follow_redirect!
@@ -47,7 +46,7 @@ class TopicDeleteTest < ActionDispatch::IntegrationTest
     assert_flash_notices success: { count: 1 }
   end
 
-  test 'should NOT allow moderator delete admin topic' do
+  test 'should NOT allow moderator delete admin\'s topic' do
     log_in_as(@moderator)
     assert_redirected_to root_path
     follow_redirect!
