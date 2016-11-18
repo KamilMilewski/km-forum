@@ -47,7 +47,7 @@ class CategoryCreateTest < ActionDispatch::IntegrationTest
       }
     end
 
-    # :FIXME assigns should not be used in general but I don't have better idea.
+    # :FIXME assigns should not be used in but I don't have better idea.
     assert_redirected_to category_path(assigns(:category))
     follow_redirect!
     assert_flash_notices success: { count: 1 }
@@ -56,7 +56,7 @@ class CategoryCreateTest < ActionDispatch::IntegrationTest
   test 'should NOT allow to create category with invalid data' do
     log_in_as(@admin)
 
-    # Assure no category has been created.
+    # Assure no category has been created - using invalid data.
     assert_no_difference 'Category.count' do
       post categories_path, params: {
         category: {
