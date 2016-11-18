@@ -80,14 +80,15 @@ class TopicCreateTest < ActionDispatch::IntegrationTest
         }
       }
     end
+
+    assert_access_denied_notice
   end
 
   test 'should NOT allow user disguise as another user during topic creation' do
     log_in_as(@villain)
 
-    # @Villain is trying to disguise himself as another user by appending
+    # @villain is trying to disguise himself as another user by appending
     # user_id = target_user_id to POST parameters.
-    # Assure no topic has been created.
     post category_topics_path(@category), params: {
       topic: {
         title: 'Valid topic title',

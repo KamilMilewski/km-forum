@@ -2,58 +2,100 @@ require 'test_helper'
 
 class PostCreateTest < ActionDispatch::IntegrationTest
   def setup
+    # Every logged in user can create post.
+    @admin = users(:admin)
+    @moderator = users(:moderator)
     @user = users(:user)
-    @post = posts(:first)
+    @accepted_users = [@admin, @moderator, @user]
+
+    # A villain(regular user) who will try to perform action forbidden to him.
+    @villain = users(:user_4)
+
+    # Post will be created in @topic.
     @topic = topics(:first)
+
+    @post = posts(:first)
   end
 
-  test 'valid post creation' do
-    log_in_as(@user)
-    # Get to new category page and assure that correct template is used.
-    get new_topic_post_path @topic
-    assert_response :success
-    assert_template 'posts/new'
-    # Test if create category with valid data vill succeed.
-    assert_difference 'Post.count', 1 do
-      post topic_posts_path(@post), params: { post: {
-        content: 'test description'
-      } }
+  test 'should allow logged in user enter new post page' do
+    @accepted_users.each do |user|
+      log_in_as(user)
+
+      get new_topic_post_path(@topic)
+
+      assert_template 'posts/new'
+      assert_flash_notices
     end
-    assert_response :redirect
-    follow_redirect!
-    assert_template 'topics/show'
-    # Check if success flash massage shows up.
-    assert_flash_notices success: { count: 1 }
   end
 
-  test 'invalid post creation' do
+  test 'should NOT allow not logged in user enter new post page' do
+    get new_topic_post_path(@topic)
+
+    assert_friendly_forwarding_notice
+  end
+
+  test 'should allow logged in user create post' do
+    @accepted_users.each do |user|
+      log_in_as(user)
+
+      # Assure new post has been created.
+      assert_difference 'Post.count', 1 do
+        post topic_posts_path(@topic), params: {
+          post: {
+            content: 'Valid post content'
+          }
+        }
+      end
+
+      assert_redirected_to topic_path(@topic)
+      follow_redirect!
+      assert_flash_notices success: { count: 1 }
+    end
+  end
+
+  test 'should NOT allow create post with invalid data' do
     log_in_as(@user)
-    # Get to new category page and assure that correct template is used.
-    get new_topic_post_path @topic
-    assert_response :success
-    assert_template 'posts/new'
-    # Test if create category with valid data will fail.
+
+    # Assure no post has been created - using invalid data.
     assert_no_difference 'Post.count' do
-      post topic_posts_path(@post), params: { post: {
-        content: "\t",
-        user_id: @user.id
-      } }
+      post topic_posts_path(@topic), params: {
+        post: {
+          content: ''
+        }
+      }
     end
+
     assert_template 'posts/new'
     assert_flash_notices danger: { count: 1 }
   end
 
-  test 'trying to create a post as another user' do
-    log_in_as(@user)
-    # id of the user we want maliciously impersonate during post creation.
-    target_user_id = 6
-    get new_topic_post_path @topic
-    post topic_posts_path(@post), params: { post: {
-      content: 'some content',
-      user_id: target_user_id
-    } }
-    post = assigns(:post)
-    # Assert that newly created post belongs to logged in user.
-    assert_equal post.user_id, @user.id
+  test 'should NOT allow not logged in user create post' do
+    # Assure no post has been created.
+    assert_no_difference 'Post.count' do
+      post topic_posts_path(@topic), params: {
+        post: {
+          content: 'Valid post content'
+        }
+      }
+    end
+
+    assert_access_denied_notice
+  end
+
+  test 'should NOT allow user disguise as another user during post creation' do
+    log_in_as(@villain)
+
+    # @villain is trying to disguise himself as another user by appending
+    # user_id = target_user_id to POST parameters.
+    post topic_posts_path(@topic), params: {
+      post: {
+        content: 'Valid post content',
+        user_id: @user.id
+      }
+    }
+
+    # :FIXME assigns should not be used in but I don't have better idea.
+    # Assert that newly created post belongs to currently logged in user.
+    assert_equal assigns(:post).user_id, @villain.id
   end
 end
