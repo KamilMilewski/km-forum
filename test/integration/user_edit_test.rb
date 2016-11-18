@@ -17,7 +17,7 @@ class UserEditTest < ActionDispatch::IntegrationTest
     @new_name = 'new valid name'
   end
 
-  test 'should allow admin, mod. and profile owner enter user edit page' do
+  test 'should allow admin, mod. and profile owner enter user\'s edit page' do
     # users who can visit edit page: admin, moderator and user who owns profiles
     @accepted_users.each do |user|
       log_in_as(user)
@@ -28,21 +28,21 @@ class UserEditTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should NOT allow moderator enter admin profile edit page' do
+  test 'should NOT allow moderator enter admin\'s profile edit page' do
     log_in_as(@moderator)
 
     get edit_user_path(@admin)
     assert_access_denied_notice
   end
 
-  test 'should NOT allow user enter another user profile edit page' do
+  test 'should NOT allow user enter another user\'s profile edit page' do
     log_in_as(@villain)
 
     get edit_user_path(@user)
     assert_access_denied_notice
   end
 
-  test 'should NOT allow not logged in user enter user profile edit page' do
+  test 'should NOT allow not logged in user enter user\'s profile edit page' do
     get edit_user_path(@user)
     assert_friendly_forwarding_notice
   end
@@ -70,7 +70,7 @@ class UserEditTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should NOT allow to update user profile with invalid data' do
+  test 'should NOT allow to update user\'s profile with invalid data' do
     @accepted_users.each do |user|
       log_in_as(user)
 
@@ -94,7 +94,7 @@ class UserEditTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should NOT allow moderator edit admin profile' do
+  test 'should NOT allow moderator edit admin\'s profile' do
     log_in_as(@moderator)
 
     patch user_path(@admin), params: {
@@ -112,7 +112,7 @@ class UserEditTest < ActionDispatch::IntegrationTest
     assert_access_denied_notice
   end
 
-  test 'should NOT allow user edit another user profile' do
+  test 'should NOT allow user edit another user\'s profile' do
     log_in_as(@villain)
 
     patch user_path(@user), params: {
@@ -130,7 +130,7 @@ class UserEditTest < ActionDispatch::IntegrationTest
     assert_access_denied_notice
   end
 
-  test 'should NOT allow not logged in user edit another user profile' do
+  test 'should NOT allow not logged in user edit another user\'s profile' do
     patch user_path(@user), params: {
       user: {
         email: @new_email,

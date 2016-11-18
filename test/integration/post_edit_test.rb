@@ -12,20 +12,22 @@ class PostEditTest < ActionDispatch::IntegrationTest
     # A villain(regular user) who will try to perform action forbidden to him.
     @villain = users(:user_4)
 
-    # Post created by @user.
-    @post = posts(:third)
     # Topic in which @post is created.
     @topic = topics(:first)
+    # Post created by @user.
+    @post = posts(:third)
+    # Post created by admin.
+    @admins_post = posts(:first)
+
     # New valid value for post content.
     @new_content = 'New valid post content'
   end
 
   test 'should NOT allow moderator enter admin\'s post edit page' do
-    # :TODO:
-  end
+    log_in_as(@moderator)
 
-  test 'should NOT allow moderator edit admin\'s post' do
-    # :TODO:
+    get edit_post_path(@admins_post)
+    assert_access_denied_notice
   end
 
   test 'should allow admin, mod. and post owner enter post edit page' do
@@ -70,7 +72,7 @@ class PostEditTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should not allow to update post with invalid data' do
+  test 'should NOT allow to update post with invalid data' do
     # Invalid data for post.
     @new_content = ''
 
@@ -90,6 +92,21 @@ class PostEditTest < ActionDispatch::IntegrationTest
       assert_template 'posts/edit'
       assert_flash_notices danger: { count: 1 }
     end
+  end
+
+  test 'should NOT allow moderator edit admin\'s post' do
+    log_in_as(@moderator)
+
+    patch post_path(@admins_post), params: {
+      post: {
+        content: @new_content
+      }
+    }
+
+    @admins_post.reload
+    assert_not_equal @new_content, @admins_post.content
+
+    assert_access_denied_notice
   end
 
   test 'should NOT allow user edit foreign post' do

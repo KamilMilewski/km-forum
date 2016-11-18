@@ -14,17 +14,19 @@ class TopicEditTest < ActionDispatch::IntegrationTest
 
     # Topic created by @user.
     @topic = topics(:third)
+    # Topic created by @admin.
+    @admins_topic = topics(:first)
+
     # New valid values for topic title and content.
     @new_title = 'New valid topic title'
     @new_content = 'New valid topic content'
   end
 
   test 'should NOT allow moderator enter admin\'s topic edit page' do
-    # :TODO:
-  end
+    log_in_as(@moderator)
 
-  test 'should NOT allow moderator edit admin\'s topic' do
-    # :TODO:
+    get edit_topic_path(@admins_topic)
+    assert_access_denied_notice
   end
 
   test 'should allow admin, mod. and topic owner enter topic edit page' do
@@ -95,6 +97,24 @@ class TopicEditTest < ActionDispatch::IntegrationTest
       assert_template 'topics/edit'
       assert_flash_notices danger: { count: 1 }
     end
+  end
+
+  test 'should NOT allow moderator edit admin\'s topic' do
+    log_in_as(@moderator)
+
+    patch topic_path(@admins_topic), params: {
+      topic: {
+        title: @new_title,
+        content: @new_content
+      }
+    }
+
+    # Assert topic has NOT been updated.
+    @admins_topic.reload
+    assert_not_equal @new_title, @admins_topic.title
+    assert_not_equal @new_content, @admins_topic.content
+
+    assert_access_denied_notice
   end
 
   test 'should NOT allow user edit foreign topic' do

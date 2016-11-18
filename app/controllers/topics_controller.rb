@@ -4,7 +4,7 @@ class TopicsController < ApplicationController
   before_action :find_category, only: [:new, :create]
   before_action :friendly_forwarding, only: [:new, :edit]
   before_action :redirect_if_not_logged_in, only: [:create, :update, :destroy]
-  before_action :redirect_if_not_an_admin, only: [:destroy]
+  before_action :redirect_if_not_an_admin, only: [:edit, :update, :destroy]
   before_action :redirect_if_insufficient_permissions, only: [:edit,
                                                               :update,
                                                               :destroy]
