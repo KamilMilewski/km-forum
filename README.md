@@ -56,7 +56,7 @@ topics as well.
 
 ## User stories
 
-* As a non logged-in user,
+* As an anonymous user,
   * I want to access categories index (root) page.
   * I want to access category show (topics index) page.
   * I want to access topic show (posts index) page.
@@ -83,6 +83,24 @@ topics as well.
   * I want to destroy EVERY category.
   * I want to edit EVERY user account.
   * I want to destroy EVERY user account.
+
+* As an anonymous I'm being redirected to login page (FRIENDLY FORWARDING) when
+  * I try to access user edit page.
+  * I try to access category edit page.
+  * I try to access topic edit page.
+  * I try to access post edit page.
+  * I try to access users index page.
+  * I try to access admin control panel.
+
+* As an anonymous I'm being redirected to main page (ACCESS CONTROL) when
+  * I try to issue UPDATE or DELETE request to User resource.
+  * I try to issue POST, UPDATE or DELETE request to Category resource.
+  * I try to issue POST, UPDATE or DELETE request to Topic resource.
+  * I try to issue POST, UPDATE or DELETE request to Post resource.
+
+* As a logged in user I'm being redirected to main page (ACCESS CONTROL) when
+  i try to perform action that require higher permissions than I have -
+  including GET requests.
 
 ## Data models
 

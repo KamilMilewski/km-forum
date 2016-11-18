@@ -31,8 +31,7 @@ class PostEditTest < ActionDispatch::IntegrationTest
   test 'should allow admin, mod. and post owner enter post edit page' do
     @accepted_users.each do |user|
       log_in_as(user)
-      assert_redirected_to root_path
-      follow_redirect!
+
       get edit_post_path(@post)
       assert_template 'posts/edit'
       assert_flash_notices
@@ -41,8 +40,7 @@ class PostEditTest < ActionDispatch::IntegrationTest
 
   test 'should NOT allow user enter foreign post edit page' do
     log_in_as(@villain)
-    assert_redirected_to root_path
-    follow_redirect!
+
     get edit_post_path(@post)
     assert_access_denied_notice
   end
@@ -55,8 +53,6 @@ class PostEditTest < ActionDispatch::IntegrationTest
   test 'should allow admin, moderator and post owner update post' do
     @accepted_users.each do |user|
       log_in_as(user)
-      assert_redirected_to root_path
-      follow_redirect!
 
       patch post_path(@post), params: {
         post: {
@@ -80,8 +76,6 @@ class PostEditTest < ActionDispatch::IntegrationTest
 
     @accepted_users.each do |user|
       log_in_as(user)
-      assert_redirected_to root_path
-      follow_redirect!
 
       patch post_path(@post), params: {
         post: {
@@ -100,8 +94,6 @@ class PostEditTest < ActionDispatch::IntegrationTest
 
   test 'should NOT allow user edit foreign post' do
     log_in_as(@villain)
-    assert_redirected_to root_path
-    follow_redirect!
 
     # @post dosen't belong to @villain
     patch post_path(@post), params: {

@@ -43,11 +43,15 @@ module ActionDispatch
       end
 
       # Finally try to log in given user.
-      post login_path, params: { session: {
-        email: user.email,
-        password: password,
-        remember_me_checkbox: remember_me_checkbox
-      } }
+      post login_path, params: {
+        session: {
+          email: user.email,
+          password: password,
+          remember_me_checkbox: remember_me_checkbox
+        }
+      }
+
+      follow_redirect! if logged_in?
     end
 
     def assert_access_denied_notice

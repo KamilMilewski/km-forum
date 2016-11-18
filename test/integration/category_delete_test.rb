@@ -13,8 +13,6 @@ class CategoryDeleteTest < ActionDispatch::IntegrationTest
 
   test 'should allow admin delete category' do
     log_in_as(@admin)
-    assert_redirected_to root_path
-    follow_redirect!
 
     # Assert exactly one category has been deleted.
     assert_difference 'Category.count', -1 do
@@ -29,8 +27,6 @@ class CategoryDeleteTest < ActionDispatch::IntegrationTest
   test 'should NOT allow non admin users delete category' do
     # Log in as non admin user. He shouldn't be able to delete categories.
     log_in_as(@villain)
-    assert_redirected_to root_path
-    follow_redirect!
 
     assert_no_difference 'Category.count' do
       delete category_path(@category)
@@ -40,8 +36,6 @@ class CategoryDeleteTest < ActionDispatch::IntegrationTest
   end
 
   test 'should NOT allow non logged in user delete category' do
-    get root_path
-
     assert_no_difference 'Category.count' do
       delete category_path(@category)
     end

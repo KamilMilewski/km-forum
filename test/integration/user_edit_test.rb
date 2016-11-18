@@ -21,8 +21,6 @@ class UserEditTest < ActionDispatch::IntegrationTest
     # users who can visit edit page: admin, moderator and user who owns profiles
     @accepted_users.each do |user|
       log_in_as(user)
-      assert_redirected_to root_path
-      follow_redirect!
 
       get edit_user_path(@user)
       assert_template 'users/edit'
@@ -32,8 +30,6 @@ class UserEditTest < ActionDispatch::IntegrationTest
 
   test 'should NOT allow moderator enter admin profile edit page' do
     log_in_as(@moderator)
-    assert_redirected_to root_path
-    follow_redirect!
 
     get edit_user_path(@admin)
     assert_access_denied_notice
@@ -41,8 +37,6 @@ class UserEditTest < ActionDispatch::IntegrationTest
 
   test 'should NOT allow user enter another user profile edit page' do
     log_in_as(@villain)
-    assert_redirected_to root_path
-    follow_redirect!
 
     get edit_user_path(@user)
     assert_access_denied_notice
@@ -56,8 +50,6 @@ class UserEditTest < ActionDispatch::IntegrationTest
   test 'should allow admin, moderator and profile owner update user' do
     @accepted_users.each do |user|
       log_in_as(user)
-      assert_redirected_to root_path
-      follow_redirect!
 
       patch user_path(@user), params: {
         user: {
@@ -81,8 +73,6 @@ class UserEditTest < ActionDispatch::IntegrationTest
   test 'should NOT allow to update user profile with invalid data' do
     @accepted_users.each do |user|
       log_in_as(user)
-      assert_redirected_to root_path
-      follow_redirect!
 
       @new_email = 'new invalid email @ :*'
       @new_name = ''
@@ -106,8 +96,6 @@ class UserEditTest < ActionDispatch::IntegrationTest
 
   test 'should NOT allow moderator edit admin profile' do
     log_in_as(@moderator)
-    assert_redirected_to root_path
-    follow_redirect!
 
     patch user_path(@admin), params: {
       user: {
@@ -126,8 +114,6 @@ class UserEditTest < ActionDispatch::IntegrationTest
 
   test 'should NOT allow user edit another user profile' do
     log_in_as(@villain)
-    assert_redirected_to root_path
-    follow_redirect!
 
     patch user_path(@user), params: {
       user: {

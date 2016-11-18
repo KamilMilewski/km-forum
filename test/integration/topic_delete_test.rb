@@ -33,8 +33,6 @@ class TopicDeleteTest < ActionDispatch::IntegrationTest
   # Helper method applicable to successfull topic delete tests.
   def delete_topic_by(user)
     log_in_as(user)
-    assert_redirected_to root_path
-    follow_redirect!
 
     # Assert exactly one topic has been deleted.
     assert_difference 'Topic.count', -1 do
@@ -48,8 +46,6 @@ class TopicDeleteTest < ActionDispatch::IntegrationTest
 
   test 'should NOT allow moderator delete admin\'s topic' do
     log_in_as(@moderator)
-    assert_redirected_to root_path
-    follow_redirect!
 
     # Assert no topics has been deleted.
     assert_no_difference 'Topic.count' do
@@ -61,8 +57,6 @@ class TopicDeleteTest < ActionDispatch::IntegrationTest
 
   test 'should NOT allow user delete foreign topic' do
     log_in_as(@villain)
-    assert_redirected_to root_path
-    follow_redirect!
 
     # Assert no topics has been deleted.
     assert_no_difference 'Topic.count' do

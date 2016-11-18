@@ -34,8 +34,6 @@ class PostDeleteTest < ActionDispatch::IntegrationTest
   # Helper method applicable to successfull post delete tests.
   def delete_post_by(user)
     log_in_as(user)
-    assert_redirected_to root_path
-    follow_redirect!
 
     # Assert exactly one post has been deleted.
     assert_difference 'Post.count', -1 do
@@ -49,8 +47,6 @@ class PostDeleteTest < ActionDispatch::IntegrationTest
 
   test 'should NOT allow moderator delete admin\' post' do
     log_in_as(@moderator)
-    assert_redirected_to root_path
-    follow_redirect!
 
     # Assert no post has been deleted.
     assert_no_difference 'Post.count' do
@@ -62,8 +58,6 @@ class PostDeleteTest < ActionDispatch::IntegrationTest
 
   test 'should NOT allow user delete foreign post' do
     log_in_as(@villain)
-    assert_redirected_to root_path
-    follow_redirect!
 
     assert_no_difference 'Post.count' do
       delete post_path(@post)

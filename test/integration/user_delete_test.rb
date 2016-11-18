@@ -27,8 +27,6 @@ class UserDeleteTest < ActionDispatch::IntegrationTest
   # Helper method applicable to successfull user delete tests.
   def delete_user_by(user)
     log_in_as(user)
-    assert_redirected_to root_path
-    follow_redirect!
 
     # Assert exactly one user has been deleted.
     assert_difference 'User.count', -1 do
@@ -42,8 +40,6 @@ class UserDeleteTest < ActionDispatch::IntegrationTest
 
   test 'should NOT allow moderator delete admin\'s account' do
     log_in_as(@moderator)
-    assert_redirected_to root_path
-    follow_redirect!
 
     # Assert no users has been deleted.
     assert_no_difference 'User.count' do
@@ -55,8 +51,6 @@ class UserDeleteTest < ActionDispatch::IntegrationTest
 
   test 'should NOT allow user delete another user' do
     log_in_as(@villain)
-    assert_redirected_to root_path
-    follow_redirect!
 
     # Assert no users has been deleted.
     assert_no_difference 'User.count' do

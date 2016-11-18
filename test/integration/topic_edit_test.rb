@@ -31,8 +31,6 @@ class TopicEditTest < ActionDispatch::IntegrationTest
     # users who can visit edit page: admin, moderator and user who owns @topic
     @accepted_users.each do |user|
       log_in_as(user)
-      assert_redirected_to root_path
-      follow_redirect!
 
       get edit_topic_path(@topic)
       assert_template 'topics/edit'
@@ -42,8 +40,6 @@ class TopicEditTest < ActionDispatch::IntegrationTest
 
   test 'should NOT allow user enter foreign topic edit page' do
     log_in_as(@villain)
-    assert_redirected_to root_path
-    follow_redirect!
 
     get edit_topic_path(@topic)
     assert_access_denied_notice
@@ -57,8 +53,6 @@ class TopicEditTest < ActionDispatch::IntegrationTest
   test 'should allow admin, moderator and topic owner update topic' do
     @accepted_users.each do |user|
       log_in_as(user)
-      assert_redirected_to root_path
-      follow_redirect!
 
       patch topic_path(@topic), params: {
         topic: {
@@ -85,8 +79,6 @@ class TopicEditTest < ActionDispatch::IntegrationTest
 
     @accepted_users.each do |user|
       log_in_as(user)
-      assert_redirected_to root_path
-      follow_redirect!
 
       patch topic_path(@topic), params: {
         topic: {
@@ -107,8 +99,6 @@ class TopicEditTest < ActionDispatch::IntegrationTest
 
   test 'should NOT allow user edit foreign topic' do
     log_in_as(@villain)
-    assert_redirected_to root_path
-    follow_redirect!
 
     # @topic dosen't belong to @villain
     patch topic_path(@topic), params: {

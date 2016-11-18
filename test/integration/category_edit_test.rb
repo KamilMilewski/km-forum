@@ -21,8 +21,7 @@ class CategoryEditTest < ActionDispatch::IntegrationTest
 
   test 'should allow admin to enter category edit page' do
     log_in_as(@admin)
-    assert_redirected_to root_path
-    follow_redirect!
+
     get edit_category_path(@category)
     assert_template 'categories/edit'
     assert_flash_notices
@@ -31,8 +30,7 @@ class CategoryEditTest < ActionDispatch::IntegrationTest
   test 'should NOT allow non admin users enter category edit page' do
     @denied_users.each do |user|
       log_in_as(user)
-      assert_redirected_to root_path
-      follow_redirect!
+
       get edit_category_path(@category)
       assert_access_denied_notice
     end
@@ -45,8 +43,6 @@ class CategoryEditTest < ActionDispatch::IntegrationTest
 
   test 'should allow admin to update category' do
     log_in_as(@admin)
-    assert_redirected_to root_path
-    follow_redirect!
 
     patch category_path(@category), params: {
       category: {
@@ -71,8 +67,6 @@ class CategoryEditTest < ActionDispatch::IntegrationTest
     @new_content = ''
 
     log_in_as(@admin)
-    assert_redirected_to root_path
-    follow_redirect!
 
     patch category_path(@category), params: {
       category: {
@@ -93,8 +87,6 @@ class CategoryEditTest < ActionDispatch::IntegrationTest
   test 'should NOT allow users other than admin update category' do
     @denied_users.each do |user|
       log_in_as(user)
-      assert_redirected_to root_path
-      follow_redirect!
 
       patch category_path(@category), params: {
         category: {
