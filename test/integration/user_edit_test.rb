@@ -2,159 +2,161 @@ require 'test_helper'
 
 class UserEditTest < ActionDispatch::IntegrationTest
   def setup
+    # Admins can edit all users. Moderators can edit all users but admin. users
+    # can edit only their own profiles.
     @admin = users(:admin)
+    @moderator = users(:moderator)
     @user = users(:user)
-    # This user is unfortunate enough to be victim of other's users villanous
-    # deeds.
-    @unfortunate_user = users(:user)
-    # Just regular villain(user) who will try to perform action forbidden to him
+    @accepted_users = [@admin, @moderator, @user]
+
+    # A villain(regular user) who will try to perform action forbidden to him.
     @villain = users(:user_4)
+
+    # New valid values for user account.
+    @new_email = 'new@valid.email'
+    @new_name = 'new valid name'
   end
 
-  test 'successful user edit' do
-    # User has to be logged in before entering edit page.
-    log_in_as(@user)
+  test 'should allow admin, mod. and profile owner to enter user edit page' do
+    # users who can visit edit page: admin, moderator and user who owns profiles
+    @accepted_users.each do |user|
+      log_in_as(user)
+      assert_redirected_to root_path
+      follow_redirect!
 
-    # Get to user edit page.
-    get edit_user_path(@user)
-    assert_template 'users/edit'
+      get edit_user_path(@user)
+      assert_template 'users/edit'
+      assert_flash_notices
+    end
+  end
 
-    # New valid values for user name and email fields.
-    new_user_name = 'new valid user name'
-    new_user_email = 'new_valid@user.email'
-
-    # Request to edit given user record in db.
-    patch user_path(@user), params: {
-      user: {
-        name: new_user_name,
-        email: new_user_email
-      }
-    }
-
-    # Reload user from db. Thanks to this @user object will have updated
-    # attributes after we issued patch request to edit him.
-    @user.reload
-
-    # Assert that @user fields has been correctly updated.
-    assert_equal new_user_name, @user.name
-    assert_equal new_user_email, @user.email
-
-    # Assert redirect to user profile.
-    assert_response :redirect
+  test 'should NOT allow moderator to enter admin profile edit page' do
+    log_in_as(@moderator)
+    assert_redirected_to root_path
     follow_redirect!
-    assert_template 'users/show'
 
-    assert_flash_notices success: { count: 1 }
+    get edit_user_path(@admin)
+    assert_access_denied_notice
   end
 
-  test 'successful another user edit, as an admin' do
-    log_in_as(@admin)
-
-    # Get to user edit page. Admin should be allowed to edit other's users
-    # profiles.
-    get edit_user_path(@user)
-    assert_template 'users/edit'
-
-    # New valid values for user name and email fields.
-    new_user_name = 'new valid user name'
-    new_user_email = 'new_valid@user.email'
-
-    # Request to edit given user record in db.
-    patch user_path(@user), params: {
-      user: {
-        name: new_user_name,
-        email: new_user_email
-      }
-    }
-
-    # Reload user from db. Thanks to this @user object will have updated
-    # attributes after we issued patch request to edit him.
-    @user.reload
-
-    # Assert that @user fields has been correctly updated.
-    assert_equal new_user_name, @user.name
-    assert_equal new_user_email, @user.email
-
-    # Assert redirect to user profile.
-    assert_response :redirect
-    follow_redirect!
-    assert_template 'users/show'
-  end
-
-  test 'unsuccessful user edit' do
-    # User has to be logged in before entering edit page.
-    log_in_as(@user)
-
-    # Get to user edit page.
-    get edit_user_path(@user)
-    assert_template 'users/edit'
-
-    # New valid values for user name and email fields.
-    new_user_name = ''
-    new_user_email = 'new_invalid_user.email'
-
-    # Request to edit given user record in db.
-    patch user_path(@user), params: {
-      user: {
-        name: new_user_name,
-        email: new_user_email
-      }
-    }
-
-    # Assert edit form is rerendered.
-    assert_template 'users/edit'
-    assert_flash_notices danger: { count: 1 }
-
-    # Assert no changes to user has ben made.
-    @user.reload
-    assert_not_equal new_user_name, @user.name
-    assert_not_equal new_user_email, @user.email
-  end
-
-  test 'villanous attempt to edit another user by non admim should fail' do
+  test 'should NOT allow user to enter another user profile edit page' do
     log_in_as(@villain)
-    get users_path
-
-    # Try to get to another user edit page:
-    get edit_user_path(@unfortunate_user)
     assert_redirected_to root_path
+    follow_redirect!
 
-    # New valid values for user name and email fields.
-    new_user_name = 'new valid user name'
-    new_user_email = 'new_valid@user.email'
-
-    # Request to edit given user record in db.
-    patch user_path(@unfortunate_user), params: {
-      user: {
-        name: new_user_name,
-        email: new_user_email
-      }
-    }
-
-    assert_redirected_to root_path
-    # Assert no changes to user has ben made.
-    @unfortunate_user.reload
-    assert_not_equal new_user_name, @unfortunate_user.name
-    assert_not_equal new_user_email, @unfortunate_user.email
+    get edit_user_path(@user)
+    assert_access_denied_notice
   end
 
-  test 'sinister attempt to edit user by non logged in villain' do
-    # New valid values for user name and email fields.
-    new_user_name = 'new valid user name'
-    new_user_email = 'new_valid@user.email'
+  test 'should NOT allow not logged in user to enter user profile edit page' do
+    get edit_user_path(@user)
+    assert_friendly_forwarding_notice
+  end
 
-    # Request to edit given user record in db.
-    patch user_path(@unfortunate_user), params: {
+  test 'should allow admin, moderator and profile owner to update user' do
+    @accepted_users.each do |user|
+      log_in_as(user)
+      assert_redirected_to root_path
+      follow_redirect!
+
+      patch user_path(@user), params: {
+        user: {
+          email: @new_email,
+          name: @new_name
+        }
+      }
+
+      # Assert user profile has been updated.
+      @user.reload
+      assert_equal @new_email, @user.email
+      assert_equal @new_name, @user.name
+
+      assert_redirected_to user_path(@user)
+      follow_redirect!
+      assert_template 'users/show'
+      assert_flash_notices success: { count: 1 }
+    end
+  end
+
+  test 'should NOT allow to update user profile with invalid data' do
+    @accepted_users.each do |user|
+      log_in_as(user)
+      assert_redirected_to root_path
+      follow_redirect!
+
+      @new_email = 'new invalid email @ :*'
+      @new_name = ''
+
+      patch user_path(@user), params: {
+        user: {
+          email: @new_email,
+          name: @new_name
+        }
+      }
+
+      # Assert user profile has not been updated.
+      @user.reload
+      assert_not_equal @new_email, @user.email
+      assert_not_equal @new_name, @user.name
+
+      assert_template 'users/edit'
+      assert_flash_notices danger: { count: 1 }
+    end
+  end
+
+  test 'should NOT allow moderator edit admin profile' do
+    log_in_as(@moderator)
+    assert_redirected_to root_path
+    follow_redirect!
+
+    patch user_path(@admin), params: {
       user: {
-        name: new_user_name,
-        email: new_user_email
+        email: @new_email,
+        name: @new_name
       }
     }
-    assert_redirected_to root_path
 
-    # Assert no changes to user has ben made.
-    @unfortunate_user.reload
-    assert_not_equal new_user_name, @unfortunate_user.name
-    assert_not_equal new_user_email, @unfortunate_user.email
+    # Assert user profile has NOT been updated
+    @admin.reload
+    assert_not_equal @new_email, @admin.email
+    assert_not_equal @new_name, @admin.name
+
+    assert_access_denied_notice
+  end
+
+  test 'should NOT allow user edit another user profile' do
+    log_in_as(@villain)
+    assert_redirected_to root_path
+    follow_redirect!
+
+    patch user_path(@user), params: {
+      user: {
+        email: @new_email,
+        name: @new_name
+      }
+    }
+
+    # Assert user profile has NOT been updated.
+    @user.reload
+    assert_not_equal @new_email, @user.email
+    assert_not_equal @new_name, @user.name
+
+    assert_access_denied_notice
+  end
+
+  test 'should NOT allow not logged in user edit another user profile' do
+    patch user_path(@user), params: {
+      user: {
+        email: @new_email,
+        name: @new_name
+      }
+    }
+
+    # Assert user has NOT been updated.
+    @user.reload
+    assert_not_equal @new_email, @user.email
+    assert_not_equal @new_name, @user.name
+
+    assert_access_denied_notice
   end
 end

@@ -25,6 +25,7 @@ class TopicEditTest < ActionDispatch::IntegrationTest
       log_in_as(user)
       assert_redirected_to root_path
       follow_redirect!
+
       get edit_topic_path(@topic)
       assert_template 'topics/edit'
       assert_flash_notices
@@ -35,6 +36,7 @@ class TopicEditTest < ActionDispatch::IntegrationTest
     log_in_as(@villain)
     assert_redirected_to root_path
     follow_redirect!
+
     get edit_topic_path(@topic)
     assert_access_denied_notice
   end

@@ -3,9 +3,10 @@ class UsersController < ApplicationController
   before_action :find_user, only: [:show, :edit, :update, :destroy]
   before_action :friendly_forwarding, only: [:index, :show, :edit]
   before_action :redirect_if_not_logged_in, only: [:update, :destroy]
-  before_action :redirect_if_not_owner_or_admin, only: [:edit,
-                                                        :update,
-                                                        :destroy]
+  before_action :redirect_if_not_an_admin, only: [:edit, :update, :destroy]
+  before_action :redirect_if_insufficient_permissions, only: [:edit,
+                                                              :update,
+                                                              :destroy]
 
   def index
     # Index only activated users.
@@ -85,8 +86,18 @@ class UsersController < ApplicationController
   end
 
   # Should be used when logged in user don't have rights to perform given action
-  def redirect_if_not_owner_or_admin
-    return if current_user == @user || current_user.admin?
+  def redirect_if_insufficient_permissions
+    return if current_user == @user ||
+              current_user.admin? ||
+              current_user.moderator?
+    flash[:danger] = 'Access denied.'
+    redirect_to root_path
+  end
+
+  # If someone is trying to access admin profile(@user.admin) and himself is
+  # not an admin (!current_user.admin?), he should be redirected.
+  def redirect_if_not_an_admin
+    return unless @user.admin? && !current_user.admin?
     flash[:danger] = 'Access denied.'
     redirect_to root_path
   end
