@@ -19,7 +19,7 @@ class CategoryEditTest < ActionDispatch::IntegrationTest
     @new_description = 'New valid category description'
   end
 
-  test 'should allow admin to enter category edit page' do
+  test 'should allow admin enter category edit page' do
     log_in_as(@admin)
 
     get edit_category_path(@category)
@@ -80,8 +80,8 @@ class CategoryEditTest < ActionDispatch::IntegrationTest
     assert_not_equal @new_title, @category.title
     assert_not_equal @new_description, @category.description
 
-    assert_flash_notices danger: { count: 1 }
     assert_template 'categories/edit'
+    assert_flash_notices danger: { count: 1 }
   end
 
   test 'should NOT allow users other than admin update category' do
@@ -104,7 +104,7 @@ class CategoryEditTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should NOT allow non logged in user update category' do
+  test 'should NOT allow not logged in user update category' do
     patch category_path(@category), params: {
       category: {
         title: @new_title,

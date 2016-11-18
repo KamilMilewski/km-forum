@@ -3,7 +3,11 @@ class CategoriesController < ApplicationController
   before_action :find_category, only: [:show, :edit, :update, :destroy]
   before_action :friendly_forwarding, only: [:new, :edit]
   before_action :redirect_if_not_logged_in, only: [:create, :update, :destroy]
-  before_action :redirect_if_not_an_admin, only: [:edit, :update, :destroy]
+  before_action :redirect_if_not_an_admin, only: [:new,
+                                                  :create,
+                                                  :edit,
+                                                  :update,
+                                                  :destroy]
 
   def index
     @categories = Category.all
