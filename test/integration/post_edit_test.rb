@@ -20,7 +20,15 @@ class PostEditTest < ActionDispatch::IntegrationTest
     @new_content = 'New valid post content'
   end
 
-  test 'should allow admin, mod. and post owner to enter post edit page' do
+  test 'should NOT allow moderator enter admin\'s post edit page' do
+    # :TODO:
+  end
+
+  test 'should NOT allow moderator edit admin\'s post' do
+    # :TODO:
+  end
+
+  test 'should allow admin, mod. and post owner enter post edit page' do
     @accepted_users.each do |user|
       log_in_as(user)
       assert_redirected_to root_path
@@ -31,7 +39,7 @@ class PostEditTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should NOT allow user to enter foreign post edit page' do
+  test 'should NOT allow user enter foreign post edit page' do
     log_in_as(@villain)
     assert_redirected_to root_path
     follow_redirect!
@@ -39,12 +47,12 @@ class PostEditTest < ActionDispatch::IntegrationTest
     assert_access_denied_notice
   end
 
-  test 'should NOT allow not logged in user to enter post edit page' do
+  test 'should NOT allow not logged in user enter post edit page' do
     get edit_post_path(@post)
     assert_friendly_forwarding_notice
   end
 
-  test 'should allow admin, moderator and post owner to update post' do
+  test 'should allow admin, moderator and post owner update post' do
     @accepted_users.each do |user|
       log_in_as(user)
       assert_redirected_to root_path
@@ -109,7 +117,7 @@ class PostEditTest < ActionDispatch::IntegrationTest
     assert_access_denied_notice
   end
 
-  test 'should NOT allow not logged in user to update topic' do
+  test 'should NOT allow not logged in user update topic' do
     patch post_path(@post), params: {
       post: {
         content: @new_content

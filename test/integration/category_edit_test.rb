@@ -28,7 +28,7 @@ class CategoryEditTest < ActionDispatch::IntegrationTest
     assert_flash_notices
   end
 
-  test 'should NOT allow users other than admin to enter category edit page' do
+  test 'should NOT allow non admin users enter category edit page' do
     @denied_users.each do |user|
       log_in_as(user)
       assert_redirected_to root_path
@@ -38,7 +38,7 @@ class CategoryEditTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should NOT allow not logged in user to enter category edit page' do
+  test 'should NOT allow not logged in user enter category edit page' do
     get edit_category_path(@category)
     assert_friendly_forwarding_notice
   end
@@ -90,7 +90,7 @@ class CategoryEditTest < ActionDispatch::IntegrationTest
     assert_template 'categories/edit'
   end
 
-  test 'should NOT allow users other than admin to update category' do
+  test 'should NOT allow users other than admin update category' do
     @denied_users.each do |user|
       log_in_as(user)
       assert_redirected_to root_path
@@ -112,7 +112,7 @@ class CategoryEditTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should NOT allow non logged in user to update category' do
+  test 'should NOT allow non logged in user update category' do
     patch category_path(@category), params: {
       category: {
         title: @new_title,

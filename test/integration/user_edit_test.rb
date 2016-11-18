@@ -17,7 +17,7 @@ class UserEditTest < ActionDispatch::IntegrationTest
     @new_name = 'new valid name'
   end
 
-  test 'should allow admin, mod. and profile owner to enter user edit page' do
+  test 'should allow admin, mod. and profile owner enter user edit page' do
     # users who can visit edit page: admin, moderator and user who owns profiles
     @accepted_users.each do |user|
       log_in_as(user)
@@ -30,7 +30,7 @@ class UserEditTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should NOT allow moderator to enter admin profile edit page' do
+  test 'should NOT allow moderator enter admin profile edit page' do
     log_in_as(@moderator)
     assert_redirected_to root_path
     follow_redirect!
@@ -39,7 +39,7 @@ class UserEditTest < ActionDispatch::IntegrationTest
     assert_access_denied_notice
   end
 
-  test 'should NOT allow user to enter another user profile edit page' do
+  test 'should NOT allow user enter another user profile edit page' do
     log_in_as(@villain)
     assert_redirected_to root_path
     follow_redirect!
@@ -48,12 +48,12 @@ class UserEditTest < ActionDispatch::IntegrationTest
     assert_access_denied_notice
   end
 
-  test 'should NOT allow not logged in user to enter user profile edit page' do
+  test 'should NOT allow not logged in user enter user profile edit page' do
     get edit_user_path(@user)
     assert_friendly_forwarding_notice
   end
 
-  test 'should allow admin, moderator and profile owner to update user' do
+  test 'should allow admin, moderator and profile owner update user' do
     @accepted_users.each do |user|
       log_in_as(user)
       assert_redirected_to root_path

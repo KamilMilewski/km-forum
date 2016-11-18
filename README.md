@@ -71,10 +71,11 @@ topics as well.
   * I want to access users index page.
 
 * As a moderator,
-  * I want to edit EVERY topic.
-  * I want to destroy EVERY topic.
-  * I want to edit EVERY post.
-  * I want to destroy EVERY post.
+  * I want to edit EVERY topic excluded admin's topics.
+  * I want to destroy EVERY topic excluded admin's topics.
+  * I want to edit EVERY post excluded admin's posts.
+  * I want to destroy EVERY post excluded admin's posts.
+  * I want to edit EVERY user account excluded admin's account.
 
 * As an admin,
   * I want to create new category.

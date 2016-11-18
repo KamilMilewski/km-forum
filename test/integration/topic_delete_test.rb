@@ -4,62 +4,81 @@ class TopicDeleteTest < ActionDispatch::IntegrationTest
   def setup
     # Only admin should be able to delete category.
     @admin = users(:admin)
-    # Just regular villain(user) who will try to perform action forbidden to him
-    @villain = users(:user_4)
+    @moderator = users(:moderator)
     @user = users(:user)
+    @accepted_users = [@admin, @moderator, @user]
+
+    # A villain(regular user) who will try to perform action forbidden to him.
+    @villain = users(:user_4)
+
     @category = categories(:first)
-    # @topic belongs to @category, created by user
+    # @topic belongs to @category and is created by @user.
     @topic = topics(:third)
+
+    # @admins_topic belongs to @category and is created by @admin.
+    @admins_topic = topics(:first)
   end
 
-  test 'successful topic delete from topics index page, as an admin' do
-    log_in_as(@admin)
-    get category_path(@category)
+  test 'should allow admin delete topic' do
+    delete_topic_helper(@admin)
+  end
 
+  test 'should allow moderator delete topic' do
+    delete_topic_helper(@moderator)
+  end
+
+  test 'should allow user delete his own topic' do
+    delete_topic_helper(@user)
+  end
+
+  # Helper method applicable to successfull topic delete tests.
+  def delete_topic_helper(user)
+    log_in_as(user)
+    assert_redirected_to root_path
+    follow_redirect!
+
+    # Assert exactly one topic has been deleted.
     assert_difference 'Topic.count', -1 do
       delete topic_path(@topic)
     end
 
-    # Aka topics index
-    assert_redirected_to @category
+    assert_redirected_to category_path(@category)
     follow_redirect!
     assert_flash_notices success: { count: 1 }
   end
 
-  test 'user should be able to delete his topic' do
-    log_in_as(@user)
-    get category_path(@category)
+  test 'should NOT allow moderator delete admin topic' do
+    log_in_as(@moderator)
+    assert_redirected_to root_path
+    follow_redirect!
 
-    assert_difference 'Topic.count', -1 do
-      delete topic_path(@topic)
+    # Assert no topics has been deleted.
+    assert_no_difference 'Topic.count' do
+      delete topic_path(@admins_topic)
     end
 
-    # Aka topics index
-    assert_redirected_to @category
-    follow_redirect!
-    assert_flash_notices success: { count: 1 }
+    assert_access_denied_notice
   end
 
-  # :FIXME: FOR GODS SAKE !!!
-  test 'villanous attempt to delete topic by non admin user who do not own' \
-       ' given topic should fail' do
-    # Log in as non admin user.
+  test 'should NOT allow user delete foreign topic' do
     log_in_as(@villain)
-    get category_path(@category)
+    assert_redirected_to root_path
+    follow_redirect!
 
+    # Assert no topics has been deleted.
     assert_no_difference 'Topic.count' do
       delete topic_path(@topic)
     end
-    assert_redirected_to root_path
+
+    assert_access_denied_notice
   end
 
-  test 'villanous attempt to delete topic by non logged in user should' \
-       'fail' do
-    get category_path(@category)
-
+  test 'should NOT allow not logged in user delete topic' do
+    # Assert no topics has been deleted.
     assert_no_difference 'Topic.count' do
       delete topic_path(@topic)
     end
-    assert_redirected_to root_path
+
+    assert_access_denied_notice
   end
 end

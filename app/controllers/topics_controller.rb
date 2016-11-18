@@ -4,6 +4,7 @@ class TopicsController < ApplicationController
   before_action :find_category, only: [:new, :create]
   before_action :friendly_forwarding, only: [:new, :edit]
   before_action :redirect_if_not_logged_in, only: [:create, :update, :destroy]
+  before_action :redirect_if_not_an_admin, only: [:destroy]
   before_action :redirect_if_insufficient_permissions, only: [:edit,
                                                               :update,
                                                               :destroy]
@@ -78,6 +79,12 @@ class TopicsController < ApplicationController
     return if @topic.user_id == current_user.id ||
               current_user.admin? ||
               current_user.moderator?
+    flash[:danger] = 'Access denied.'
+    redirect_to root_path
+  end
+
+  def redirect_if_not_an_admin
+    return unless @topic.user.admin? && !current_user.admin?
     flash[:danger] = 'Access denied.'
     redirect_to root_path
   end
