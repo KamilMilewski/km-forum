@@ -81,6 +81,8 @@ class CategoryEditTest < ActionDispatch::IntegrationTest
     assert_not_equal @new_description, @category.description
 
     assert_template 'categories/edit'
+    # Check if there are form fileds with errors.
+    assert_select 'div.field_with_errors'
     assert_flash_notices danger: { count: 1 }
   end
 

@@ -67,6 +67,8 @@ class CategoryCreateTest < ActionDispatch::IntegrationTest
     end
 
     assert_template 'categories/new'
+    # Check if there are form fileds with errors.
+    assert_select 'div.field_with_errors'
     assert_flash_notices danger: { count: 1 }
   end
 
