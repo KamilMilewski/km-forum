@@ -13,7 +13,10 @@
 			</a>
 
 			<% if logged_in? &&
-						( current_user.admin? || current_user.owner_of(topic) )
+						( current_user.admin? ||
+						# Moderators can edit and delete all topics excluded admin's topics.
+						 (current_user.moderator? && !topic.user.admin?) ||
+						  current_user.owner_of(topic) )
 						%>
 				<div class="edit-delete-btns">
 					<%= link_to "Edit",
