@@ -7,14 +7,17 @@
 	</div>
 
 	<div class="media-body bg-warning">
-		<h4 class="media-heading">
+		<h4 class="media-heading" id="topic-title">
 			<strong>Topic title:</strong> <%= @topic.title %>
 		</h4>
-		<p><%= @topic.content %></p>
+		<p id="topic-content"><%= @topic.content %></p>
 	</div>
 
 	<% if logged_in? &&
-				( current_user.admin? || current_user.owner_of(@topic) )
+				( current_user.admin? ||
+				# Moderators can edit and delete all topics excluded admin's topics.
+				 (current_user.moderator? && !@topic.user.admin?) ||
+					current_user.owner_of(@topic) )
 				%>
 	  <div class="pull-right">
 	    <%= link_to "Edit",

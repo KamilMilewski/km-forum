@@ -8,7 +8,7 @@
   <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
 <hr>
 
-<%= render 'topic' %>
+<%= if params[:page] == nil || params[:page] == 1 then render 'topic' end %>
 
 <%= render 'posts' %>
 

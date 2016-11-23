@@ -7,11 +7,14 @@
 			</a>
 		</div>
 		<div class="media-body">
-			<p><%= post.content %></p>
+			<p class="post-content"><%= post.content %></p>
 		</div>
 
 		<% if logged_in? &&
-					( current_user.admin? || current_user.owner_of(post) )
+					( current_user.admin? ||
+					# Moderators can edit and delete all posts excluded admin's posts.
+					 (current_user.moderator? && !post.user.admin?) ||
+						current_user.owner_of(post) )
 					%>
 	    <div class="edit-delete-btns">
 	  		<%= link_to "Edit",

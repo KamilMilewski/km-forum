@@ -16,7 +16,7 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
   test 'should access topics index page, as an admin' do
     log_in_as(@admin)
     get category_path(@category)
-    # topics index is actually category show.
+    # Topics index is actually category show.
     assert_template 'categories/show'
     # Assert there are two will_paginate controls on the page.
     assert_select 'ul.pagination', count: 2
@@ -24,7 +24,7 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     # Assert there is link to show, edit & delete actions for each topic. Admin
     # should be able to edit and delete every topic.
     @category.topics.paginate(page: 1, per_page: @per_page).each do |topic|
-      # There are two links that match topic_path(topic). One for show actions
+      # There are two links that match topic_path(topic). One for show action
       # and one for delete.
       assert_select 'a[href=?]', topic_path(topic), count: 2
       # Make sure that amongs those two one is for delete action.
@@ -33,10 +33,10 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should access topics index page, as an moderator' do
+  test 'should access topics index page, as a moderator' do
     log_in_as(@moderator)
     get category_path(@category)
-    # topics index is actually category show.
+    # Topics index is actually category show.
     assert_template 'categories/show'
     # Assert there are two will_paginate controls on the page.
     assert_select 'ul.pagination', count: 2
@@ -62,10 +62,10 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should access topics index page, as an user' do
+  test 'should access topics index page, as a user' do
     log_in_as(@user)
     get category_path(@category)
-    # topics index is actually category show.
+    # Topics index is actually category show.
     assert_template 'categories/show'
     # Assert there are two will_paginate controls on the page.
     assert_select 'ul.pagination', count: 2
@@ -91,9 +91,9 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should access topics index page, as an not logged in user' do
+  test 'should access topics index page, as a not logged in user' do
     get category_path(@category)
-    # topics index is actually category show.
+    # Topics index is actually category show.
     assert_template 'categories/show'
     # Assert there are two will_paginate controls on the page.
     assert_select 'ul.pagination', count: 2
