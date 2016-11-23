@@ -130,8 +130,9 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
     assert_topic_buttons(0, @anothers_user_topic)
   end
 
-  # helper methods speciffic only to this file:
+  # Helper methods speciffic only to this file:
 
+  # No mather what this layout should apply.
   def assert_basic_layout
     get topic_path(@topic)
     # Posts index is actually topic show.
