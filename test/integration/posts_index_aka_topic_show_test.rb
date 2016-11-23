@@ -29,7 +29,7 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
 
     @topic.posts.paginate(page: 1, per_page: @per_page).each do |post|
       # Assert there is post content for each post.
-      assert_select 'p', class: 'post-content', text: /#{post.content}/
+      assert_post_body(post)
       # Assert there is link to edit & delete actions for each post. Admin
       # should be able to edit and delete every post.
       assert_edit_delete_links_for(post, links_count: 1)
@@ -49,7 +49,7 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
 
     @topic.posts.paginate(page: 1, per_page: @per_page).each do |post|
       # Assert there is post content for each post.
-      assert_select 'p', class: 'post-content', text: /#{post.content}/
+      assert_post_body(post)
       # Assert there is link to edit & delete actions for each post excluded
       # admin's posts. In first 10 fixtures only first post belongs to @admin.
       assert_edit_delete_links_for(post, links_count: post.user.admin? ? 0 : 1)
@@ -71,7 +71,7 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
     # In first 10 fixtures only third post belongs to @user.
     @topic.posts.paginate(page: 1, per_page: @per_page).each do |post|
       # Assert there is post content for each post.
-      assert_select 'p', class: 'post-content', text: /#{post.content}/
+      assert_post_body(post)
       # Assert there is link to edit & delete actions for @user's posts. In
       # first 10 fixtures only third post belongs to @user.
       assert_edit_delete_links_for(post,
@@ -90,7 +90,7 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
 
     @topic.posts.paginate(page: 1, per_page: @per_page).each do |post|
       # Assert there is post content for each post.
-      assert_select 'p', class: 'post-content', text: /#{post.content}/
+      assert_post_body(post)
       # Assert there is no link to edit & delete post action for not logged in
       # user.
       assert_edit_delete_links_for(post, links_count: 0)
@@ -110,7 +110,7 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
     assert_topic_body(0)
     # Assert there is post content for each post.
     @topic.posts.paginate(page: 3, per_page: @per_page).each do |post|
-      assert_select 'p', class: 'post-content', text: /#{post.content}/
+      assert_post_body(post)
     end
   end
 
@@ -151,5 +151,14 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
                         count: count
     assert_select 'p', id: 'topic-content', text: /#{@topic.content}/,
                        count: count
+  end
+
+  def assert_topic_body_for(topic)
+    # :TODO
+  end
+
+  # Assert if there is post content.
+  def assert_post_body(post)
+    assert_select 'p', class: 'post-content', text: /#{post.content}/
   end
 end

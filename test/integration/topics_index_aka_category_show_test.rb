@@ -24,7 +24,6 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
       # There are two links that match topic_path(topic). One for show action
       # and one for delete.
       assert_select 'a[href=?]', topic_path(topic), count: 2
-      # Make sure that amongs those two one is for delete action.
       assert_edit_delete_links_for(topic, links_count: 1)
     end
   end
@@ -45,7 +44,6 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
       else
         # Moderator can edit and delete all other topics:
         assert_select 'a[href=?]', topic_path(topic), count: 2
-        # Make sure that amongs those two one is for delete action.
         assert_edit_delete_links_for(topic, links_count: 1)
       end
     end
@@ -67,7 +65,6 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
       else
         # Users can also edit and delete their own topics:
         assert_select 'a[href=?]', topic_path(topic), count: 2
-        # Make sure that amongs those two one is for delete action.
         assert_edit_delete_links_for(topic, links_count: 1)
       end
     end
@@ -86,7 +83,7 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     end
   end
 
-  # Helper methods speciffic only to this  file:
+  # Helper methods speciffic only to this file:
 
   # No matter what this layout should apply.
   def assert_basic_layout
