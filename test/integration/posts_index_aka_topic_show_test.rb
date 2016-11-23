@@ -25,14 +25,14 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
     assert_topic_body(1)
 
     # Assert there is link to edit & delete action for topic.
-    assert_topic_buttons(1, @topic)
+    assert_edit_delete_links_for(@topic, links_count: 1)
 
     @topic.posts.paginate(page: 1, per_page: @per_page).each do |post|
       # Assert there is post content for each post.
       assert_select 'p', class: 'post-content', text: /#{post.content}/
       # Assert there is link to edit & delete actions for each post. Admin
       # should be able to edit and delete every post.
-      assert_post_buttons(1, post)
+      assert_edit_delete_links_for(post, links_count: 1)
     end
   end
 
@@ -45,14 +45,14 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
 
     # @topic belongs to @admin. Assert there is no link to edit & delete action
     # for @topic since moderator should not see them for admin's topic.
-    assert_topic_buttons(0, @topic)
+    assert_edit_delete_links_for(@topic, links_count: 0)
 
     @topic.posts.paginate(page: 1, per_page: @per_page).each do |post|
       # Assert there is post content for each post.
       assert_select 'p', class: 'post-content', text: /#{post.content}/
       # Assert there is link to edit & delete actions for each post excluded
       # admin's posts. In first 10 fixtures only first post belongs to @admin.
-      assert_post_buttons(post.user.admin? ? 0 : 1, post)
+      assert_edit_delete_links_for(post, links_count: post.user.admin? ? 0 : 1)
     end
   end
 
@@ -65,7 +65,8 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
 
     # @topic belongs to @admin. Assert there is no link to edit & delete action
     # for @topic since regular user should not see them for foreign topic.
-    assert_topic_buttons(0, @topic)
+    assert_edit_delete_links_for(@topic, links_count: 0)
+
     # Assert there are post edit & delete links only for posts given user owns.
     # In first 10 fixtures only third post belongs to @user.
     @topic.posts.paginate(page: 1, per_page: @per_page).each do |post|
@@ -73,7 +74,8 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
       assert_select 'p', class: 'post-content', text: /#{post.content}/
       # Assert there is link to edit & delete actions for @user's posts. In
       # first 10 fixtures only third post belongs to @user.
-      assert_post_buttons(@user.owner_of(post) ? 1 : 0, post)
+      assert_edit_delete_links_for(post,
+                                   links_count: @user.owner_of(post) ? 1 : 0)
     end
   end
 
@@ -84,14 +86,14 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
 
     # Assert there is no link to edit & delete topic action for not logged in
     # user.
-    assert_topic_buttons(0, @topic)
+    assert_edit_delete_links_for(@topic, links_count: 0)
 
     @topic.posts.paginate(page: 1, per_page: @per_page).each do |post|
       # Assert there is post content for each post.
       assert_select 'p', class: 'post-content', text: /#{post.content}/
       # Assert there is no link to edit & delete post action for not logged in
       # user.
-      assert_post_buttons(0, post)
+      assert_edit_delete_links_for(post, links_count: 0)
     end
   end
 
@@ -115,19 +117,19 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
   test 'should allow user edit & delete his own topic' do
     log_in_as(@user)
     get topic_path(@users_topic)
-    assert_topic_buttons(1, @users_topic)
+    assert_edit_delete_links_for(@users_topic, links_count: 1)
   end
 
   test 'should allow moderator edit & delete user\'s topic' do
     log_in_as(@moderator)
     get topic_path(@users_topic)
-    assert_topic_buttons(1, @users_topic)
+    assert_edit_delete_links_for(@users_topic, links_count: 1)
   end
 
   test 'should NOT allow user edit & delete foreign topic' do
     log_in_as(@user)
     get topic_path(@anothers_user_topic)
-    assert_topic_buttons(0, @anothers_user_topic)
+    assert_edit_delete_links_for(@anothers_user_topic, links_count: 0)
   end
 
   # Helper methods speciffic only to this file:
@@ -149,18 +151,5 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
                         count: count
     assert_select 'p', id: 'topic-content', text: /#{@topic.content}/,
                        count: count
-  end
-
-  # Assert if there are edit & delete topic buttons.
-  def assert_topic_buttons(count, topic)
-    assert_select 'a[data-method=delete][href=?]', topic_path(topic),
-                  count: count
-    assert_select 'a[href=?]', edit_topic_path(topic), count: count
-  end
-
-  # Assert if there are edit & delete post buttons.
-  def assert_post_buttons(count, post)
-    assert_select '[data-method=delete][href=?]', post_path(post), count: count
-    assert_select 'a[href=?]', edit_post_path(post), count: count
   end
 end

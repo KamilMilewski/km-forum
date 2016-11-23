@@ -25,7 +25,7 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
       # and one for delete.
       assert_select 'a[href=?]', topic_path(topic), count: 2
       # Make sure that amongs those two one is for delete action.
-      assert_topic_buttons(1, topic)
+      assert_edit_delete_links_for(topic, links_count: 1)
     end
   end
 
@@ -41,12 +41,12 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
       if topic.user.admin?
         # Moderator can only access show action of admin's topics:
         assert_select 'a[href=?]', topic_path(topic), count: 1
-        assert_topic_buttons(0, topic)
+        assert_edit_delete_links_for(topic, links_count: 0)
       else
         # Moderator can edit and delete all other topics:
         assert_select 'a[href=?]', topic_path(topic), count: 2
         # Make sure that amongs those two one is for delete action.
-        assert_topic_buttons(1, topic)
+        assert_edit_delete_links_for(topic, links_count: 1)
       end
     end
   end
@@ -63,12 +63,12 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
       if !@user.owner_of(topic)
         # Users can only access show action of foreign topics:
         assert_select 'a[href=?]', topic_path(topic), count: 1
-        assert_topic_buttons(0, topic)
+        assert_edit_delete_links_for(topic, links_count: 0)
       else
         # Users can also edit and delete their own topics:
         assert_select 'a[href=?]', topic_path(topic), count: 2
         # Make sure that amongs those two one is for delete action.
-        assert_topic_buttons(1, topic)
+        assert_edit_delete_links_for(topic, links_count: 1)
       end
     end
   end
@@ -82,7 +82,7 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     # cant't edit or delete topics.
     @category.topics.paginate(page: 1, per_page: @per_page).each do |topic|
       assert_select 'a[href=?]', topic_path(topic), count: 1
-      assert_topic_buttons(0, topic)
+      assert_edit_delete_links_for(topic, links_count: 0)
     end
   end
 
@@ -97,13 +97,5 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     assert_select 'ul.pagination', count: 2
     # Assert there is no flash messages.
     assert_flash_notices
-  end
-
-  # Assert if there are edit & delete topic buttons.
-  # Assert if there are edit & delete topic buttons.
-  def assert_topic_buttons(count, topic)
-    assert_select 'a[data-method=delete][href=?]', topic_path(topic),
-                  count: count
-    assert_select 'a[href=?]', edit_topic_path(topic), count: count
   end
 end

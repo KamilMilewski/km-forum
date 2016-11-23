@@ -82,5 +82,28 @@ module ActionDispatch
       assert_select 'div.alert-warning',  count: warning[:count],
                                           text: /#{warning[:text]}/
     end
+
+    # Checks if there are buttons on a page for given resource, for example: for
+    # topic assert_edit_delete_btns_for(@topic, btns_count: 0). If invoked
+    # without parameters then method checks if there are NO edit/delete buttons
+    # at all for given resource.
+    def assert_edit_delete_links_for(resource, edit_links_count: 0,
+                                               delete_links_count: 0,
+                                               links_count: nil)
+      # If user speciffied common btns_count parameter then method ignores
+      # delete_btn_count and edit_btn_count parameters.
+      if links_count != nil
+        edit_links_count = links_count
+        delete_links_count = links_count
+      end
+
+      resource_type = resource.class.to_s.downcase
+      assert_select 'a[data-method=delete][href=?]',
+                    send("#{resource_type}_path", resource),
+                    count: edit_links_count
+      assert_select 'a[href=?]',
+                    send("edit_#{resource_type}_path", resource),
+                    count: delete_links_count
+    end
   end
 end
