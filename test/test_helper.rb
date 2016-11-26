@@ -88,11 +88,11 @@ module ActionDispatch
     # without parameters then method checks if there are NO edit/delete buttons
     # at all for given resource.
     def assert_edit_delete_links_for(resource, edit_links_count: 0,
-                                               delete_links_count: 0,
-                                               links_count: nil)
+                                     delete_links_count: 0,
+                                     links_count: nil)
       # If user speciffied common btns_count parameter then method ignores
       # delete_btn_count and edit_btn_count parameters.
-      if links_count != nil
+      unless links_count.nil?
         edit_links_count = links_count
         delete_links_count = links_count
       end

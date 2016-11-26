@@ -22,14 +22,14 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
 
     assert_basic_layout
 
-    assert_topic_body(1)
+    assert_topic_body_for(@topic)
 
     # Assert there is link to edit & delete action for topic.
     assert_edit_delete_links_for(@topic, links_count: 1)
 
     @topic.posts.paginate(page: 1, per_page: @per_page).each do |post|
       # Assert there is post content for each post.
-      assert_post_body(post)
+      assert_post_body_for(post)
       # Assert there is link to edit & delete actions for each post. Admin
       # should be able to edit and delete every post.
       assert_edit_delete_links_for(post, links_count: 1)
@@ -41,7 +41,7 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
 
     assert_basic_layout
 
-    assert_topic_body(1)
+    assert_topic_body_for(@topic)
 
     # @topic belongs to @admin. Assert there is no link to edit & delete action
     # for @topic since moderator should not see them for admin's topic.
@@ -49,7 +49,7 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
 
     @topic.posts.paginate(page: 1, per_page: @per_page).each do |post|
       # Assert there is post content for each post.
-      assert_post_body(post)
+      assert_post_body_for(post)
       # Assert there is link to edit & delete actions for each post excluded
       # admin's posts. In first 10 fixtures only first post belongs to @admin.
       assert_edit_delete_links_for(post, links_count: post.user.admin? ? 0 : 1)
@@ -61,7 +61,7 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
 
     assert_basic_layout
 
-    assert_topic_body(1)
+    assert_topic_body_for(@topic)
 
     # @topic belongs to @admin. Assert there is no link to edit & delete action
     # for @topic since regular user should not see them for foreign topic.
@@ -71,7 +71,7 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
     # In first 10 fixtures only third post belongs to @user.
     @topic.posts.paginate(page: 1, per_page: @per_page).each do |post|
       # Assert there is post content for each post.
-      assert_post_body(post)
+      assert_post_body_for(post)
       # Assert there is link to edit & delete actions for @user's posts. In
       # first 10 fixtures only third post belongs to @user.
       assert_edit_delete_links_for(post,
@@ -82,7 +82,7 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
   test 'shoudl access posts index page 1, as a not logged in user' do
     assert_basic_layout
 
-    assert_topic_body(1)
+    assert_topic_body_for(@topic)
 
     # Assert there is no link to edit & delete topic action for not logged in
     # user.
@@ -90,7 +90,7 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
 
     @topic.posts.paginate(page: 1, per_page: @per_page).each do |post|
       # Assert there is post content for each post.
-      assert_post_body(post)
+      assert_post_body_for(post)
       # Assert there is no link to edit & delete post action for not logged in
       # user.
       assert_edit_delete_links_for(post, links_count: 0)
@@ -104,13 +104,13 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
   test 'topic content should be visible only on page: 1' do
     # Assert there is no topic content on second page:
     get topic_path(@topic), params: { page: 2 }
-    assert_topic_body(0)
+    assert_topic_body_for(@topic, present: false)
     # And on third page...
     get topic_path(@topic), params: { page: 3 }
-    assert_topic_body(0)
+    assert_topic_body_for(@topic, present: false)
     # Assert there is post content for each post.
     @topic.posts.paginate(page: 3, per_page: @per_page).each do |post|
-      assert_post_body(post)
+      assert_post_body_for(post)
     end
   end
 
@@ -145,20 +145,24 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
     assert_flash_notices
   end
 
-  # Assert if there is topic title & content.
-  def assert_topic_body(count)
-    assert_select 'h4', id: 'topic-title', text: /#{@topic.title}/,
-                        count: count
-    assert_select 'p', id: 'topic-content', text: /#{@topic.content}/,
-                       count: count
-  end
-
-  def assert_topic_body_for(topic)
-    # :TODO
+  # Assert if there is topic title and content.
+  def assert_topic_body_for(topic, present: true)
+    if present
+      assert_select 'h4', id: 'topic-title', text: /#{topic.title}/
+      assert_select 'p', id: 'topic-content', text: /#{topic.content}/
+    else
+      assert_select 'h4', id: 'topic-title', text: /#{topic.title}/, count: 0
+      assert_select 'p', id: 'topic-content', text: /#{topic.content}/, count: 0
+    end
   end
 
   # Assert if there is post content.
-  def assert_post_body(post)
-    assert_select 'p', class: 'post-content', text: /#{post.content}/
+  def assert_post_body_for(post, present: true)
+    if present
+      assert_select 'p', class: 'post-content', text: /#{post.content}/
+    else
+      assert_select 'p', class: 'post-content', text: /#{post.content}/,
+                         count: 0
+    end
   end
 end

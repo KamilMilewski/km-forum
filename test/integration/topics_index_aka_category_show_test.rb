@@ -21,6 +21,7 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     # Assert there is link to show, edit & delete actions for each topic. Admin
     # should be able to edit and delete every topic.
     @category.topics.paginate(page: 1, per_page: @per_page).each do |topic|
+      assert_topic_body_for(topic)
       # There are two links that match topic_path(topic). One for show action
       # and one for delete.
       assert_select 'a[href=?]', topic_path(topic), count: 2
@@ -37,6 +38,7 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     # excluded admin's topics. In first 10 fixtures only the first topic
     # belongs to an admin.
     @category.topics.paginate(page: 1, per_page: @per_page).each do |topic|
+      assert_topic_body_for(topic)
       if topic.user.admin?
         # Moderator can only access show action of admin's topics:
         assert_select 'a[href=?]', topic_path(topic), count: 1
@@ -58,6 +60,7 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     # for given user own topics. In first 10 fixtures only third topic belongs
     # to user.
     @category.topics.paginate(page: 1, per_page: @per_page).each do |topic|
+      assert_topic_body_for(topic)
       if !@user.owner_of(topic)
         # Users can only access show action of foreign topics:
         assert_select 'a[href=?]', topic_path(topic), count: 1
@@ -78,6 +81,7 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     # Assert there is link only to show for each topic. Not logged in users
     # cant't edit or delete topics.
     @category.topics.paginate(page: 1, per_page: @per_page).each do |topic|
+      assert_topic_body_for(topic)
       assert_select 'a[href=?]', topic_path(topic), count: 1
       assert_edit_delete_links_for(topic, links_count: 0)
     end
@@ -94,5 +98,15 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     assert_select 'ul.pagination', count: 2
     # Assert there is no flash messages.
     assert_flash_notices
+  end
+
+  def assert_topic_body_for(topic, present: true)
+    if present
+      assert_select 'h4', id: 'topic-title', text: /#{topic.title}/
+      assert_select 'p', id: 'topic-content', text: /#{topic.content}/
+    else
+      assert_select 'h4', id: 'topic-title', text: /#{topic.title}/, count: 0
+      assert_select 'p', id: 'topic-content', text: /#{topic.content}/, count: 0
+    end
   end
 end

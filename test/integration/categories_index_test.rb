@@ -20,9 +20,7 @@ class CategoriesIndexTest < ActionDispatch::IntegrationTest
 
     @categories.each do |category|
       # Assert there is category title and description.
-      assert_select 'h4', class: 'category-title', text: /#{category.title}/
-      assert_select 'p', class: 'category-description',
-                         text: /#{category.description}/
+      assert_category_body_for(category)
       # Assert there is link to show, edit & delete actions for each category.
       # There are two links that match categories_path(category). One for show
       # action and one for delete.
@@ -62,14 +60,26 @@ class CategoriesIndexTest < ActionDispatch::IntegrationTest
   def assert_categories_index_for_non_admin
     @categories.each do |category|
       # Assert there is category title and description.
-      assert_select 'h4', class: 'category-title', text: /#{category.title}/
-      assert_select 'p', class: 'category-description',
-                         text: /#{category.description}/
+      assert_category_body_for(category)
 
       # Assert there is link to show action for each category.
       assert_select 'a[href=?]', category_path(category), count: 1
       # There should be no links to category edit or delete actions.
       assert_edit_delete_links_for(category, links_count: 0)
+    end
+  end
+
+  # Assert there is category title and description.
+  def assert_category_body_for(category, present: true)
+    if present
+      assert_select 'h4', class: 'category-title', text: /#{category.title}/
+      assert_select 'p', class: 'category-description',
+                         text: /#{category.description}/
+    else
+      assert_select 'h4', class: 'category-title', text: /#{category.title}/,
+                          count: 0
+      assert_select 'p', class: 'category-description',
+                         text: /#{category.description}/, count: 0
     end
   end
 end
