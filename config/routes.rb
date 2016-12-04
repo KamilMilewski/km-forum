@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   get 'sessions/new'
-
   get 'sessions/create'
-
   get 'sessions/delete'
 
   root 'categories#index'
@@ -45,4 +43,5 @@ Rails.application.routes.draw do
   # Account activation path - it is used in activation links in emails sent to
   # new users.
   resources :account_activations, only: [:edit]
+  resources :password_resets,     only: [:new, :create, :edit, :update]
 end

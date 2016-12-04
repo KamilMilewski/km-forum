@@ -1,0 +1,24 @@
+<% provide(:title, 'Change password') %>
+
+<h3 class="form-title">Enter your new password.</h3>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <% # params[id] is a reset token %>
+    <%= form_for(@user, url: password_reset_path(params[:id])) do |f| %>
+      <%= f.label :password %>
+      <%= f.password_field :password, class: "form-control" %>
+
+      <br>
+
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, class: "form-control" %>
+
+      <br>
+
+      <%= hidden_field_tag(:email, @user.email) %>
+
+      <%= f.submit :Submit, class: 'btn btn-primary form-control' %>
+    <% end %>
+  </div>
+</div>

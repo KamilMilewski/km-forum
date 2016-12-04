@@ -5,7 +5,7 @@ class User < ApplicationRecord
   # -Save securely hashed password digest to the database.
   # -It adds up a pair of virtual attributes: password and
   # password_confirmation.
-  # -It adds validation if those two are present and match.
+  # -It adds validation if those two are present and does match.
   # -It provides authenticate method that returns user if password is correct
   # and false otherwise.
   has_secure_password
@@ -17,6 +17,7 @@ class User < ApplicationRecord
   # Virtual field connected to remember_token_digest in db.
   attr_accessor :remember_token
   attr_accessor :activation_token
+  attr_accessor :password_reset_token
 
   # Model relations:
   has_many :topics
@@ -81,8 +82,28 @@ class User < ApplicationRecord
     UserMailer.account_activation(self).deliver_now
   end
 
-  # There are two possible attributes for this method: remember & activation.
-  # Both correspond to model virtual fields: rember_token & activation_token.
+  # Sends an password reset email.
+  def send_password_reset_email
+    create_password_reset_digest
+    update_attribute(:sent_reset_at, Time.zone.now)
+    UserMailer.password_reset(self).deliver_now
+  end
+
+  # Checks if password reset request expired.
+  def password_reset_token_expired?
+    sent_reset_at < 1.hour.ago
+  end
+
+  # There are two possible attributes for this method:
+  # -remember
+  # -activation
+  # -password_reset
+  # They correspond to model virtual fields:
+  # -rember_token
+  # -activation_token
+  # -password_reset_token
+  # Also, note that there is similar method 'authenticate' provided by
+  # has_secure_password method intended to confirm if user password is correct.
   def authenticated?(attribute, token)
     digest = send("#{attribute}_token_digest")
     return false if digest.nil?
@@ -123,5 +144,11 @@ class User < ApplicationRecord
   def create_activation_digest
     self.activation_token = User.new_token
     self.activation_token_digest = User.digest(activation_token)
+  end
+
+  def create_password_reset_digest
+    self.password_reset_token = User.new_token
+    update_attribute(:password_reset_token_digest,
+                     User.digest(password_reset_token))
   end
 end

@@ -15,4 +15,7 @@ class UserMailerTest < ActionMailer::TestCase
     # Assure that escaped user email is in an activation link as a parameter.
     assert_match CGI.escape(user.email),        mail.body.encoded
   end
+
+  test 'password reset' do
+  end
 end
