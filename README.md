@@ -69,6 +69,8 @@ topics as well.
   * I want to edit MY OWN post.
   * I want to destroy MY OWN post.
   * I want to access users index page.
+  * I want to reset my password (via email).
+  * I need to activate my account before use (via email).
 
 * As a moderator,
   * I want to edit EVERY topic excluded admin's topics.
@@ -160,6 +162,9 @@ topics as well.
 	* new user (signup page)
 * Sessions
 	* new session (login page)
+* Password resets
+  * enter your email (password resets new)
+  * change your password (password resets edit)
 * Others
 	* contact page
 	* about page

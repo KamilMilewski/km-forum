@@ -17,5 +17,17 @@ class UserMailerTest < ActionMailer::TestCase
   end
 
   test 'password reset' do
+    user = users(:user)
+    # password_reset_token is virtual field,
+    # so we couldn't handle it in fixture file.
+    user.password_reset_token = User.new_token
+    mail = UserMailer.password_reset(user)
+    assert_equal 'KM-Forum password reset', mail.subject
+    assert_equal [user.email],                  mail.to
+    assert_equal ['km.web.smtp@gmail.com'],     mail.from
+    assert_match user.name,                     mail.body.encoded
+    assert_match user.password_reset_token,     mail.body.encoded
+    # Assure that escaped user email is in an activation link as a parameter.
+    assert_match CGI.escape(user.email),        mail.body.encoded
   end
 end
