@@ -1,0 +1,22 @@
+<% # entity is a resource passed to this partial %>
+<% if !entity.nil? && entity.errors.any? %>
+  <div class="alert alert-danger">
+    <%
+      # close button
+      # this is for closing bootstrap error dialog to work correctly.
+      # If 'href' attribute of 'a' tag is just ='#' then upon clicking 'x'
+      # we are issuing get request to /resources. This leads to routing errors
+      # or invoking index action in controller.
+    %>
+    <a href="<%= request.referrer %>" class="close" data-dismis="alert" aria-label="close">
+      &times;</a>
+    <p><strong>
+      <%= pluralize(entity.errors.count, 'error') %> occured:
+    </strong></p>
+    <ul>
+      <% entity.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

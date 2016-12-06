@@ -1,11 +1,11 @@
-<!-- form errors moved to partial shared/notices -->
-
 <% # Since there is a custom path for creating new users (signup_path), %>
 <% # we need to provide proper url key for form_for function. %>
 <% # Without this, after invalid form submission we have 'users/new' in %>
 <% # webbrowser address bar instead of '/signup' %>
 
 <%= form_for @user, url: yield(:form_url) do |f| %>
+
+    <%= render 'shared/form_errors_notices', entity: f.object %>
 
     <%= f.label :name %>
     <%= f.text_field :name,

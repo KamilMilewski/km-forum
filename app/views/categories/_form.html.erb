@@ -3,6 +3,8 @@
   <div class="col-md-8 col-md-offset-2">
 		<%= form_for @category do |f| %>
 
+        <%= render 'shared/form_errors_notices', entity: f.object %>
+
 				<%= f.label :title %>
 				<%= f.text_field :title,
 													class: "form-control",
