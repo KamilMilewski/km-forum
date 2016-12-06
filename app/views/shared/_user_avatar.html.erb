@@ -1,0 +1,7 @@
+<% # user's avatar. Its also a link to his profile. %>
+<%=
+  link_to( image_tag(gravatar_url(object.user), class: 'media-object',
+                                                alt: 'user\'s gravarar'),
+           object.user
+  )
+%>

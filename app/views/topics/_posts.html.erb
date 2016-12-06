@@ -1,10 +1,7 @@
 <% @posts.each do |post| %>
 	<div class="media">
 		<div class="media-left media-top">
-			<a href="#">
-				<img class="media-object" src='<%= image_url 'default_avatar.jpg' %>'
-						alt="default_avatar">
-			</a>
+			<%= render 'shared/user_avatar', object: post %>
 		</div>
 		<div class="media-body">
 			<p class="post-content"><%= post.content %></p>

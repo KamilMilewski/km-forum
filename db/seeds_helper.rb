@@ -43,7 +43,7 @@ module SeedsHelper
       category.topics.create!(
         title: title,
         content: content,
-        user: author
+        user_id: author.id
       )
     end
   end
@@ -71,7 +71,7 @@ module SeedsHelper
         # Create post.
         topic.posts.create!(
           content: content,
-          user: author
+          user_id: author.id
         )
       end
     end
