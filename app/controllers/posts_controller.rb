@@ -35,6 +35,9 @@ class PostsController < ApplicationController
     else
       render 'edit'
     end
+
+    # Delete associated picture.
+    @post.remove_picture! if params[:delete_picture]
   end
 
   def destroy
@@ -46,7 +49,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:content)
+    params.require(:post).permit(:content, :picture)
   end
 
   def find_post

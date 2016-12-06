@@ -1,0 +1,6 @@
+<% # If form action is edit and post has associated picture then display
+   # check box allowing to delete this picture.
+   %>
+<% if action == :edit && !object.picture.nil? %>
+  <%= check_box_tag :delete_picture %> <%= label_tag 'delete picture' %>
+<% end %>

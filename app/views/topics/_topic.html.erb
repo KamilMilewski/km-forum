@@ -11,6 +11,8 @@
 			<strong>Topic title:</strong> <%= @topic.title %>
 		</h4>
 		<p id="topic-content"><%= @topic.content %></p>
+		<% # Display picture if any has been uploaded for this @topic %>
+		<%= image_tag @topic.picture.url if @topic.picture? %>
 	</div>
 
 	<% if logged_in? &&

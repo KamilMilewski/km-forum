@@ -70,6 +70,7 @@ topics as well.
   * I want to destroy MY OWN post.
   * I want to access users index page.
   * I want to reset my password (via email).
+  * I want to upload picture for my post and topic.
   * I need to activate my account before use (via email).
 
 * As a moderator,
@@ -112,10 +113,12 @@ topics as well.
 * Topic
 	* title:string
 	* content:text
+  * picture:string
 	* user_id:integer
 	* category_id:integer
 * Post
 	* content:text
+  * picture:string
 	* user_id:integer
 	* topic_id:integer
 * User

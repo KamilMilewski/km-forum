@@ -16,6 +16,10 @@ gem 'autoprefixer-rails'
 gem 'faker', '1.6.6'
 gem 'will_paginate', '3.1.3'
 gem 'will_paginate-bootstrap', '1.0.1'
+# Image upload...
+gem 'carrierwave', '0.11.2'
+# and image resize
+gem 'mini_magick', '4.5.1'
 
 group :development, :test do
   gem 'byebug', platform: :mri

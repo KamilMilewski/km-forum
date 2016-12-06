@@ -39,6 +39,9 @@ class TopicsController < ApplicationController
     else
       render 'edit'
     end
+
+    # Delete associated picture.
+    @topic.remove_picture! if params[:delete_picture]
   end
 
   def destroy
@@ -50,7 +53,7 @@ class TopicsController < ApplicationController
   private
 
   def topic_params
-    params.require(:topic).permit(:title, :content, :user_id)
+    params.require(:topic).permit(:title, :content, :picture, :user_id)
   end
 
   def find_topic

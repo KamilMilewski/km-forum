@@ -1,4 +1,4 @@
-ActiveRecord::Schema.define(version: 20_161_202_155_013) do
+ActiveRecord::Schema.define(version: 20_161_206_131_700) do
   create_table 'categories', force: :cascade do |t|
     t.string   'title'
     t.text     'description'
@@ -12,6 +12,7 @@ ActiveRecord::Schema.define(version: 20_161_202_155_013) do
     t.integer  'user_id'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.string   'picture'
     t.index ['topic_id'], name: 'index_posts_on_topic_id'
     t.index ['user_id'], name: 'index_posts_on_user_id'
   end
@@ -23,6 +24,7 @@ ActiveRecord::Schema.define(version: 20_161_202_155_013) do
     t.datetime 'created_at',  null: false
     t.datetime 'updated_at',  null: false
     t.integer  'user_id'
+    t.string   'picture'
     t.index ['category_id'], name: 'index_topics_on_category_id'
     t.index ['user_id'], name: 'index_topics_on_user_id'
   end

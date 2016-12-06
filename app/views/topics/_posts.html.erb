@@ -8,6 +8,8 @@
 		</div>
 		<div class="media-body">
 			<p class="post-content"><%= post.content %></p>
+			<% # Display picture if any has been uploaded for this post %>
+			<%= image_tag post.picture.url if post.picture? %>
 		</div>
 
 		<% if logged_in? &&

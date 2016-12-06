@@ -20,5 +20,5 @@
 # Ignore Byebug command history file.
 .byebug_history
 
-# Ignore rubocop config file.
-.rubocop.yml
+# Ignore file uploads.
+/public/uploads
