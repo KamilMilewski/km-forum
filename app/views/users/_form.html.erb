@@ -3,7 +3,8 @@
 <% # Without this, after invalid form submission we have 'users/new' in %>
 <% # webbrowser address bar instead of '/signup' %>
 
-<%= form_for @user, url: yield(:form_url) do |f| %>
+<% # html: { multipart: true } is to allow image uploads. %>
+<%= form_for @user, url: yield(:form_url), html: { multipart: true } do |f| %>
 
     <%= render 'shared/form_errors_notices', entity: f.object %>
 
@@ -37,4 +38,24 @@
 
     <%= f.submit (yield :form_button_text),
                           class: 'btn btn-primary form-control' %>
+
+    <br>
+
+    <% # Avatar form. %>
+    <% if action == :edit %>
+      <hr>
+      <p>You can upload custom avatar for your profile...</p>
+      <%= f.file_field :avatar %>
+      <br>
+      <%= render 'shared/delete_avatar_checkbox', object: @user, action: action %>
+      <br><br>
+      <p>...or stick with <a href="https://en.gravatar.com/support/what-is-gravatar/" targer="blank">Gravatar</a> provided picture.</p>
+
+      <div class="gravatar_edit">
+        <%= image_tag gravatar_url(@user), alt: @user.name, class: 'media-object' %>
+      </div>
+    <% end %>
+
 <% end %>
+
+  <%= render 'shared/check_avatar_size', object: @user %>

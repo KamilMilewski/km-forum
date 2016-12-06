@@ -71,6 +71,7 @@ topics as well.
   * I want to access users index page.
   * I want to reset my password (via email).
   * I want to upload picture for my post and topic.
+  * I want to upload my custom avatar picture or use Gravatar.
   * I need to activate my account before use (via email).
 
 * As a moderator,
@@ -127,7 +128,9 @@ topics as well.
 	* password_digest:string
 	* remember_token_digest:string
 	* activation_token_digest:string
+  * password_reset_token_digest:string
 	* permissions:string
+  * avatar:string
 
 ## Data model relations
 

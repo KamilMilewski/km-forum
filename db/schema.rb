@@ -1,4 +1,4 @@
-ActiveRecord::Schema.define(version: 20_161_206_131_700) do
+ActiveRecord::Schema.define(version: 20_161_206_192_841) do
   create_table 'categories', force: :cascade do |t|
     t.string   'title'
     t.text     'description'
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20_161_206_131_700) do
     t.datetime 'activated_at'
     t.string   'password_reset_token_digest'
     t.datetime 'sent_reset_at'
+    t.string   'avatar'
     t.index ['email'], name: 'index_users_on_email', unique: true
   end
 end

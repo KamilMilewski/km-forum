@@ -1,7 +1,7 @@
 <% @posts.each do |post| %>
 	<div class="media">
 		<div class="media-left media-top">
-			<%= render 'shared/user_avatar', object: post %>
+			<%= render 'shared/user_avatar', user: post.user %>
 		</div>
 		<div class="media-body">
 			<p class="post-content"><%= post.content %></p>

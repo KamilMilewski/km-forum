@@ -7,16 +7,7 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
 
-    <%= render 'form' %>
-
-    <br>
-
-    <div class="gravatar_edit">
-      <%= image_tag gravatar_url(@user), alt: @user.name,
-                               class: 'media-object' %>
-      <br>
-      <a href="http://gravatar.com/emails" targer="blank">Update gravatar photo</a>
-    </div>
+    <%= render 'form', action: :edit %>
 
   </div>
 </div>

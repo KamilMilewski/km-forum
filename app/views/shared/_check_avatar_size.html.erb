@@ -1,0 +1,12 @@
+<% # 'object' is a resource passed to this partial. For example @post. %>
+<% # Client size validation for avatar size. %>
+<% object_name = object.class.to_s.underscore %>
+<script type="text/javascript">
+  <% # '..._avatar below' is the id of the form avatar input %>
+  $('#<%= object_name %>_avatar').bind('change', function() {
+    var size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 2) {
+      alert('Your avatar is too big. Max is 2MB');
+    }
+  });
+</script>

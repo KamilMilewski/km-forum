@@ -1,0 +1,6 @@
+<% # If form action is edit and user has associated avatar then display
+   # check box allowing to delete this avatar.
+   %>
+<% if action == :edit && !object.avatar.nil? %>
+  <%= check_box_tag :delete_avatar %> <%= label_tag 'delete custom avatar' %>
+<% end %>

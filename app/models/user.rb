@@ -23,6 +23,11 @@ class User < ApplicationRecord
   has_many :topics
   has_many :posts
 
+  # Mounts PictureUploader on 'picture' column to allow images upload associated
+  # with this model. Provided by carrierwave gem.
+  mount_uploader :avatar, AvatarUploader
+  validate :avatar_size
+
   # Callbacks:
   # For consistency we will store all emails as lower-case.
   before_save :downcase_email
@@ -150,5 +155,10 @@ class User < ApplicationRecord
     self.password_reset_token = User.new_token
     update_attribute(:password_reset_token_digest,
                      User.digest(password_reset_token))
+  end
+
+  def avatar_size
+    return if avatar.size < 2.megabytes
+    errors.add(:avatar, 'should be less than 5MB')
   end
 end

@@ -1,10 +1,10 @@
 # encoding: utf-8
-# Defines uploader intended for pictures used in topics and posts.
-class PictureUploader < CarrierWave::Uploader::Base
+# Defines uploader intended for pictures used in as user avatars.
+class AvatarUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
-  process resize_to_limit: [300, 300]
+  process resize_to_limit: [80, 80]
 
   # Choose what kind of storage to use for this uploader:
   storage :file

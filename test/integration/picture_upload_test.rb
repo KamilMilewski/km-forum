@@ -1,23 +1,23 @@
 require 'test_helper'
 
-class FileUploadTest < ActionDispatch::IntegrationTest
+class PictureUploadTest < ActionDispatch::IntegrationTest
   def setup
-    @user = users(:user)
-    # To upload file, user has to be logged in.
-    log_in_as(@user)
-
     # @user's topic
     @topic = topics(:third)
     @category = categories(:first)
+
+    @user = users(:user)
+    # To upload file, user has to be logged in.
+    log_in_as(@user)
+    @picture = fixture_file_upload('test/fixtures/kitten.png', 'image/png')
   end
 
   test 'should allow user upload picture during post creation' do
-    picture = fixture_file_upload('test/fixtures/kitten.png', 'image/png')
     assert_difference 'Post.count' do
       post topic_posts_path(@topic), params: {
         post: {
           content: 'some content',
-          picture: picture
+          picture: @picture
         }
       }
     end
@@ -26,11 +26,10 @@ class FileUploadTest < ActionDispatch::IntegrationTest
   end
 
   test 'should allow user delete picture during post edit' do
-    picture = fixture_file_upload('test/fixtures/kitten.png', 'image/png')
     post topic_posts_path(@topic), params: {
       post: {
         content: 'some content',
-        picture: picture
+        picture: @picture
       }
     }
 
@@ -50,13 +49,12 @@ class FileUploadTest < ActionDispatch::IntegrationTest
   end
 
   test 'should allow user upload picture during topic creation' do
-    picture = fixture_file_upload('test/fixtures/kitten.png', 'image/png')
     assert_difference 'Topic.count' do
       post category_topics_path(@category), params: {
         topic: {
           title: 'some title',
           content: 'some content',
-          picture: picture
+          picture: @picture
         }
       }
     end
@@ -65,12 +63,11 @@ class FileUploadTest < ActionDispatch::IntegrationTest
   end
 
   test 'should allow user delete picture during topic edit' do
-    picture = fixture_file_upload('test/fixtures/kitten.png', 'image/png')
     post category_topics_path(@category), params: {
       topic: {
         title: 'some title',
         content: 'some content',
-        picture: picture
+        picture: @picture
       }
     }
 

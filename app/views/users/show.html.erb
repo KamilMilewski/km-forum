@@ -1,8 +1,7 @@
 <% provide :title, "#{@user.name} Profile Page" %>
 <div class="media">
   <div class="media-left media-top">
-     <%= image_tag gravatar_url(@user), alt: @user.name,
-                              class: 'media-object' %>
+     <%= render 'shared/user_avatar', user: @user %>
   </div>
   <div class="media-body">
     <p>
