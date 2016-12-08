@@ -100,11 +100,12 @@ $navbar-default-color: #F8E6E4;
 	opacity  : 0;
 	pointer-events: none;
 	/* custom */
-	transition: all 0.8s ease;
+	transition: all 0.4s ease;
 	padding: 3px;
 	color: white;
 	border-radius: 10px;
-	box-shadow: 1px 1px 0.5px silver
+	box-shadow: 1px 1px 0.5px silver;
+	font-weight: normal;
 }
 
 [tooltip]:hover:before {
@@ -143,5 +144,17 @@ $navbar-default-color: #F8E6E4;
 	font-weight: 200;
 	a:hover {
 		text-decoration: none;
+	}
+}
+
+.resource-edit-delete {
+	margin-left: 90px;
+	a {
+		color: $gray;
+		font-weight: bolder;
+	}
+	a:hover {
+		text-decoration: none;
+		color: black;
 	}
 }

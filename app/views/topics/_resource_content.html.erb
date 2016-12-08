@@ -3,35 +3,11 @@
   <%= render 'resource_heading', user: resource.user %>
 
   <p id="topic-content"><%= resource.content %></p>
+
   <% # Display picture if any has been uploaded for this resource %>
   <%= image_tag resource.picture.url if resource.picture? %>
-  <%= render 'resource_date', resource: resource %>
+
 </div>
+<%= render 'resource_date', resource: resource %>
 
-
-<% if logged_in? &&
-      ( current_user.admin? ||
-      # Moderators can edit and delete all resources excluded admin's resources.
-       (current_user.moderator? && !resource.user.admin?) ||
-        current_user.owner_of(resource) )
-      %>
-  <div class="pull-right">
-    <% resource_type = resource.class.to_s.underscore %>
-
-    <% if resource_type == 'topic' %>
-      <% confirm = "Are you sure you want to delete this #{resource_type}" \
-                   " along with all it's posts?" %>
-    <% else %>
-      <% confirm = "Are you sure you want to delete this #{resource_type}?" %>
-    <% end %>
-
-    <%= link_to "Edit",
-          send("edit_#{resource_type}_path" , resource),
-          class: "btn btn-warning btn-xs" %>
-    <%= link_to "Delete",
-          resource,
-          method: :delete,
-          data: { confirm: confirm },
-          class: "btn btn-danger btn-xs" %>
-  </div>
-<% end %>
+<%= render 'edit_delete_links', resource: resource %>
