@@ -1,18 +1,19 @@
 <% provide :title, @topic.title %>
 
-<hr>
 
 <%= render 'new_post_button' %>
 
-<hr>
-  <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+<h3>
+  Topic title: <%= @topic.title %>
+  (<%= "Page: #{@posts.current_page}/#{@posts.total_pages}" %>)
+</h3>
+
 <hr>
 
 <%= if params[:page] == nil || params[:page] == 1 then render 'topic' end %>
 
 <%= render 'posts' %>
 
-<hr>
   <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
 <hr>
 

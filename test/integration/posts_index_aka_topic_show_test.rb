@@ -139,8 +139,14 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
     get topic_path(@topic)
     # Posts index is actually topic show.
     assert_template 'topics/show'
-    # Assert there ate two will_paginate controls on the page.
-    assert_select 'ul.pagination', count: 2
+    # Assert there is topic title.
+    assert_match CGI.escapeHTML(@topic.title), response.body
+    # Assert there is current_page/total_pages indicator.
+    current_page = assigns(:posts).current_page
+    total_pages = assigns(:posts).total_pages
+    assert_match CGI.escapeHTML("#{current_page}/#{total_pages}"), response.body
+    # Assert there is will_paginate  on the page.
+    assert_select 'ul.pagination', count: 1
     # Assert there is no flash messages.
     assert_flash_notices
   end
@@ -148,21 +154,18 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
   # Assert if there is topic title and content.
   def assert_topic_body_for(topic, present: true)
     if present
-      assert_select 'h4', id: 'topic-title', text: /#{topic.title}/
-      assert_select 'p', id: 'topic-content', text: /#{topic.content}/
+      assert_match    CGI.escapeHTML(topic.content), response.body
     else
-      assert_select 'h4', id: 'topic-title', text: /#{topic.title}/, count: 0
-      assert_select 'p', id: 'topic-content', text: /#{topic.content}/, count: 0
+      assert_no_match CGI.escapeHTML(topic.content), response.body
     end
   end
 
   # Assert if there is post content.
   def assert_post_body_for(post, present: true)
     if present
-      assert_select 'p', class: 'post-content', text: /#{post.content}/
+      assert_match    CGI.escapeHTML(post.content), response.body
     else
-      assert_select 'p', class: 'post-content', text: /#{post.content}/,
-                         count: 0
+      assert_no_match CGI.escapeHTML(post.content), response.body
     end
   end
 end

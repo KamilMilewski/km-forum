@@ -1,30 +1,9 @@
 <% @posts.each do |post| %>
-	<div class="media">
-		<div class="media-left media-top">
-			<%= render 'shared/user_avatar', user: post.user %>
-		</div>
-		<div class="media-body">
-			<p class="post-content"><%= post.content %></p>
-			<% # Display picture if any has been uploaded for this post %>
-			<%= image_tag post.picture.url if post.picture? %>
-		</div>
+	<div class="media resource">
 
-		<% if logged_in? &&
-					( current_user.admin? ||
-					# Moderators can edit and delete all posts excluded admin's posts.
-					 (current_user.moderator? && !post.user.admin?) ||
-						current_user.owner_of(post) )
-					%>
-	    <div class="edit-delete-btns">
-	  		<%= link_to "Edit",
-	  					edit_post_path(post),
-	  					class: "btn btn-warning btn-xs" %>
-	  		<%= link_to "Delete",
-	  					post,
-	  					method: :delete,
-							data: {confirm: "Are You sure You want to delete this post?"},
-	  					class: "btn btn-danger btn-xs" %>
-	    </div>
-		<% end %>
+		<%= render 'resource_avatar', user: post.user %>
+
+		<%= render 'resource_content', resource: post %>
+
 	</div>
 <% end %>

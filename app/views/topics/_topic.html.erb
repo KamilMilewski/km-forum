@@ -1,33 +1,7 @@
-<div class="media">
-	<div class="media-left media-top">
-		<%= render 'shared/user_avatar', user: @topic.user %>
-	</div>
+<div class="media resource">
 
-	<div class="media-body bg-warning">
-		<h4 class="media-heading" id="topic-title">
-			<strong>Topic title:</strong> <%= @topic.title %>
-		</h4>
-		<p id="topic-content"><%= @topic.content %></p>
-		<% # Display picture if any has been uploaded for this @topic %>
-		<%= image_tag @topic.picture.url if @topic.picture? %>
-	</div>
+	<%= render "resource_avatar", user: @topic.user %>
 
-	<% if logged_in? &&
-				( current_user.admin? ||
-				# Moderators can edit and delete all topics excluded admin's topics.
-				 (current_user.moderator? && !@topic.user.admin?) ||
-					current_user.owner_of(@topic) )
-				%>
-	  <div class="pull-right">
-	    <%= link_to "Edit",
-	          edit_topic_path(@topic),
-	          class: "btn btn-warning btn-xs" %>
-	    <%= link_to "Delete",
-	          @topic,
-	          method: :delete,
-						data: {confirm: 'Are You sure You want to delete this topic along' \
-														' with all it\'s posts?'},
-	          class: "btn btn-danger btn-xs" %>
-	  </div>
-	<% end %>
+	<%= render "resource_content", resource: @topic %>
+
 </div>
