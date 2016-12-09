@@ -1,4 +1,5 @@
 <% if logged_in? %>
-	<a href="<%= new_category_topic_path(@category) %>"
-		class="btn btn-primary btn-md" role="button">Add Topic</a>
+		<%= link_to 'Create topic', new_category_topic_path(@category),
+								role: 'button',
+		 						class: 'btn btn-primary btn-md pull-right new_btn' %>
 <% end %>

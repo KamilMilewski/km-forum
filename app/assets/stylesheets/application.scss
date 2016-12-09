@@ -13,10 +13,10 @@
  *
  *
  */
-
+$main-theme-color: #79589F;
 
 /* Basic Bootstrap customization */
-$navbar-default-bg: #C52F24;
+$navbar-default-bg: $main-theme-color;
 $navbar-default-link-color: #F8E6E4;
 $navbar-default-link-active-color: #F8E6E4;
 $navbar-default-color: #F8E6E4;
@@ -25,8 +25,11 @@ $navbar-default-color: #F8E6E4;
 @import "bootstrap";
 
 /* global CSS */
-a:hover {
- text-decoration: none;
+a {
+  color: $main-theme-color;
+  &:hover {
+   text-decoration: none;
+ }
 }
 
 /* CSS custom tooltip appearance and behavior */
@@ -66,6 +69,10 @@ a:hover {
 
 .list-group-item {
 	margin-top: 0.5em;
+}
+
+.btn-primary {
+  @include button-variant(white, $main-theme-color, $main-theme-color);
 }
 
 /* Rails automagically wraps form fields with errors with div of this class: */
@@ -227,4 +234,8 @@ table.topics-table {
 .topic-peek {
   font-style: italic;
   color: $gray;
+}
+
+.new_btn {
+  margin: 20px 0;
 }

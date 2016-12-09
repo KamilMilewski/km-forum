@@ -145,6 +145,8 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
     current_page = assigns(:posts).current_page
     total_pages = assigns(:posts).total_pages
     assert_match CGI.escapeHTML("#{current_page}/#{total_pages}"), response.body
+    # Asset there is link to corresponding category.
+    assert_select 'a[href=?]', category_path(@topic.category)
     # Assert there is will_paginate  on the page.
     assert_select 'ul.pagination', count: 1
     # Assert there is no flash messages.

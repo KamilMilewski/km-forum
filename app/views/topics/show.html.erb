@@ -1,10 +1,10 @@
 <% provide :title, @topic.title %>
 
-
-<%= render 'new_post_button' %>
+<br>
 
 <h3>
-  Topic title: <%= @topic.title %>
+  <%= link_to 'Home page', root_path %> / 
+  <%= link_to @topic.category.title, @topic.category %> / <%= @topic.title %>
   (<%= "Page: #{@posts.current_page}/#{@posts.total_pages}" %>)
 </h3>
 
@@ -14,7 +14,13 @@
 
 <%= render 'posts' %>
 
-  <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
-<hr>
+<div class="row">
+  <div class="col-md-4">
+    <%= will_paginate @posts, renderer: BootstrapPagination::Rails, class: 'pull-left' %>
+  </div>
+  <div class="col-md-8">
+    <%= render 'new_post_button' %>
+  </div>
+</div>
 
-<%= render 'new_post_button' %>
+<br>

@@ -1,4 +1,5 @@
 <% if logged_in? %>
-	<a href="<%= new_topic_post_path(@topic) %>"
-		class="btn btn-primary btn-md" role="button">Add Post</a>
+		<%= link_to 'Add reply', new_topic_post_path(@topic),
+								role: 'button',
+		 						class: 'btn btn-primary btn-md pull-right new_btn' %>
 <% end %>
