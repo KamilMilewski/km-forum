@@ -95,18 +95,18 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     # Topics index is actually category show.
     assert_template 'categories/show'
     # Assert there are two will_paginate controls on the page.
-    assert_select 'ul.pagination', count: 2
+    assert_select 'ul.pagination', count: 1
     # Assert there is no flash messages.
     assert_flash_notices
   end
 
   def assert_topic_body_for(topic, present: true)
     if present
-      assert_select 'h4', id: 'topic-title', text: /#{topic.title}/
-      assert_select 'p', id: 'topic-content', text: /#{topic.content}/
+      assert_match      CGI.escapeHTML(topic.title),    response.body
+      assert_match      CGI.escapeHTML(topic.content),  response.body
     else
-      assert_select 'h4', id: 'topic-title', text: /#{topic.title}/, count: 0
-      assert_select 'p', id: 'topic-content', text: /#{topic.content}/, count: 0
+      assert_no_match   CGI.escapeHTML(topic.title),    response.body
+      assert_no_match   CGI.escapeHTML(topic.content),  response.body
     end
   end
 end

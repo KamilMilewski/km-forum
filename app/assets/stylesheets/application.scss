@@ -14,6 +14,7 @@
  *
  */
 
+
 /* Basic Bootstrap customization */
 $navbar-default-bg: #C52F24;
 $navbar-default-link-color: #F8E6E4;
@@ -23,10 +24,41 @@ $navbar-default-color: #F8E6E4;
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+/* global CSS */
+a:hover {
+ text-decoration: none;
+}
+
+/* CSS custom tooltip appearance and behavior */
+[tooltip]:before {
+ /* core funcionality */
+ position : absolute;
+ content  : attr(tooltip);
+ opacity  : 0;
+ pointer-events: none;
+ /* custom */
+ transition: all 0.4s ease;
+ padding: 3px;
+ color: white;
+ border-radius: 10px;
+ box-shadow: 1px 1px 0.5px silver;
+ font-weight: normal;
+ z-index: 1000;
+}
+
+[tooltip]:hover:before {
+ /* core funcionality */
+ opacity: 1;
+ /* custom */
+ background: black;
+ margin-top: 30px;
+ margin-left: 20px;
+}
+
+
 /* Basic Bootstrap customization */
 .navbar .container-fluid .navbar-header a{
 	color: #FFFFFF;
-	text-decoration: none;
 	font-weight: 800;
 	font-size: 1.7em;
 	padding-top: 0.25em;
@@ -82,7 +114,6 @@ $navbar-default-color: #F8E6E4;
 		/* mouse over link */
 		a:hover {
 			color: black;
-			text-decoration: none;
 		}
 
 		/* selected link */
@@ -90,31 +121,6 @@ $navbar-default-color: #F8E6E4;
 			color: #0d47a1;
 		}
   }
-}
-
-/* CSS custom tooltip appearance and behavior */
-[tooltip]:before {
-	/* core funcionality */
-	position : absolute;
-	content  : attr(tooltip);
-	opacity  : 0;
-	pointer-events: none;
-	/* custom */
-	transition: all 0.4s ease;
-	padding: 3px;
-	color: white;
-	border-radius: 10px;
-	box-shadow: 1px 1px 0.5px silver;
-	font-weight: normal;
-}
-
-[tooltip]:hover:before {
-	/* core funcionality */
-	opacity: 1;
-	/* custom */
-	background: black;
-	margin-top: 30px;
-	margin-left: 20px;
 }
 
 /* Resource styling. Used to syle posts and topics on topic show page. */
@@ -142,9 +148,6 @@ $navbar-default-color: #F8E6E4;
 
 .resource-heading {
 	font-weight: 200;
-	a:hover {
-		text-decoration: none;
-	}
 }
 
 .resource-edit-delete {
@@ -154,7 +157,74 @@ $navbar-default-color: #F8E6E4;
 		font-weight: bolder;
 	}
 	a:hover {
-		text-decoration: none;
 		color: black;
 	}
+}
+
+/* Category show aka Topic index. */
+table.topics-table {
+	border-collapse: collapse;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	text-align: center;
+  overflow-x: auto;
+
+  a {
+    color: #222;
+  }
+
+	thead {
+		td.topic {
+			text-align: left;
+      width: 50%;
+      min-width: 200px;
+      color: #919191
+		}
+		td.author {
+      color: #919191
+		}
+		td.replies {
+      color: #919191;
+		}
+		td.activity {
+      color: #919191
+		}
+	}
+
+	tbody {
+		td.topic {
+			text-align: left;
+			vertical-align: middle;
+      width: 50%;
+      min-width: 200px;
+		}
+		td.author {
+			vertical-align: middle;
+			img {
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+        height: 30px;
+        width: 30px;
+			}
+		}
+		td.replies {
+			vertical-align: middle;
+      color: #919191
+
+		}
+		td.activity {
+			vertical-align: middle;
+      color: #919191
+		}
+	}
+}
+
+.topic-edit-delete {
+  font-weight: bolder;
+}
+
+.topic-peek {
+  font-style: italic;
+  color: $gray;
 }

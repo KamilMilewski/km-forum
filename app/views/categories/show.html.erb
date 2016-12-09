@@ -1,17 +1,15 @@
+<br>
+
 <% provide :title, @category.title %>
 
-<hr>
-
 <%= render 'new_topic_button' %>
-
-<hr>
-	<%= will_paginate @topics, renderer: BootstrapPagination::Rails %>
-<hr>
+<br>
 
 <%= render 'topics' %>
 
-<hr>
-	<%= will_paginate @topics, renderer: BootstrapPagination::Rails %>
-<hr>
+
+<%= will_paginate @topics, renderer: BootstrapPagination::Rails %>
+
+<br>
 
 <%= render 'new_topic_button' %>
