@@ -75,6 +75,25 @@ a {
   @include button-variant(white, $main-theme-color, $main-theme-color);
 }
 
+/* customizing bootstrap styling for will_paginate */
+.pagination {
+  li.active {
+    span {
+      background-color: $main-theme-color;
+      border-color: $main-theme-color;
+      &:hover {
+        background-color: $main-theme-color;
+        border-color: $main-theme-color;
+      }
+    }
+  }
+  li {
+    a {
+      color: $main-theme-color;
+    }
+  }
+}
+
 /* Rails automagically wraps form fields with errors with div of this class: */
 .field_with_errors {
 	/* Extending with funcionality of bootstrap class */
@@ -237,5 +256,5 @@ table.topics-table {
 }
 
 .new_btn {
-  margin: 20px 0;
+  margin: 20px 45px;
 }
