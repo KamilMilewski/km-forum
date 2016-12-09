@@ -5,9 +5,8 @@ class TopicTest < ActiveSupport::TestCase
     @topic = topics(:first)
   end
 
-  test 'valid topic should be... valid' do
-    assert @topic.valid?,
-           'Example topic from fixture file should pass validation.'
+  test 'valid topic should be valid' do
+    assert @topic.valid?, 'Example fixture topic should pass validation.'
   end
 
   test "title can't be blank" do
@@ -28,5 +27,15 @@ class TopicTest < ActiveSupport::TestCase
     assert_not @topic.valid?,
                "Topic model validation shouldn't allow content attr. to be " \
                'blank.'
+  end
+
+  test 'should assign last_activity upon topic create' do
+    category = categories(:first)
+    user = users(:user)
+    topic = category.topics.create(title: 'some title',
+                                   content: 'some content',
+                                   user_id: user.id,
+                                   category_id: category.id)
+    assert_not_nil topic.last_activity
   end
 end

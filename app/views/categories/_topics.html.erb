@@ -36,13 +36,8 @@
 
 					<!-- Last activity -->
 					<td class="activity">
-							<% if topic.posts.any? %>
-								<span tooltip="<%= topic.posts.last.updated_at %>">
-								<%= time_ago_in_words(topic.posts.last.updated_at) %> ago
-							<% else %>
-								<span tooltip="<%= topic.updated_at %>">
-								<%= time_ago_in_words(topic.updated_at) %> ago
-							<% end %>
+						<span tooltip="<%= topic.last_activity %>">
+							<%= time_ago_in_words(topic.last_activity) %> ago
 						</span>
 					</td>
 

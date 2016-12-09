@@ -14,8 +14,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @topics = @category.topics.order('updated_at DESC')
-                       .paginate(page: params[:page], per_page: 10)
+    @topics = @category.topics.paginate(page: params[:page], per_page: 10)
   end
 
   def new

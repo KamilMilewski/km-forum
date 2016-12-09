@@ -14,8 +14,8 @@ class UserTest < ActiveSupport::TestCase
     )
   end
 
-  test 'valid user should be... valid' do
-    assert @valid_user.valid?, 'Valid example user should pass validation.'
+  test 'valid user should be valid' do
+    assert @valid_user.valid?, 'Example fixture user should pass validation.'
   end
 
   # Name validation test.

@@ -3,18 +3,21 @@ first:
   content: First fixture topic content
   user: admin
   category: first
+  last_activity: <%= Time.zone.now %>
 
 second:
   title: Second fixture topic title
   content: Second fixture topic content
   user: moderator
   category: first
+  last_activity: <%= Time.zone.now %>
 
 third:
   title: Third fixture topic title
   content: Third fixture topic content
   user: user
   category: first
+  last_activity: <%= Time.zone.now %>
 
 <% 50.times do |i| %>
 topic_<%= "#{i+3}" %>:
@@ -22,4 +25,5 @@ topic_<%= "#{i+3}" %>:
   content: <%= "#{i}. fixture topic content" %>
   category: first
   user: user_<%= rand(4..10) %>
+  last_activity: <%= Time.zone.now %>
 <% end %>

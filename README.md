@@ -109,27 +109,28 @@ topics as well.
 ## Data models
 
 * Category
-	* title:string
-	* description:text
+  * title:string
+  * description:text
 * Topic
 	* title:string
 	* content:text
   * picture:string
-	* user_id:integer
-	* category_id:integer
+  * user_id:integer
+  * category_id:integer
+  * last_activity:datetime
 * Post
-	* content:text
+  * content:text
   * picture:string
-	* user_id:integer
-	* topic_id:integer
+  * user_id:integer
+  * topic_id:integer
 * User
-	* name:string
-	* email:string
-	* password_digest:string
-	* remember_token_digest:string
-	* activation_token_digest:string
+  * name:string
+  * email:string
+  * password_digest:string
+  * remember_token_digest:string
+  * activation_token_digest:string
   * password_reset_token_digest:string
-	* permissions:string
+  * permissions:string
   * avatar:string
 
 ## Data model relations
