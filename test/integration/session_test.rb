@@ -40,7 +40,7 @@ class SessionTest < ActionDispatch::IntegrationTest
     follow_redirect!
 
     # Check if proper links are rendered.
-    assert_select 'a[href=?]', login_path, count: 1
+    assert_select 'a[href=?]', login_path
     # Dropdown menu.
     assert_select 'a[href=?]', logout_path, count: 0
     assert_select 'a[href=?]', user_path(@user), count: 0

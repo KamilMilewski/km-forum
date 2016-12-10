@@ -1,20 +1,56 @@
-<%= render 'new_category_button' %>
 
-<hr>
+<br>
+
+<% unless logged_in? %>
+	<div class="jumbotron sandbox-notice">
+		<h2>
+			Welcome to KM-Forum!
+		</h2>
+		<p>
+			Its in a sandbox mode and you can play around!
+			Sign up or use one of the predefined user accounts:<br>
+		</p>
+		<p class="sandbox-accounts">
+			<span class=sandbox-accounts-header> login / password </span><br>
+			<span class=sandbox-account> admin@admin.com / aaaaaa </span><br>
+			<span class=sandbox-account> moderator@moderator.com / mmmmmm </span><br>
+			<span class=sandbox-account> user@user.com / uuuuuu </span><br>
+		</p>
+
+		<br>
+		
+		<p class="text-center">
+			<%= link_to 'Log in', login_path,
+									role: 'button',
+									class: 'btn btn-primary btn-lg' %>
+			<%= link_to 'Sign up', signup_path,
+									role: 'button',
+									class: 'btn btn-primary btn-lg' %>
+		</p>
+	</div>
+<% end %>
 
 <% if @categories.empty? %>
+
 	<p class="empty-resource-notice">There are no categories yet.</p>
+
 <% else %>
+
 	<% @categories.each do |category| %>
+
 		<a href="<%= category_path(category) %>"
 		   class="list-group-item list-group-item-warning">
+
 			<h4 class="list-group-item-heading category-title">
 				<%= category.title %>
 			</h4>
+
 			<p class="list-group-item-text category-description">
 				<%= category.description %>
 			</p>
+
 		</a>
+
 			<% if logged_in? && current_user.admin? %>
 				<div class="edit-delete-btns">
 					<%= link_to "Edit",
@@ -28,7 +64,8 @@
 								class: "btn btn-danger btn-xs" %>
 				</div>
 			<% end %>
-		<% end %>
+
+	<% end %>
 <% end %>
 
 <hr>

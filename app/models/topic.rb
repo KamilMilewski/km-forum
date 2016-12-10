@@ -21,6 +21,6 @@ class Topic < ApplicationRecord
   private
 
   def update_last_activity
-    self.last_activity = Time.zone.now
+    update_column(:last_activity, updated_at)
   end
 end

@@ -36,6 +36,6 @@ class TopicTest < ActiveSupport::TestCase
                                    content: 'some content',
                                    user_id: user.id,
                                    category_id: category.id)
-    assert_not_nil topic.last_activity
+    assert_not_nil topic.reload.last_activity
   end
 end

@@ -258,3 +258,16 @@ table.topics-table {
 .new_btn {
   margin: 20px 45px;
 }
+
+/* Jumbotron sandbox notice on the main page */
+div.sandbox-notice {
+  p.sandbox-accounts {
+    text-align: center;
+  }
+  span.sandbox-accounts-header {
+    font-weight: bold;
+  }
+  span.sandbox-account {
+    font-style: italic;
+  }
+}
