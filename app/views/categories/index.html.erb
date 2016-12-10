@@ -1,34 +1,7 @@
 
 <br>
 
-<% unless logged_in? %>
-	<div class="jumbotron sandbox-notice">
-		<h2>
-			Welcome to KM-Forum!
-		</h2>
-		<p>
-			Its in a sandbox mode and you can play around!
-			Sign up or use one of the predefined user accounts:<br>
-		</p>
-		<p class="sandbox-accounts">
-			<span class=sandbox-accounts-header> login / password </span><br>
-			<span class=sandbox-account> admin@admin.com / aaaaaa </span><br>
-			<span class=sandbox-account> moderator@moderator.com / mmmmmm </span><br>
-			<span class=sandbox-account> user@user.com / uuuuuu </span><br>
-		</p>
-
-		<br>
-		
-		<p class="text-center">
-			<%= link_to 'Log in', login_path,
-									role: 'button',
-									class: 'btn btn-primary btn-lg' %>
-			<%= link_to 'Sign up', signup_path,
-									role: 'button',
-									class: 'btn btn-primary btn-lg' %>
-		</p>
-	</div>
-<% end %>
+<%= render 'home_page_notice' %>
 
 <% if @categories.empty? %>
 
@@ -36,38 +9,53 @@
 
 <% else %>
 
+	<div class="row categories-index-head">
+		<!-- Icon cell -->
+		<div class="col-md-1 category-first-head">
+
+		</div>
+		<!-- Title & description cell -->
+		<div class="col-md-7 category-second-head">
+			<p>Category</p>
+		</div>
+		<!-- Posts count cell -->
+		<div class="col-md-2 hidden-sm hidden-xs category-third-head">
+			<p>Posts</p>
+		</div>
+		<!-- Last activity cell -->
+		<div class="col-md-2 hidden-sm hidden-xs category-fourth-head">
+			<p>Activity</p>
+		</div>
+	</div>
+
 	<% @categories.each do |category| %>
 
-		<a href="<%= category_path(category) %>"
-		   class="list-group-item list-group-item-warning">
-
-			<h4 class="list-group-item-heading category-title">
-				<%= category.title %>
-			</h4>
-
-			<p class="list-group-item-text category-description">
-				<%= category.description %>
-			</p>
-
-		</a>
-
-			<% if logged_in? && current_user.admin? %>
-				<div class="edit-delete-btns">
-					<%= link_to "Edit",
-								edit_category_path(category),
-								class: "btn btn-warning btn-xs" %>
-					<%= link_to "Delete",
-								category_path(category),
-								method: :delete,
-								data: {confirm: 'Are You sure You want to delete this' \
-																' category along with all it\'s topics?'},
-								class: "btn btn-danger btn-xs" %>
-				</div>
-			<% end %>
+		<div class="row categories-index-body">
+			<!-- Icon cell -->
+			<div class="col-lg-1 col-md-1 category-first-cell">
+				<%= image_tag "ruby_logo.png", alt: "ruby" %>
+			</div>
+			<!-- Title & description cell -->
+			<div class="col-lg-7 col-md-7 category-second-cell">
+				<h3><%= link_to category.title, category %></h3>
+				<p><%= category.description %></p>
+				<%= render 'edit_delete_category_links', category: category %>
+			</div>
+			<!-- Posts count cell -->
+			<div class="col-lg-2 col-md-2 .hidden-sm hidden-xs category-third-cell">
+				<span><%= category.topics.count %></span>
+			</div>
+			<!-- Last activity cell -->
+			<div class="col-lg-2 col-md-2 .hidden-sm hidden-xs category-fourth-cell">
+				<span tooltip="<%= category.updated_at %>">
+					<%= time_ago_in_words(category.updated_at) %> ago
+				</span>
+			</div>
+		</div>
 
 	<% end %>
 <% end %>
 
-<hr>
+<br>
 
 <%= render 'new_category_button' %>

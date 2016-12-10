@@ -1,0 +1,10 @@
+<% if logged_in? && current_user.admin? %>
+  <aside class="pull-left category-edit-delete">
+    <%= link_to "Edit", edit_category_path(category),
+                tooltip: "Edit this category." %>
+    <%= link_to "Delete", category_path(category), method: :delete,
+                data: {confirm: 'Are You sure You want to delete this' \
+                                ' category along with all it\'s topics?'},
+                tooltip: "Delete this category." %>
+  </aside>
+<% end %>

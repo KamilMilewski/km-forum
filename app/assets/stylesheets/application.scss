@@ -34,7 +34,7 @@ a {
 
 /* CSS custom tooltip appearance and behavior */
 [tooltip]:before {
- /* core funcionality */
+ /* core tooltip funcionality */
  position : absolute;
  content  : attr(tooltip);
  opacity  : 0;
@@ -50,7 +50,7 @@ a {
 }
 
 [tooltip]:hover:before {
- /* core funcionality */
+ /* core tooltip funcionality */
  opacity: 1;
  /* custom */
  background: black;
@@ -71,6 +71,7 @@ a {
 	margin-top: 0.5em;
 }
 
+/* bootstrap primary-btn customization */
 .btn-primary {
   @include button-variant(white, $main-theme-color, $main-theme-color);
 }
@@ -187,7 +188,7 @@ a {
 	}
 }
 
-/* Category show aka Topic index. */
+/* Category show aka Topics index. */
 table.topics-table {
 	border-collapse: collapse;
 	font-family: Helvetica, Arial, sans-serif;
@@ -261,13 +262,94 @@ table.topics-table {
 
 /* Jumbotron sandbox notice on the main page */
 div.sandbox-notice {
-  p.sandbox-accounts {
+  text-align: center;
+  p {
+
+  }
+  table {
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+
+  }
+}
+
+/* Categories index */
+div.categories-index-head {
+  /* Creates pseudo element just to create bottom border for this row. */
+  &:after {
+    content: "";
+    display: block;
+    border-bottom: 2px solid #ccc;
+    margin: 0 0px 15px 0px;
+  }
+
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #919191;
+
+  div.category-first-head {
+
+  }
+  div.category-second-head {
+
+  }
+  div.category-third-head {
     text-align: center;
   }
-  span.sandbox-accounts-header {
-    font-weight: bold;
+  div.category-fourth-head {
+    text-align: center;
   }
-  span.sandbox-account {
-    font-style: italic;
+}
+
+div.categories-index-body {
+  /* Thanks to those two lines vertival aligment is possible */
+  display: flex;
+  align-items: center;
+  font-family: Helvetica, Arial, sans-serif;
+
+  &:hover {
+    background-color: $gray-lighter;
   }
+
+  border-bottom: 1px solid #ccc;
+
+  div {
+    margin-bottom: 5px;
+  }
+  /* Icon cell */
+  div.category-first-cell {
+    img {
+      width: 36px;
+      height: 36px;
+      margin: 5px
+    }
+  }
+  /* Title & description cell */
+  div.category-second-cell {
+
+  }
+  /* Posts count cell */
+  div.category-third-cell {
+    text-align: center;
+    font-size: 14px;
+    color: #919191;
+  }
+  /* Last activity cell */
+  div.category-fourth-cell {
+    text-align: center;
+    font-size: 14px;
+    color: #919191;
+  }
+}
+
+.category-edit-delete {
+	a {
+		color: $gray;
+		font-weight: bolder;
+	}
+	a:hover {
+		color: black;
+	}
 }

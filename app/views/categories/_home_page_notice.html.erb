@@ -1,0 +1,45 @@
+<% unless logged_in? %>
+	<div class="jumbotron sandbox-notice">
+		<h1 class="jumbotron-heading">
+			Welcome to KM-Forum!
+		</h1>
+		<p class="lead text-muted">
+			Its in a sandbox mode and you can play around!<br>
+			Sign up or use one of the predefined user accounts:<br>
+		</p>
+
+		<table class="table table-condensed">
+			<thead class="text-muted">
+				<tr>
+					<td>Login</td>
+					<td>Password</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>admin@admin.com</td>
+					<td>aaaaaa</td>
+				</tr>
+				<tr>
+					<td>moderator@moderator.com</td>
+					<td>mmmmmm</td>
+				</tr>
+				<tr>
+					<td>user@user.com</td>
+					<td>uuuuuu</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<br>
+
+		<p class="text-center">
+			<%= link_to 'Log in', login_path,
+									role: 'button',
+									class: 'btn btn-primary btn-lg' %>
+			<%= link_to 'Sign up', signup_path,
+									role: 'button',
+									class: 'btn btn-primary btn-lg' %>
+		</p>
+	</div>
+<% end %>
