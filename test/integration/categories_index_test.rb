@@ -72,11 +72,13 @@ class CategoriesIndexTest < ActionDispatch::IntegrationTest
   # Assert there is category title and description.
   def assert_category_body_for(category, present: true)
     if present
-      assert_match      CGI.escapeHTML(category.title),        response.body
-      assert_match      CGI.escapeHTML(category.description),  response.body
+      assert_match      CGI.escapeHTML(category.title),            response.body
+      assert_match      CGI.escapeHTML(category.description),      response.body
+      assert_match      CGI.escapeHTML(category.posts_count.to_s), response.body
     else
-      assert_no_match   CGI.escapeHTML(category.title),        response.body
-      assert_no_match   CGI.escapeHTML(category.description),  response.body
+      assert_no_match   CGI.escapeHTML(category.title),            response.body
+      assert_no_match   CGI.escapeHTML(category.description),      response.body
+      assert_no_match   CGI.escapeHTML(category.posts_count.to_s), response.body
     end
   end
 end
