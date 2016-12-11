@@ -1,4 +1,5 @@
 require 'test_helper'
+include ActionView::Helpers::DateHelper
 
 class CategoriesIndexTest < ActionDispatch::IntegrationTest
   def setup
@@ -75,10 +76,16 @@ class CategoriesIndexTest < ActionDispatch::IntegrationTest
       assert_match      CGI.escapeHTML(category.title),            response.body
       assert_match      CGI.escapeHTML(category.description),      response.body
       assert_match      CGI.escapeHTML(category.posts_count.to_s), response.body
+      assert_match      CGI
+        .escapeHTML(time_ago_in_words(category.last_activity)),
+                        response.body
     else
       assert_no_match   CGI.escapeHTML(category.title),            response.body
       assert_no_match   CGI.escapeHTML(category.description),      response.body
       assert_no_match   CGI.escapeHTML(category.posts_count.to_s), response.body
+      assert_no_match   CGI
+        .escapeHTML(time_ago_in_words(category.last_activity)),
+                        response.body
     end
   end
 end

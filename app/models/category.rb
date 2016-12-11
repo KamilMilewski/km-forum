@@ -15,4 +15,26 @@ class Category < ApplicationRecord
     records_array = ActiveRecord::Base.connection.execute(sql_query)
     records_array[0].values.first
   end
+
+  # This parallels last_activity column in Topic model.
+  def last_activity
+    if topics.empty?
+      # If there are no topics yet in thic category then:
+      updated_at
+    else
+      # Otherwise last activity is newest topic in this category is returned.
+      topics.first.last_activity
+    end
+  end
+
+  # Returns newest topic in this category.
+  def last_topic
+    topics.first
+  end
+
+  # Returns newest post in this category. If there is no posts in this topic
+  # then nil is returned.
+  def last_post
+    topics.first.posts.last
+  end
 end

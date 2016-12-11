@@ -48,7 +48,7 @@
 			<!-- Last activity cell -->
 			<div class="col-lg-2 col-md-2 .hidden-sm hidden-xs category-fourth-cell">
 				<span tooltip="<%= category.updated_at %>">
-					<%= time_ago_in_words(category.updated_at) %> ago
+					<%= time_ago_in_words(category.last_activity) %> ago
 				</span>
 			</div>
 		</div>

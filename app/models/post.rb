@@ -3,6 +3,9 @@ class Post < ApplicationRecord
   belongs_to :user
   belongs_to :topic
 
+  # Newest posts are displayed on the bottom of the last page in topic show.
+  default_scope -> { order(created_at: :asc) }
+
   # Every change to post is treated as a new activity for corresponding topic.
   after_save :update_topic_last_activity
 

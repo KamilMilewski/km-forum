@@ -10,14 +10,14 @@ second:
   content: Second fixture topic content
   user: moderator
   category: first
-  last_activity: <%= Time.zone.now %>
+  last_activity: <%= Time.zone.now - 1.hour %>
 
 third:
   title: Third fixture topic title
   content: Third fixture topic content
   user: user
   category: first
-  last_activity: <%= Time.zone.now %>
+  last_activity: <%= Time.zone.now - 2.hour %>
 
 <% 50.times do |i| %>
 topic_<%= "#{i+3}" %>:
@@ -25,5 +25,5 @@ topic_<%= "#{i+3}" %>:
   content: <%= "#{i}. fixture topic content" %>
   category: first
   user: user_<%= rand(4..10) %>
-  last_activity: <%= Time.zone.now %>
+  last_activity: <%= Time.zone.now - rand(120..500).minutes %>
 <% end %>

@@ -4,6 +4,7 @@ class Topic < ApplicationRecord
   belongs_to :user
   belongs_to :category
 
+  # Newest topics are on top of the page.
   default_scope -> { order(last_activity: :desc) }
 
   # Every change to topic itself is treated as a new activity. Besides that
