@@ -227,6 +227,11 @@ table.topics-table {
 		}
 		td.author {
 			vertical-align: middle;
+      text-align: center;
+      a {
+        color: black;
+        font-size: 12px;
+      }
 			img {
 				display: block;
 				margin-left: auto;
@@ -235,14 +240,18 @@ table.topics-table {
         width: 30px;
 			}
 		}
-		td.replies {
+		td.posts {
 			vertical-align: middle;
       color: #919191
 
 		}
 		td.activity {
+      text-align: left;
 			vertical-align: middle;
-      color: #919191
+      color: #919191;
+      .post-preview {
+        font-style: italic;
+      }
 		}
 	}
 }
@@ -364,6 +373,12 @@ div.categories-index-body {
     }
     span {
       color: #919191;
+    }
+    .post-preview {
+      font-style: italic;
+    }
+    .post-preview {
+      font-style: italic;
     }
   }
 }

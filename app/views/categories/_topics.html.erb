@@ -7,8 +7,8 @@
 		<thead>
 			<tr>
 				<td class="topic">Topic</td>
-				<td class="author">Author</td>
-				<td class="replies">Replies</td>
+				<td class="replies">Posts</td>
+				<td class="author">Topic owner</td>
 				<td class="activity">Activity</td>
 			</tr>
 		</thead>
@@ -23,19 +23,28 @@
 						<%= render 'edit_delete_links', topic: topic %>
 					</td>
 
+					<!-- Replies -->
+					<td class="posts">
+						<span><%= topic.posts.count %></snap>
+					</td>
+
 					<!-- Author -->
 					<td class="author">
 						<%= render 'shared/user_avatar', user: topic.user %>
 						<%= link_to topic.user.name, topic.user %>
 					</td>
 
-					<!-- Replies -->
-					<td class="replies">
-						<span><%= topic.posts.count %></snap>
-					</td>
-
 					<!-- Last activity -->
 					<td class="activity">
+						<% unless topic.posts.empty? %>
+							<% last_post = topic.posts.last %>
+							<%= link_to truncate(last_post.content, length: 25),
+							 						topic_path(topic, page: topic.last_page),
+													tooltip: "Post: #{truncate(last_post.content, length: 100)}",
+													class: 'post-preview' %>
+													<br>
+							<span>by <%= link_to last_post.user.name, last_post.user %> </span>
+						<% end %>
 						<span tooltip="<%= topic.last_activity %>">
 							<%= time_ago_in_words(topic.last_activity) %> ago
 						</span>
