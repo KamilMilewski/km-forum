@@ -14,7 +14,8 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @topics = @category.topics.paginate(page: params[:page], per_page: 10)
+    @topics = @category.topics.paginate(page: params[:page],
+                                        per_page: KmForum::TOPICS_PER_PAGE)
   end
 
   def new

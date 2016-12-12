@@ -10,7 +10,7 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     @category = categories(:first)
 
     # Topics per page.
-    @per_page = 10
+    @per_page = KmForum::TOPICS_PER_PAGE
   end
 
   test 'should access topics index page, as an admin' do

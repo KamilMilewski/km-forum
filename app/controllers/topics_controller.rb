@@ -10,7 +10,8 @@ class TopicsController < ApplicationController
                                                               :destroy]
 
   def show
-    @posts = @topic.posts.paginate(page: params[:page], per_page: 10)
+    @posts = @topic.posts.paginate(page: params[:page],
+                                   per_page: KmForum::POSTS_PER_PAGE)
   end
 
   def new

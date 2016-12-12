@@ -13,8 +13,8 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
     @users_topic = topics(:third)
     @anothers_user_topic = topics(:topic_4)
 
-    # Topics per page.
-    @per_page = 10
+    # Posts per page.
+    @per_page = KmForum::POSTS_PER_PAGE
   end
 
   test 'should access posts index page 1, as an admin' do

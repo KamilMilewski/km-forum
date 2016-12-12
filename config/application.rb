@@ -7,6 +7,11 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 
 module KmForum
+  # KmForum constants.
+  TOPICS_PER_PAGE = 10
+  POSTS_PER_PAGE  = 10
+  USERS_PER_PAGE  = 10
+
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified
     # here.

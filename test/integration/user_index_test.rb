@@ -4,6 +4,8 @@ class UserIndexTest < ActionDispatch::IntegrationTest
   def setup
     @admin = users(:admin)
     @user = users(:user)
+
+    @per_page = KmForum::USERS_PER_PAGE
   end
 
   test 'user index page with will_paginate, as an admin' do
@@ -17,7 +19,7 @@ class UserIndexTest < ActionDispatch::IntegrationTest
     # Assure there are two will_paginate controls on the page.
     assert_select 'ul.pagination', count: 2
 
-    @users = User.paginate(page: 1, per_page: 10)
+    @users = User.paginate(page: 1, per_page: @per_page)
     # Assure there is link to show, edit and delete actions for each user.
     @users.each do |user|
       assert_select 'a[href=?]', user_path(user)
@@ -38,7 +40,7 @@ class UserIndexTest < ActionDispatch::IntegrationTest
     get login_path
     log_in_as(@user)
     get users_path
-    users = User.paginate(page: 1, per_page: 30)
+    users = User.paginate(page: 1, per_page: @per_page)
     users.each do |user|
       # Check if there is a edit or delete link
       assert_select 'a[href=?]', edit_user_path(user), text: 'edit', count: 0
