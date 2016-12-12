@@ -37,4 +37,10 @@ class Category < ApplicationRecord
   def last_post
     topics.first.posts.last
   end
+
+  # Returns last resource - post or topic.
+  def last_resource
+    post = topics.first.posts.last
+    post.nil? ? topics.first : post
+  end
 end

@@ -289,16 +289,19 @@ div.categories-index-head {
   font-size: 14px;
   color: #919191;
 
-  div.category-first-head {
+  div.cat-head-1 {
 
   }
-  div.category-second-head {
+  div.cat-head-2 {
 
   }
-  div.category-third-head {
+  div.cat-head-3 {
     text-align: center;
   }
-  div.category-fourth-head {
+  div.cat-head-4 {
+    text-align: center;
+  }
+  div.cat-head-5 {
     text-align: center;
   }
 }
@@ -319,7 +322,7 @@ div.categories-index-body {
     margin-bottom: 5px;
   }
   /* Icon cell */
-  div.category-first-cell {
+  div.cat-cell-1 {
     img {
       width: 36px;
       height: 36px;
@@ -327,20 +330,41 @@ div.categories-index-body {
     }
   }
   /* Title & description cell */
-  div.category-second-cell {
+  div.cat-cel-2 {
 
   }
   /* Posts count cell */
-  div.category-third-cell {
+  div.cat-cell-3 {
     text-align: center;
     font-size: 14px;
     color: #919191;
   }
-  /* Last activity cell */
-  div.category-fourth-cell {
+  /* User avatar cell */
+  div.cat-cell-4 {
     text-align: center;
+    a {
+      color: black;
+      font-size: 12px;
+    }
+
+    img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  /* Last activity cell */
+  div.cat-cell-5 {
     font-size: 14px;
-    color: #919191;
+    a {
+      color: black;
+    }
+    span {
+      color: #919191;
+    }
   }
 }
 

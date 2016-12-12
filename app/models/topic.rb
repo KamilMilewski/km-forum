@@ -19,6 +19,22 @@ class Topic < ApplicationRecord
   validates :title, presence: true, length: { maximum: 255 }
   validates :content, presence: true
 
+  # Returns last page number.
+  def last_page
+    count = posts.count
+    posts_per_page = 10
+    if count < posts_per_page
+      # If there are less posts than per_page limit then last page is first page
+      # In such case we have to pass nil as a page because in other case we get
+      # unexpected behavior.
+      nil
+    elsif (count % posts_per_page).zero?
+      count / posts_per_page
+    else
+      count / posts_per_page + 1
+    end
+  end
+
   private
 
   def update_last_activity

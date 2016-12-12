@@ -10,47 +10,79 @@
 <% else %>
 
 	<div class="row categories-index-head">
-		<!-- Icon cell -->
-		<div class="col-md-1 category-first-head">
 
+		<!-- Icon cell -->
+		<div class="col-md-1 cat-head-1">
 		</div>
+
 		<!-- Title & description cell -->
-		<div class="col-md-7 category-second-head">
+		<div class="col-md-7 cat-head-2">
 			<p>Category</p>
 		</div>
+
 		<!-- Posts count cell -->
-		<div class="col-md-2 hidden-sm hidden-xs category-third-head">
+		<div class="col-md-1 hidden-sm hidden-xs cat-head-3">
 			<p>Posts</p>
 		</div>
+
+		<!-- User avatar cell -->
+		<div class="col-md-1 hidden-sm hidden-xs cat-head-4">
+			<p>Author</p>
+		</div>
+
 		<!-- Last activity cell -->
-		<div class="col-md-2 hidden-sm hidden-xs category-fourth-head">
+		<div class="col-md-2 hidden-sm hidden-xs cat-head-5">
 			<p>Activity</p>
 		</div>
+
 	</div>
 
 	<% @categories.each do |category| %>
 
 		<div class="row categories-index-body">
+
 			<!-- Icon cell -->
-			<div class="col-lg-1 col-md-1 category-first-cell">
+			<div class="col-lg-1 col-md-1 cat-cell-1">
 				<%= image_tag "ruby_logo.png", alt: "ruby" %>
 			</div>
+
 			<!-- Title & description cell -->
-			<div class="col-lg-7 col-md-7 category-second-cell">
+			<div class="col-lg-7 col-md-7 cat-cell-2">
 				<h3><%= link_to category.title, category %></h3>
 				<p><%= category.description %></p>
 				<%= render 'edit_delete_category_links', category: category %>
 			</div>
+
 			<!-- Posts count cell -->
-			<div class="col-lg-2 col-md-2 .hidden-sm hidden-xs category-third-cell">
+			<div class="col-lg-1 col-md-1 .hidden-sm hidden-xs cat-cell-3">
 				<span><%= category.posts_count %></span>
 			</div>
-			<!-- Last activity cell -->
-			<div class="col-lg-2 col-md-2 .hidden-sm hidden-xs category-fourth-cell">
-				<span tooltip="<%= category.updated_at %>">
-					<%= time_ago_in_words(category.last_activity) %> ago
-				</span>
+
+			<!-- User avatar cell -->
+			<div class="col-lg-1 col-md-1 .hidden-sm hidden-xs cat-cell-4">
+			<% # Avatar of the author of the last post dosent make sense of course. %>
+				<% unless category.topics.empty? %>
+					<% user = category.last_resource.user %>
+					<%= render 'shared/user_avatar', user: category.last_resource.user %>
+					<%= link_to user.name, user  %>
+				<% end %>
 			</div>
+
+			<!-- Last activity cell -->
+			<div class="col-lg-2 col-md-2 .hidden-sm hidden-xs cat-cell-5">
+				<% # Last activity for empty category dosent make sense. %>
+				<% unless category.topics.empty? %>
+					<% last_topic = category.last_topic %>
+					<% last_page = [last_topic.posts.count / 10, 1].max %>
+					<%= link_to truncate(last_topic.title, length: 25),
+					 						topic_path(last_topic, page: last_topic.last_page),
+											tooltip: "Topic: #{last_topic.title}" %><br>
+					<span tooltip="<%= category.updated_at %>">
+						<%= time_ago_in_words(category.last_activity) %> ago
+					</span>
+				<% end %>
+			</div>
+
 		</div>
 
 	<% end %>
