@@ -2,7 +2,7 @@
 
   <%= render 'resource_heading', user: resource.user %>
 
-  <p id="topic-content"><%= resource.content %></p>
+  <p><%= resource.content %></p>
 
   <% # Display picture if any has been uploaded for this resource %>
   <%= image_tag resource.picture.url if resource.picture? %>

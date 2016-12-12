@@ -40,7 +40,7 @@
 							<% last_post = topic.posts.last %>
 							<%= link_to truncate(last_post.content, length: 25),
 							 						topic_path(topic, page: topic.last_page),
-													tooltip: "Post: #{truncate(last_post.content, length: 100)}",
+													tooltip: CGI.unescapeHTML("Post: #{truncate(last_post.content, length: 100)}"),
 													class: 'post-preview' %>
 													<br>
 							<span>by <%= link_to last_post.user.name, last_post.user %> </span>

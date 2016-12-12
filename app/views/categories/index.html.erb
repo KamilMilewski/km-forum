@@ -77,14 +77,14 @@
 					<% unless last_topic.posts.empty? %>
 					  <% last_post = last_topic.posts.last %>
 						<%= link_to truncate(last_post.content, length: 40),
-												topic_path(last_topic, page: last_topic.last_page),
-												tooltip: "Post: #{truncate(last_post.content, length: 100)}",
+												topic_path(last_topic, anchor: last_post.anchor, page: last_topic.last_page),
+												tooltip: CGI.unescapeHTML("Post: #{truncate(last_post.content, length: 100)}"),
 												class: 'post-preview' %>
 					<% # If topic is empty then topic itself is last activity. %>
 					<% else %>
 						<%= link_to truncate(last_topic.title, length: 40),
 												topic_path(last_topic, page: last_topic.last_page),
-												tooltip: "Topic: #{last_topic.title}",
+												tooltip: CGI.unescapeHTML("Topic: #{last_topic.title}"),
 												class: 'topic-preview' %>
 					<% end %>
 					<br>

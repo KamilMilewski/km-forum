@@ -1,5 +1,5 @@
 <% @posts.each do |post| %>
-	<div class="media resource">
+	<div class="media resource" id="<%= post.anchor %>">
 
 		<%= render 'resource_avatar', user: post.user %>
 

@@ -2,6 +2,11 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
+  # Generates string intended as an HTML anchor.
+  def anchor
+    "#{self.class}-#{id}"
+  end
+
   private
 
   # custom validation for picture size.
