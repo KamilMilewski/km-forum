@@ -5,7 +5,9 @@
   <p><%= resource.content %></p>
 
   <% # Display picture if any has been uploaded for this resource %>
-  <%= image_tag resource.picture.url if resource.picture? %>
+  <% if resource.picture? %>
+    <%= image_tag resource.picture.url %><br>
+  <% end %>
 
   <%= render 'posts/edit_delete_links', resource: resource %>
 </div>

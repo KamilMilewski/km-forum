@@ -24,7 +24,7 @@ $navbar-default-color: #F8E6E4;
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-/* Global CSS. */
+/* Global CSS */
 a {
   color: $main-theme-color;
   &:hover {
@@ -32,14 +32,14 @@ a {
  }
 }
 
-/* CSS custom tooltip appearance and behavior. */
+/* CSS custom tooltip appearance and behavior */
 [tooltip]:before {
- /* Core tooltip funcionality. */
+ /* Core tooltip funcionality */
  position : absolute;
  content  : attr(tooltip);
  opacity  : 0;
  pointer-events: none;
- /* Custom. */
+ /* Custom */
  transition: all 0.4s ease;
  padding: 3px;
  color: white;
@@ -50,16 +50,16 @@ a {
 }
 
 [tooltip]:hover:before {
- /* Core tooltip funcionality. */
+ /* Core tooltip funcionality */
  opacity: 1;
- /* Custom. */
+ /* Custom */
  background: black;
  margin-top: 30px;
  margin-left: 20px;
 }
 
 
-/* Basic Bootstrap customization. */
+/* Basic Bootstrap customization */
 .navbar .container-fluid .navbar-header a{
 	color: #FFFFFF;
 	font-weight: 800;
@@ -71,12 +71,12 @@ a {
 	margin-top: 0.5em;
 }
 
-/* bootstrap primary-btn customization. */
+/* Bootstrap primary-btn customization */
 .btn-primary {
   @include button-variant(white, $main-theme-color, $main-theme-color);
 }
 
-/* customizing bootstrap styling for will_paginate. */
+/* Customizing bootstrap styling for will_paginate. */
 .pagination {
   li.active {
     span {
@@ -107,7 +107,7 @@ a {
 	margin-top: 4.5em;
 }
 
-/* Others. */
+/* Others */
 .form-title {
 	text-align: center;
 	font-weight: 600;
@@ -146,7 +146,7 @@ a {
 
 /*
  *
- * Topics index (Category show).
+ * Topics index (Category show)
  *
  */
 table.topics-table {
@@ -222,11 +222,11 @@ table.topics-table {
 
 /*
  *
- * Categories index.
+ * Categories index
  *
  */
 
- /* Jumbotron sandbox notice on the main page. */
+ /* Jumbotron sandbox notice on the main page */
  div.sandbox-notice {
    text-align: center;
    p {
@@ -241,7 +241,7 @@ table.topics-table {
    }
  }
 
-/* Head row for categories list. */
+/* Head row for categories list */
 div.categories-index-head {
   /* Creates pseudo element just to create bottom border for this row. */
   &:after {
@@ -288,7 +288,7 @@ div.categories-index-body {
   div {
     margin-bottom: 5px;
   }
-  /* Icon cell. */
+  /* Icon cell */
   div.cat-cell-1 {
     img {
       width: 36px;
@@ -296,17 +296,17 @@ div.categories-index-body {
       margin: 5px
     }
   }
-  /* Title & description cell. */
+  /* Title & description cell */
   div.cat-cel-2 {
 
   }
-  /* Posts count cell. */
+  /* Posts count cell */
   div.cat-cell-3 {
     text-align: center;
     font-size: 14px;
     color: #919191;
   }
-  /* User avatar cell. */
+  /* User avatar cell */
   div.cat-cell-4 {
     text-align: center;
     a {
@@ -323,7 +323,7 @@ div.categories-index-body {
     }
   }
 
-  /* Last activity cell. */
+  /* Last activity cell */
   div.cat-cell-5 {
     font-size: 14px;
     a {
@@ -343,37 +343,99 @@ div.categories-index-body {
 
 /*
  *
- * Users index.
+ * Users index
  *
  */
 
-.users-list {
-  li {
-    overflow: auto;
-    padding: 10px 0;
-    border-bottom: 1.5px solid $gray-lighter;
+ /* Head row for users list */
+ div.users-index-head {
+   /* Creates pseudo element just to create bottom border for this row. */
+   &:after {
+     content: "";
+     display: block;
+     border-bottom: 2px solid #ccc;
+     margin: 0 0px 15px 0px;
+   }
 
-		/* unvisited link */
-		a:link {
-			color: #4B515D;
-		}
+   font-family: Helvetica, Arial, sans-serif;
+   font-size: 14px;
+   color: #919191;
 
-		/* visited link */
-		a:visited {
-			color: #4B515D;
-		}
+   div.user-head-1 {
 
-		/* mouse over link */
-		a:hover {
-			color: black;
-		}
+   }
+   div.user-head-2 {
 
-		/* selected link */
-		a:active {
-			color: #0d47a1;
-		}
-  }
-}
+   }
+   div.user-head-3 {
+     text-align: center;
+   }
+   div.user-head-4 {
+     text-align: center;
+   }
+   div.user-head-5 {
+     text-align: center;
+   }
+ }
+
+ div.users-index-body {
+   /* Thanks to those two lines vertival aligment is possible. */
+   display: flex;
+   align-items: center;
+
+   font-family: Helvetica, Arial, sans-serif;
+
+   &:hover {
+     background-color: $gray-lighter;
+   }
+
+   border-bottom: 1px solid #ccc;
+
+   div {
+     margin-bottom: 5px;
+   }
+
+   /* User's avatar */
+   div.user-cell-1 {
+     img {
+       width: 36px;
+       height: 36px;
+       margin: 5px;
+     }
+   }
+
+   /* User's name */
+   div.user-cell-2 {
+     h4 {
+       a {
+         color: black;
+       }
+     }
+   }
+
+   /* User joinded */
+   div.user-cell-3 {
+     text-align: center;
+     color: #919191;
+   }
+
+   /* User's posts */
+   div.user-cell-4 {
+     text-align: center;
+     color: #919191;
+   }
+
+   /* User's topics */
+   div.user-cell-5 {
+     text-align: center;
+     color: #919191;
+   }
+ }
+
+
+
+
+
 
 
 aside.edit-delete-links {

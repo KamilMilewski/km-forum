@@ -1,0 +1,16 @@
+<% if logged_in? &&
+      ( current_user.admin? ||
+      # Moderators can edit and delete all users excluded admins.
+       (current_user.moderator? && !user.admin?) )
+      %>
+  <aside class="edit-delete-links">
+    <% confirm = "Just annihilate him!." %>
+
+    <%= link_to "Edit", edit_user_path(user),
+                tooltip: "Edit this user." %>
+
+    <%= link_to "Delete", user, method: :delete,
+                data: { confirm: confirm },
+                tooltip: "Destroy this ungrateful bastard." %>
+  </aside>
+<% end %>

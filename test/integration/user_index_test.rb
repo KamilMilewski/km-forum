@@ -17,7 +17,7 @@ class UserIndexTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_template 'users/index'
     # Assure there are two will_paginate controls on the page.
-    assert_select 'ul.pagination', count: 2
+    assert_select 'ul.pagination', count: 1
 
     @users = User.paginate(page: 1, per_page: @per_page)
     # Assure there is link to show, edit and delete actions for each user.
@@ -32,7 +32,7 @@ class UserIndexTest < ActionDispatch::IntegrationTest
       # profile. One in user list and one in site top navbar: "account
       # settings" In this test we are only interested in the one in user list,
       # thus addition of text: /edit/ in line below.
-      assert_select 'a[href=?]', edit_user_path(user), text: 'edit', count: 1
+      assert_select 'a[href=?]', edit_user_path(user), count: 1
     end
   end
 
@@ -43,7 +43,7 @@ class UserIndexTest < ActionDispatch::IntegrationTest
     users = User.paginate(page: 1, per_page: @per_page)
     users.each do |user|
       # Check if there is a edit or delete link
-      assert_select 'a[href=?]', edit_user_path(user), text: 'edit', count: 0
+      assert_select 'a[href=?]', edit_user_path(user), count: 0
       assert_select 'a[data-method=delete][href=?]', user_path(user), count: 0
     end
   end
