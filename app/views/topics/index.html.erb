@@ -1,0 +1,44 @@
+<% provide :title, @category.title %>
+
+<br>
+<br>
+
+<h3>
+  <%= link_to 'Home page', root_path %> / <%= @category.title %>
+  (<%= "Page: #{@topics.current_page}/#{@topics.total_pages}" %>)
+</h3>
+
+<% if @topics.empty? %>
+
+  <%= render 'shared/no_content_notice',
+             notice: "There are no topics yet in this category." %>
+
+<% else %>
+  <!-- Topics table heading. -->
+  <table class="table table-hover topics-table">
+    <thead>
+      <tr>
+        <td class="topic">Topic</td>
+        <td class="posts">Posts</td>
+        <td class="author">Topic owner</td>
+        <td class="activity">Activity</td>
+      </tr>
+    </thead>
+    <tbody>
+
+    <!-- Topics table rows. -->
+    <%= render @topics %>
+
+    </tbody>
+  </table>
+
+<% end %>
+
+<div class="row">
+  <div class="col-md-4">
+    <%= will_paginate @topics, renderer: BootstrapPagination::Rails, class: 'pull-left' %>
+  </div>
+  <div class="col-md-8">
+    <%= render 'topics/new_topic_button' %>
+  </div>
+</div>

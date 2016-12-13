@@ -138,7 +138,7 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
   def assert_basic_layout
     get topic_path(@topic)
     # Posts index is actually topic show.
-    assert_template 'topics/show'
+    assert_template 'posts/index'
     # Assert there is topic title.
     assert_match CGI.escapeHTML(@topic.title), response.body
     # Assert there is current_page/total_pages indicator.

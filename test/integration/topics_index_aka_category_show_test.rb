@@ -92,7 +92,7 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
   def assert_basic_layout
     get category_path(@category)
     # Topics index is actually category show.
-    assert_template 'categories/show'
+    assert_template 'topics/index'
     # Assert there are two will_paginate controls on the page.
     assert_select 'ul.pagination', count: 1
     # Assert there is no flash messages.

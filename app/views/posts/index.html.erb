@@ -10,17 +10,22 @@
 
 <hr>
 
-<%= if params[:page] == nil || params[:page] == 1 then render 'topic' end %>
+<% if params[:page] == nil || params[:page] == 1 %>
+  <%= render 'posts/topic' %>
+<% end %>
 
-<%= render 'posts' %>
+<%= render @posts %>
 
 <div class="row">
+
   <div class="col-md-6">
     <%= will_paginate @posts, renderer: BootstrapPagination::Rails, class: 'pull-left' %>
   </div>
+
   <div class="col-md-6">
-    <%= render 'new_post_button' %>
+    <%= render 'posts/new_post_button' %>
   </div>
+
 </div>
 
 <br>

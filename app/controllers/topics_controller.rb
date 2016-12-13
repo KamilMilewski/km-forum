@@ -12,6 +12,7 @@ class TopicsController < ApplicationController
   def show
     @posts = @topic.posts.paginate(page: params[:page],
                                    per_page: KmForum::POSTS_PER_PAGE)
+    render 'posts/index'
   end
 
   def new

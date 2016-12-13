@@ -1,12 +1,12 @@
 <div class="media-body resource-body">
 
-  <%= render 'resource_heading', user: resource.user %>
+  <%= render 'posts/resource_heading', user: resource.user %>
 
   <p><%= resource.content %></p>
 
   <% # Display picture if any has been uploaded for this resource %>
   <%= image_tag resource.picture.url if resource.picture? %>
 
-  <%= render 'edit_delete_links', resource: resource %>
+  <%= render 'posts/edit_delete_links', resource: resource %>
 </div>
-<%= render 'resource_date', resource: resource %>
+<%= render 'posts/resource_date', resource: resource %>

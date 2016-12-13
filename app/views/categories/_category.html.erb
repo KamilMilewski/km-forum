@@ -1,0 +1,56 @@
+<div class="row categories-index-body">
+
+  <!-- Icon cell -->
+  <div class="col-lg-1 col-md-1 cat-cell-1">
+    <%= image_tag "ruby_logo.png", alt: "ruby" %>
+  </div>
+
+  <!-- Title & description cell -->
+  <div class="col-lg-6 col-md-6 cat-cell-2">
+    <h3><%= link_to category.title, category %></h3>
+    <p><%= category.description %></p>
+    <%= render 'edit_delete_links', category: category %>
+  </div>
+
+  <!-- Posts count cell -->
+  <div class="col-lg-1 col-md-1 .hidden-sm hidden-xs cat-cell-3">
+    <span><%= category.posts_count %></span>
+  </div>
+
+  <!-- User avatar cell -->
+  <div class="col-lg-1 col-md-1 .hidden-sm hidden-xs cat-cell-4">
+  <% # Avatar of the author of the last post dosent make sense of course. %>
+    <% unless category.topics.empty? %>
+      <% user = category.last_resource.user %>
+      <%= render 'shared/user_avatar', user: category.last_resource.user %>
+      <%= link_to user.name, user  %>
+    <% end %>
+  </div>
+
+  <!-- Last activity cell -->
+  <div class="col-lg-3 col-md-3 .hidden-sm hidden-xs cat-cell-5">
+    <% last_topic = category.last_topic %>
+    <% # Last activity for empty category dosent make sense. %>
+    <% unless category.topics.empty? %>
+      <% # Newest post is last activity if exist. %>
+      <% unless last_topic.posts.empty? %>
+        <% last_post = last_topic.posts.last %>
+        <%= link_to truncate(last_post.content, length: 40),
+                    topic_path(last_topic, anchor: last_post.anchor, page: last_topic.last_page),
+                    tooltip: CGI.unescapeHTML("Post: #{truncate(last_post.content, length: 100)}"),
+                    class: 'post-preview' %>
+      <% # If topic is empty then topic itself is last activity. %>
+      <% else %>
+        <%= link_to truncate(last_topic.title, length: 40),
+                    topic_path(last_topic, page: last_topic.last_page),
+                    tooltip: CGI.unescapeHTML("Topic: #{last_topic.title}"),
+                    class: 'topic-preview' %>
+      <% end %>
+      <br>
+      <span tooltip="<%= category.updated_at %>">
+        <%= time_ago_in_words(category.last_activity) %> ago
+      </span>
+    <% end %>
+  </div>
+
+</div>
