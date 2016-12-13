@@ -1,2 +1,7 @@
 <% # user's avatar. Its also a link to his profile. %>
-<%= link_to( image_tag(avatar_url(user), class: 'media-object'), user )%>
+<% if user.nil? %>
+  <% # If user dosen't exist then generic glyphicon is rendered instead of avatar %>
+  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+<% else %>
+  <%= link_to( image_tag(avatar_url(user), class: 'media-object'), user )%>
+<% end %>

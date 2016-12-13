@@ -13,8 +13,14 @@
 
 	<!-- Author -->
 	<td class="author">
-		<%= render 'shared/user_avatar', user: topic.user %>
-		<%= link_to topic.user.name, topic.user %>
+		<% user = topic.user %>
+		<%= render 'shared/user_avatar', user: user %>
+		<% # Deleted user handling %>
+		<% if user.nil? %>
+			<br><%= link_to 'user deleted', '#' %>
+		<% else %>
+			<%= link_to user.name, user  %>
+		<% end %>
 	</td>
 
 	<!-- Last activity -->
@@ -26,14 +32,30 @@
 									tooltip: CGI.unescapeHTML("Post: #{truncate(last_post.content, length: 100)}"),
 									class: 'post-preview' %>
 			<br>
-			<span>by <%= link_to last_post.user.name, last_post.user %> </span>
+			<span>by
+				<% # Deleted user handling %>
+				<% user = last_post.user %>
+				<% if user.nil? %>
+					<%= link_to 'user deleted', '#' %>
+				<% else %>
+					<%= link_to user.name, user %>
+				<% end %>
+			</span>
 		<% else %>
 			<%= link_to truncate(topic.content, length: 40),
 									topic_path(topic),
 									tooltip: CGI.unescapeHTML("Topic: #{truncate(topic.content, length: 100)}"),
 									class: 'post-preview' %>
 			<br>
-			<span>by <%= link_to topic.user.name, topic.user %> </span>
+			<span>by
+				<% # Deleted user handling %>
+				<% user = topic.user %>
+				<% if user.nil? %>
+					<%= link_to 'user deleted', '#' %>
+				<% else %>
+					<%= link_to user.name, user %>
+				<% end %>
+			</span>
 		<% end %>
 		<span tooltip="<%= topic.last_activity %>">
 			<%= time_ago_in_words(topic.last_activity) %> ago

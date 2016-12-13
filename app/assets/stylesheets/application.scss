@@ -126,7 +126,9 @@ a {
 }
 /* Applies to left side of the resource, where user avatar is displayed.*/
 .resource-avatar {
-
+  span.glyphicon {
+    font-size: 80px;
+  }
 }
 /* Applies to right side of the resource, where post/topic content is */
 /* displayed. */
@@ -199,6 +201,9 @@ table.topics-table {
         height: 30px;
         width: 30px;
 			}
+      span.glyphicon {
+        font-size: 30px;
+      }
 		}
 		td.posts {
 			vertical-align: middle;
@@ -320,6 +325,10 @@ div.categories-index-body {
       margin-right: auto;
       width: 36px;
       height: 36px;
+    }
+
+    span.glyphicon {
+      font-size: 35px;
     }
   }
 
