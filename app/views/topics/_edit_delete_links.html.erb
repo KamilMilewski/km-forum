@@ -4,7 +4,7 @@
        (current_user.moderator? && !resource.user.admin?) ||
         current_user.owner_of(resource) )
       %>
-  <aside class="pull-left resource-edit-delete">
+  <aside class="pull-left edit-delete-links">
     <% resource_type = resource.class.to_s.underscore %>
 
     <% if resource_type == 'topic' %>

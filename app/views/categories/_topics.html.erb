@@ -7,7 +7,7 @@
 		<thead>
 			<tr>
 				<td class="topic">Topic</td>
-				<td class="replies">Posts</td>
+				<td class="posts">Posts</td>
 				<td class="author">Topic owner</td>
 				<td class="activity">Activity</td>
 			</tr>
@@ -18,9 +18,8 @@
 
 					<!-- Topic -->
 					<td class="topic">
-						<%= link_to topic.title, topic, class: "topic-show" %><br>
-						<span class="topic-peek" tooltip="<%= topic.content %>">(peek)</span>
-						<%= render 'edit_delete_links', topic: topic %>
+						<%= link_to topic.title, topic, class: "topic" %><br>
+						<%= render 'edit_delete_topic_links', topic: topic %>
 					</td>
 
 					<!-- Replies -->
@@ -38,12 +37,19 @@
 					<td class="activity">
 						<% unless topic.posts.empty? %>
 							<% last_post = topic.posts.last %>
-							<%= link_to truncate(last_post.content, length: 25),
-							 						topic_path(topic, page: topic.last_page),
+							<%= link_to truncate(last_post.content, length: 40),
+							 						topic_path(topic, anchor: last_post.anchor, page: topic.last_page),
 													tooltip: CGI.unescapeHTML("Post: #{truncate(last_post.content, length: 100)}"),
 													class: 'post-preview' %>
-													<br>
+							<br>
 							<span>by <%= link_to last_post.user.name, last_post.user %> </span>
+						<% else %>
+							<%= link_to truncate(topic.content, length: 40),
+													topic_path(topic),
+													tooltip: CGI.unescapeHTML("Topic: #{truncate(topic.content, length: 100)}"),
+													class: 'post-preview' %>
+							<br>
+							<span>by <%= link_to topic.user.name, topic.user %> </span>
 						<% end %>
 						<span tooltip="<%= topic.last_activity %>">
 							<%= time_ago_in_words(topic.last_activity) %> ago

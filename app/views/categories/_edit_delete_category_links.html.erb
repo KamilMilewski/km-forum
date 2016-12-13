@@ -1,5 +1,5 @@
 <% if logged_in? && current_user.admin? %>
-  <aside class="pull-left category-edit-delete">
+  <aside class="pull-left edit-delete-links">
     <%= link_to "Edit", edit_category_path(category),
                 tooltip: "Edit this category." %>
     <%= link_to "Delete", category_path(category), method: :delete,

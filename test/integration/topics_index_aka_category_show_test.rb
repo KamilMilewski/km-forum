@@ -22,9 +22,10 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     # should be able to edit and delete every topic.
     @category.topics.paginate(page: 1, per_page: @per_page).each do |topic|
       assert_topic_body_for(topic)
-      # There are two links that match topic_path(topic). One for show action
+      # There are three links that match topic_path(topic). Two for show action
       # and one for delete.
-      assert_select 'a[href=?]', topic_path(topic), count: 2
+      # Refular link to topic.
+      assert_select 'a[href=?]', topic_path(topic)
       assert_edit_delete_links_for(topic, links_count: 1)
     end
   end
@@ -39,13 +40,12 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     # belongs to an admin.
     @category.topics.paginate(page: 1, per_page: @per_page).each do |topic|
       assert_topic_body_for(topic)
+      assert_select 'a[href=?]', topic_path(topic)
       if topic.user.admin?
         # Moderator can only access show action of admin's topics:
-        assert_select 'a[href=?]', topic_path(topic), count: 1
         assert_edit_delete_links_for(topic, links_count: 0)
       else
         # Moderator can edit and delete all other topics:
-        assert_select 'a[href=?]', topic_path(topic), count: 2
         assert_edit_delete_links_for(topic, links_count: 1)
       end
     end
@@ -61,13 +61,12 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     # to user.
     @category.topics.paginate(page: 1, per_page: @per_page).each do |topic|
       assert_topic_body_for(topic)
+      assert_select 'a[href=?]', topic_path(topic)
       if !@user.owner_of(topic)
         # Users can only access show action of foreign topics:
-        assert_select 'a[href=?]', topic_path(topic), count: 1
         assert_edit_delete_links_for(topic, links_count: 0)
       else
         # Users can also edit and delete their own topics:
-        assert_select 'a[href=?]', topic_path(topic), count: 2
         assert_edit_delete_links_for(topic, links_count: 1)
       end
     end
@@ -82,7 +81,7 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
     # cant't edit or delete topics.
     @category.topics.paginate(page: 1, per_page: @per_page).each do |topic|
       assert_topic_body_for(topic)
-      assert_select 'a[href=?]', topic_path(topic), count: 1
+      assert_select 'a[href=?]', topic_path(topic)
       assert_edit_delete_links_for(topic, links_count: 0)
     end
   end
@@ -103,10 +102,8 @@ class TopicsIndexAkaCategoryShowTest < ActionDispatch::IntegrationTest
   def assert_topic_body_for(topic, present: true)
     if present
       assert_match      CGI.escapeHTML(topic.title),    response.body
-      assert_match      CGI.escapeHTML(topic.content),  response.body
     else
       assert_no_match   CGI.escapeHTML(topic.title),    response.body
-      assert_no_match   CGI.escapeHTML(topic.content),  response.body
     end
   end
 end

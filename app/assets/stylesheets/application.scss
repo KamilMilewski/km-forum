@@ -24,7 +24,7 @@ $navbar-default-color: #F8E6E4;
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-/* global CSS */
+/* Global CSS. */
 a {
   color: $main-theme-color;
   &:hover {
@@ -32,14 +32,14 @@ a {
  }
 }
 
-/* CSS custom tooltip appearance and behavior */
+/* CSS custom tooltip appearance and behavior. */
 [tooltip]:before {
- /* core tooltip funcionality */
+ /* Core tooltip funcionality. */
  position : absolute;
  content  : attr(tooltip);
  opacity  : 0;
  pointer-events: none;
- /* custom */
+ /* Custom. */
  transition: all 0.4s ease;
  padding: 3px;
  color: white;
@@ -50,16 +50,16 @@ a {
 }
 
 [tooltip]:hover:before {
- /* core tooltip funcionality */
+ /* Core tooltip funcionality. */
  opacity: 1;
- /* custom */
+ /* Custom. */
  background: black;
  margin-top: 30px;
  margin-left: 20px;
 }
 
 
-/* Basic Bootstrap customization */
+/* Basic Bootstrap customization. */
 .navbar .container-fluid .navbar-header a{
 	color: #FFFFFF;
 	font-weight: 800;
@@ -71,12 +71,12 @@ a {
 	margin-top: 0.5em;
 }
 
-/* bootstrap primary-btn customization */
+/* bootstrap primary-btn customization. */
 .btn-primary {
   @include button-variant(white, $main-theme-color, $main-theme-color);
 }
 
-/* customizing bootstrap styling for will_paginate */
+/* customizing bootstrap styling for will_paginate. */
 .pagination {
   li.active {
     span {
@@ -97,17 +97,17 @@ a {
 
 /* Rails automagically wraps form fields with errors with div of this class: */
 .field_with_errors {
-	/* Extending with funcionality of bootstrap class */
+	/* Extending with funcionality of bootstrap class. */
 	@extend .has-error;
 		color: red;
 }
 
-/* To distance site content from navbar */
+/* To distance site content from navbar. */
 .km-body-container {
 	margin-top: 4.5em;
 }
 
-/* others */
+/* Others. */
 .form-title {
 	text-align: center;
 	font-weight: 600;
@@ -117,39 +117,6 @@ a {
 	text-align: center;
 }
 
-/* edit/delete resource buttons */
-.edit-delete-btns {
-	text-align: right;
-}
-
-.users-list {
-  li {
-    overflow: auto;
-    padding: 10px 0;
-    border-bottom: 1.5px solid $gray-lighter;
-
-		/* unvisited link */
-		a:link {
-			color: #4B515D;
-		}
-
-		/* visited link */
-		a:visited {
-			color: #4B515D;
-		}
-
-		/* mouse over link */
-		a:hover {
-			color: black;
-		}
-
-		/* selected link */
-		a:active {
-			color: #0d47a1;
-		}
-  }
-}
-
 /* Resource styling. Used to syle posts and topics on topic show page. */
 /* Applies to resource as a whole. */
 .resource {
@@ -157,17 +124,17 @@ a {
 	margin-bottom: 2px;
 	padding: 5px;
 }
-/* Applies to left side of the resource, where user avatar is displayed */
+/* Applies to left side of the resource, where user avatar is displayed.*/
 .resource-avatar {
 
 }
 /* Applies to right side of the resource, where post/topic content is */
-/* displayed */
+/* displayed. */
 .resource-body {
 
 }
 
-/* Resource date. Post created_at for example... */
+/* Resource date. Post created_at for example. */
 .resource-date {
 	float: right;
 	vertical-align: bottom;
@@ -177,18 +144,11 @@ a {
 	font-weight: 200;
 }
 
-.resource-edit-delete {
-	margin-left: 90px;
-	a {
-		color: $gray;
-		font-weight: bolder;
-	}
-	a:hover {
-		color: black;
-	}
-}
-
-/* Category show aka Topics index. */
+/*
+ *
+ * Topics index (Category show).
+ *
+ */
 table.topics-table {
 	border-collapse: collapse;
 	font-family: Helvetica, Arial, sans-serif;
@@ -210,7 +170,7 @@ table.topics-table {
 		td.author {
       color: #919191
 		}
-		td.replies {
+		td.posts {
       color: #919191;
 		}
 		td.activity {
@@ -256,35 +216,32 @@ table.topics-table {
 	}
 }
 
-.topic-edit-delete {
-  font-weight: bolder;
-}
-
-.topic-peek {
-  font-style: italic;
-  color: $gray;
-}
-
 .new_btn {
   margin: 20px 45px;
 }
 
-/* Jumbotron sandbox notice on the main page */
-div.sandbox-notice {
-  text-align: center;
-  p {
+/*
+ *
+ * Categories index.
+ *
+ */
 
-  }
-  table {
-    text-align: left;
-    margin-left: auto;
-    margin-right: auto;
-    width: 30%;
+ /* Jumbotron sandbox notice on the main page. */
+ div.sandbox-notice {
+   text-align: center;
+   p {
 
-  }
-}
+   }
+   table {
+     text-align: left;
+     margin-left: auto;
+     margin-right: auto;
+     width: 30%;
 
-/* Categories index */
+   }
+ }
+
+/* Head row for categories list. */
 div.categories-index-head {
   /* Creates pseudo element just to create bottom border for this row. */
   &:after {
@@ -316,9 +273,10 @@ div.categories-index-head {
 }
 
 div.categories-index-body {
-  /* Thanks to those two lines vertival aligment is possible */
+  /* Thanks to those two lines vertival aligment is possible. */
   display: flex;
   align-items: center;
+
   font-family: Helvetica, Arial, sans-serif;
 
   &:hover {
@@ -330,7 +288,7 @@ div.categories-index-body {
   div {
     margin-bottom: 5px;
   }
-  /* Icon cell */
+  /* Icon cell. */
   div.cat-cell-1 {
     img {
       width: 36px;
@@ -338,17 +296,17 @@ div.categories-index-body {
       margin: 5px
     }
   }
-  /* Title & description cell */
+  /* Title & description cell. */
   div.cat-cel-2 {
 
   }
-  /* Posts count cell */
+  /* Posts count cell. */
   div.cat-cell-3 {
     text-align: center;
     font-size: 14px;
     color: #919191;
   }
-  /* User avatar cell */
+  /* User avatar cell. */
   div.cat-cell-4 {
     text-align: center;
     a {
@@ -365,7 +323,7 @@ div.categories-index-body {
     }
   }
 
-  /* Last activity cell */
+  /* Last activity cell. */
   div.cat-cell-5 {
     font-size: 14px;
     a {
@@ -383,7 +341,42 @@ div.categories-index-body {
   }
 }
 
-.category-edit-delete {
+/*
+ *
+ * Users index.
+ *
+ */
+
+.users-list {
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-bottom: 1.5px solid $gray-lighter;
+
+		/* unvisited link */
+		a:link {
+			color: #4B515D;
+		}
+
+		/* visited link */
+		a:visited {
+			color: #4B515D;
+		}
+
+		/* mouse over link */
+		a:hover {
+			color: black;
+		}
+
+		/* selected link */
+		a:active {
+			color: #0d47a1;
+		}
+  }
+}
+
+
+aside.edit-delete-links {
 	a {
 		color: $gray;
 		font-weight: bolder;
