@@ -18,7 +18,7 @@
   </div>
 
   <!-- User avatar cell -->
-  <div class="col-lg-1 col-md-1 .hidden-sm hidden-xs cat-cell-4">
+  <div class="col-lg-2 col-md-2 .hidden-sm hidden-xs cat-cell-4">
   <% # Avatar of the author of the last post dosent make sense of course. %>
     <% unless category.topics.empty? %>
       <% user = category.last_resource.user %>
@@ -33,7 +33,7 @@
   </div>
 
   <!-- Last activity cell -->
-  <div class="col-lg-3 col-md-3 .hidden-sm hidden-xs cat-cell-5">
+  <div class="col-lg-2 col-md-2 .hidden-sm hidden-xs cat-cell-5">
     <% last_topic = category.last_topic %>
     <% # Last activity for empty category dosent make sense. %>
     <% unless category.topics.empty? %>

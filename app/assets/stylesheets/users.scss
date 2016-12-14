@@ -1,3 +1,33 @@
-// Place all the styles related to the users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/* Head row for users list */
+div.users-index-head {
+  font-size: 14px;
+  color: #919191;
+  /* Creates pseudo element just to create bottom border for this row. */
+  &:after { content: ""; display: block; border-bottom: 2px solid #ccc;
+            margin: 0 0 15px 0; }
+  .user-head-1 {}
+  .user-head-2 {}
+  .user-head-3 { text-align: center; }
+  .user-head-4 { text-align: center; }
+  .user-head-5 { text-align: center; }
+}
+
+div.users-index-body {
+  /* Thanks to those two verses vertival aligment is possible. */
+  display: flex; align-items: center;
+  border-bottom: 1px solid #ccc;
+  &:hover { background-color: $gray-lighter; }
+  div { margin-bottom: 5px; }
+  /* User's avatar */
+  .user-cell-1 { img { width: 36px; height: 36px; margin: 5px; } }
+  /* User's name */
+  .user-cell-2 {
+    h4 { a { color: black; } }
+  }
+  /* User joinded */
+  .user-cell-3 { text-align: center; color: #919191; }
+  /* User's posts */
+  .user-cell-4 { text-align: center; color: #919191; }
+  /* User's topics */
+  .user-cell-5 { text-align: center; color: #919191; }
+}

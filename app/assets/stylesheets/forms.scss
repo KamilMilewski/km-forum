@@ -1,0 +1,9 @@
+/* Forms */
+/* Rails automagically wraps form fields with errors with div of this class: */
+.field_with_errors {
+	/* Extending with funcionality of bootstrap class. */
+	@extend .has-error;
+	color: red;
+}
+.form-title { text-align: center; font-weight: 600; }
+.empty-resource-notice { text-align: center; }

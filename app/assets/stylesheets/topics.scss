@@ -1,3 +1,35 @@
-// Place all the styles related to the topics controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/*
+ *
+ * Topics index (Category show)
+ *
+ */
+table.topics-table {
+	border-collapse: collapse;
+	font-size: 14px;
+	text-align: center;
+  overflow-x: auto;
+	thead {
+		.topic { text-align: left; width: 50%; min-width: 200px; color: #919191; }
+		.author 	{ color: #919191; }
+		.posts 		{ color: #919191; }
+		.activity { color: #919191; }
+	}
+	tbody {
+		td { vertical-align: middle; }
+		.topic { text-align: left; width: 50%; min-width: 200px; color: black}
+		.author {
+      text-align: center;
+      a { color: black; font-size: 12px; }
+			img { display: block; margin-left: auto; margin-right: auto;
+        		height: 30px; width: 30px; }
+      .glyphicon { font-size: 30px; }
+		}
+		.posts { color: #919191 }
+		.activity {
+      text-align: left;
+      color: #919191;
+      .post-preview { font-style: italic; }
+			a { color: black; }
+		}
+	}
+}

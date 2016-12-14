@@ -1,3 +1,56 @@
-// Place all the styles related to the categories controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/*
+ *
+ * Categories index
+ *
+ */
+
+ /* Jumbotron sandbox notice on the main page */
+ div.sandbox-notice {
+   text-align: center;
+   table { text-align: left; margin-left: auto; margin-right: auto; width: 30%;}
+ }
+
+/* Head row for categories list */
+div.categories-index-head {
+  font-size: 14px; color: #919191;
+  /* Creates pseudo element just to create bottom border for this row. */
+  &:after { content: ""; display: block; border-bottom: 2px solid #ccc;
+            margin: 0 0px 15px 0px; }
+  /* Category index header cells */
+  .cat-head-1 {}
+  .cat-head-2 {}
+  .cat-head-3 { text-align: center; }
+  .cat-head-4 { text-align: center; }
+  .cat-head-5 { text-align: center; }
+}
+
+div.categories-index-body {
+  /* Thanks to those two verses vertical aligment is possible. */
+  display: flex; align-items: center;
+  border-bottom: 1px solid #ccc;
+  &:hover { background-color: $gray-lighter; }
+  div { margin-bottom: 5px; }
+  /* Icon cell */
+  .cat-cell-1 {
+    img { width: 36px; height: 36px; margin: 5px }
+  }
+  /* Title & description cell */
+  .cat-cel-2 {}
+  /* Posts count cell */
+  .cat-cell-3 { text-align: center; font-size: 14px; color: #919191; }
+  /* User avatar cell */
+  .cat-cell-4 {
+    text-align: center;
+    a { color: black; font-size: 12px; }
+    img { display: block; margin-left: auto; margin-right: auto;
+          width: 36px; height: 36px; }
+    .glyphicon { font-size: 35px; }
+  }
+  /* Last activity cell */
+  .cat-cell-5 {
+    font-size: 14px;
+    a { color: black; }
+    span { color: #919191; }
+    a.post-preview { font-style: italic; }
+  }
+}

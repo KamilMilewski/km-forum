@@ -1,3 +1,14 @@
-// Place all the styles related to the posts controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/* Used to syle posts and topic on posts index page. */
+/* Applies to resource(topic/post) as a whole. */
+.resource {
+	border-bottom: 1px solid $gray-lighter; margin-bottom: 2px; padding: 5px;
+}
+/* Applies to left side of the resource, where user avatar is displayed.*/
+.resource-avatar { font-size: 80px; }
+/* Applies to right side of the resource, where post/topic content is */
+/* displayed. */
+.resource-body {}
+/* Resource date. Post created_at for example. */
+.resource-date { float: right; vertical-align: bottom; }
+/* Resource heading. Here user name is displayed. */
+.resource-heading { font-weight: 200; }
