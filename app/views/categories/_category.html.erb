@@ -52,7 +52,7 @@
                     class: 'topic-preview' %>
       <% end %>
       <br>
-      <span tooltip="<%= category.updated_at %>">
+      <span tooltip="<%= category.last_activity.strftime(KmForum::DATEFORMAT) %>">
         <%= time_ago_in_words(category.last_activity) %> ago
       </span>
     <% end %>

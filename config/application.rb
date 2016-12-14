@@ -7,13 +7,15 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 
 module KmForum
-  # KmForum constants.
+  # KmForum constants:
   TOPICS_PER_PAGE = 10
   POSTS_PER_PAGE  = 10
   USERS_PER_PAGE  = 10
 
   TOPIC_CONTENT_TRUNCATE = 40
   POST_CONTENT_TRUNCATE = 40
+
+  DATEFORMAT = '%d-%m-%Y at %H:%M UTC'.freeze
 
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified

@@ -135,6 +135,40 @@ class User < ApplicationRecord
     id == resource.user_id ? true : false
   end
 
+  # Returns newest user post (created or edited)
+  def recent_post
+    (recent_posts count: 1)[0]
+  end
+
+  # Returns newest user topic (created or edited)
+  def recent_topic
+    (recent_topics count: 1)[0]
+  end
+
+  # Returns top X (10 by default) user posts.
+  def recent_posts(count: 10)
+    Post.reorder(updated_at: :desc).where(user_id: id).limit(count)
+  end
+
+  # Returns top X (10 by default) user topics.
+  def recent_topics(count: 10)
+    Topic.reorder(updated_at: :desc).where(user_id: id).limit(count)
+  end
+
+  # Returns last user activity (post or topic)
+  def recent_activity
+    (recent_activities count: 1)[0]
+  end
+
+  # Gives collection of last user activities (Topics and posts)
+  def recent_activities(count: 10)
+    posts  = Post.reorder(updated_at: :desc).where(user_id: id).limit(count)
+    topics = Topic.reorder(updated_at: :desc).where(user_id: id).limit(count)
+    activities = posts + topics
+    activities.sort! { |x, y| y.updated_at <=> x.updated_at }
+    activities.first(count)
+  end
+
   private
 
   # Callbacks methods. No need for them to be public.

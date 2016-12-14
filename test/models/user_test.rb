@@ -12,6 +12,9 @@ class UserTest < ActiveSupport::TestCase
       password: 'valid password',
       password_confirmation: 'valid password'
     )
+
+    # User who has some posts and topics.
+    @user = users(:user)
   end
 
   test 'valid user should be valid' do
@@ -133,12 +136,56 @@ class UserTest < ActiveSupport::TestCase
                                    'passwords shorter than 6 chars.'
   end
 
-  # FIXME: So what? Still it needs to be tested.
-  # test "password can't be too long" do
-  #  This is already done by bcrypt gem validation
-  # end
-
   test 'authenticated? should return false for a user with nil digest' do
     assert_not @valid_user.authenticated?(:remember, '')
+  end
+
+  test 'user.recent_post should return his newest post' do
+    topic = topics(:first)
+    post = topic.posts.create!(content: 'some content', user_id: @user.id)
+    assert_equal post, @user.recent_post
+  end
+
+  test 'user.recent_topic should return his newest topic' do
+    category = categories(:first)
+    topic = category.topics.create!(title: 'some title',
+                                    content: 'some content',
+                                    user_id: @user.id)
+    assert_equal topic, @user.recent_topic
+  end
+
+  test 'user.recent_activity should return his newest activity' do
+    # For post
+    topic = topics(:first)
+    post = topic.posts.create!(content: 'some content', user_id: @user.id)
+    assert_equal post, @user.recent_activity
+    # For topic
+    category = categories(:first)
+    topic = category.topics.create!(title: 'some title',
+                                    content: 'some content',
+                                    user_id: @user.id)
+    assert_equal topic, @user.recent_activity
+  end
+
+  test 'user.recent_activities should return X recent activities' do
+    topic = topics(:first)
+    category = categories(:first)
+    # Create five items.
+    item4 = topic.posts.create!(content: 'some content 1', user_id: @user.id)
+    item3 = category.topics.create!(title: 'some title',
+                                    content: 'some content',
+                                    user_id: @user.id)
+    item2 = topic.posts.create!(content: 'some content 2', user_id: @user.id)
+    item1 = topic.posts.create!(content: 'some content 3', user_id: @user.id)
+    item0 = category.topics.create!(title: 'some title 2',
+                                    content: 'some content 2',
+                                    user_id: @user.id)
+
+    recent_activities = @user.recent_activities(count: 5)
+    assert_equal recent_activities[0], item0
+    assert_equal recent_activities[1], item1
+    assert_equal recent_activities[2], item2
+    assert_equal recent_activities[3], item3
+    assert_equal recent_activities[4], item4
   end
 end

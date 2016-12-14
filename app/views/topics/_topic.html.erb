@@ -57,7 +57,7 @@
 				<% end %>
 			</span>
 		<% end %>
-		<span tooltip="<%= topic.last_activity %>">
+		<span tooltip="<%= topic.last_activity.strftime(KmForum::DATEFORMAT) %>">
 			<%= time_ago_in_words(topic.last_activity) %> ago
 		</span>
 	</td>

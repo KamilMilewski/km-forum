@@ -1,3 +1,9 @@
+/*
+ *
+ * Users index page
+ *
+ */
+
 /* Head row for users list */
 div.users-index-head {
   font-size: 14px;
@@ -31,3 +37,10 @@ div.users-index-body {
   /* User's topics */
   .user-cell-5 { text-align: center; color: #919191; }
 }
+
+/*
+ *
+ * User profile page
+ *
+ */
+.user-profile-name { font-weight: bold;}

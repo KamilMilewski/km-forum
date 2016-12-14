@@ -1,27 +1,34 @@
 <% provide :title, "#{@user.name} Profile Page" %>
-<div class="media">
-  <div class="media-left media-top">
-     <%= render 'shared/user_avatar', user: @user %>
+
+<!-- User name and avatar -->
+<div class="row">
+  <div class="col-lg-12">
+    <div class="media">
+      <!-- Avatar -->
+      <div class="media-left media-top"><%= render 'shared/user_avatar', user: @user %></div>
+      <!-- Name -->
+      <div class="media-body">
+        <h3 class="media-heading user-profile-name"><%= @user.name %></h3>
+        <p><%= @user.email %></p>
+      </div>
+    </div>
   </div>
-  <div class="media-body">
-    <p>
-      <strong>Name: </strong>
-      <%= @user.name %>
-    </p>
+</div>
 
-    <p>
-      <strong>Email: </strong>
-      <%= @user.email %>
-    </p>
+<!-- User info belt -->
+<div class="row user-info-belt">
+  <div class="col-lg-12">
+    <aside tooltip="<%= @user.activated_at.strftime(KmForum::DATEFORMAT) %>">
+      Joined: <%= time_ago_in_words(@user.activated_at) %> ago
+    </aside>
+    <aside tooltip="last activity here">Last activity: last activity here</aside>
+    <aside>User type: <%= @user.permissions %></aside>
 
-    <p>
-      <strong>Account type: </strong>
-      <%= @user.permissions %>
-    </p>
-
-    <p>
-      <strong>Joined: </strong>
-      <%= @user.created_at.strftime("%d-%m-%Y at %H:%M ") %>
-    </p>
   </div>
+</div>
+
+<!-- User last activities (post and topics) -->
+<div class="row user-last-activities">
+  <div class="col-lg-4"></div>
+  <div class="col-lg-8"></div>
 </div>
