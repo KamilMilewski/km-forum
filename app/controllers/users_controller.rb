@@ -19,6 +19,19 @@ class UsersController < ApplicationController
     # If given user isn't activated then only admin can see his profile.
     redirect_to(root_url) && return unless @user.activated? ||
                                            current_user.admin?
+    # debugger
+    if params[:activities] == 'topics'
+      # Only last topics
+      @activities = @user.recent_topics
+      return
+    elsif params[:activities] == 'posts'
+      # Only last posts
+      @activities = @user.recent_posts
+      return
+    else
+      # All recent activities - posts and topics
+      @activities = @user.recent_activities
+    end
   end
 
   def new

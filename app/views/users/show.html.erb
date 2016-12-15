@@ -16,19 +16,88 @@
 </div>
 
 <!-- User info belt -->
-<div class="row user-info-belt">
+<div class="row">
   <div class="col-lg-12">
-    <aside tooltip="<%= @user.activated_at.strftime(KmForum::DATEFORMAT) %>">
-      Joined: <%= time_ago_in_words(@user.activated_at) %> ago
-    </aside>
-    <aside tooltip="last activity here">Last activity: last activity here</aside>
-    <aside>User type: <%= @user.permissions %></aside>
+    <div class="user-info-belt">
+      <dl>
+        <!-- Joinded -->
+        <dt>Joined: </dt>
+        <dd tooltip="<%= @user.activated_at.strftime(KmForum::DATEFORMAT) %>">
+          <%= time_ago_in_words(@user.activated_at) %> ago
+        </dd>
 
+        <!-- Last activity -->
+        <% unless @user.recent_activity.nil? %>
+          <dt>Last activity: </dt>
+          <dd tooltip="<%= @user.recent_activity.updated_at.strftime(KmForum::DATEFORMAT) %>">
+            <%= time_ago_in_words(@user.recent_activity.updated_at) %> ago
+          </dd>
+        <% end %>
+
+        <!-- User type -->
+        <dt>User type: </dt>
+        <dd>
+          <%= @user.permissions %>
+        </dd>
+
+        <!-- User posts count -->
+        <dt>Posts: </dt>
+        <dd>
+          <%= @user.posts.count %>
+        </dd>
+
+        <dt>Topics: </dt>
+        <dd>
+          <%= @user.topics.count %>
+        </dd>
+
+      </dl>
+    </div>
   </div>
 </div>
 
 <!-- User last activities (post and topics) -->
 <div class="row user-last-activities">
-  <div class="col-lg-4"></div>
-  <div class="col-lg-8"></div>
+  <!-- Activities navbar -->
+  <div class="col-lg-2 activities-navbar">
+    <ul>
+
+      <li>
+        <% if params[:activities] == 'all' || params[:activities].nil? %>
+          <% # Focused link %>
+          <%= link_to 'All', user_url(@user, activities: 'all'), style: "color: black;" %>
+        <% else %>
+          <% # unfocused link %>
+          <%= link_to 'All', user_url(@user, activities: 'all') %>
+        <% end %>
+      </li>
+
+      <li>
+        <% if params[:activities] == 'topics' %>
+          <% # Focused link %>
+          <%= link_to 'Topics', user_url(@user, activities: 'topics' ), style: "color: black;" %>
+        <% else %>
+          <% # unfocused link %>
+          <%= link_to 'Topics', user_url(@user, activities: 'topics' ) %>
+        <% end %>
+      </li>
+
+      <li>
+        <% if params[:activities] == 'posts' %>
+          <% # Focused link %>
+          <%= link_to 'Posts',  user_url(@user, activities: 'posts' ), style: "color: black;" %>
+        <% else %>
+          <% # unfocused link %>
+          <%= link_to 'Posts',  user_url(@user, activities: 'posts' ) %>
+        <% end %>
+      </li>
+
+    </ul>
+  </div>
+  <!-- Last activities list. -->
+  <div class="col-lg-10">
+    <% @activities.each do |activity| %>
+      <%= render 'users/activities/activity', activity: activity %>
+    <% end %>
+  </div>
 </div>

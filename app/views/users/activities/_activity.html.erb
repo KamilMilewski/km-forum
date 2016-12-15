@@ -1,0 +1,44 @@
+<div class="media resource" id="<%= activity.anchor %>">
+
+	<!-- User avatar -->
+	<div class="media-left media-top resource-avatar">
+	  <%= render 'shared/user_avatar', user: activity.user %>
+	</div>
+
+	<!-- Activity body -->
+	<div class="media-body resource-body">
+
+		<!-- Activity heading -->
+
+		<h4 class="media-heading activity-heading">
+			<%= link_to 'Home page', root_path %> /
+			<% if activity.class == Post %>
+				<%= link_to activity.topic.category.title, activity.topic.category %> / 
+				<%= link_to activity.topic.title, activity.topic %> /
+				<% page = activity.page %>
+				<% if page.nil? || page == 1 %>
+					<%= link_to "Page: 1", topic_path(activity.topic, anchor: activity.anchor) %>
+				<% else %>
+					<%= link_to "Page: #{page}", topic_path(activity.topic, page: page, anchor: activity.anchor) %>
+				<% end %>
+			<% elsif activity.class == Topic %>
+				<%= link_to activity.category.title, activity.category %> /
+				<%= link_to activity.title, activity %> /
+				<%= link_to "Page: 1", topic_path(activity, anchor: activity.anchor) %>
+			<% end %>
+
+		</h4>
+
+		<!-- Activity content -->
+	  <p><%= activity.content %></p>
+	  <% # Display picture if any has been uploaded for this resource %>
+	  <% if activity.picture? %>
+	    <%= image_tag activity.picture.url %><br>
+	  <% end %>
+
+
+	  <%= render 'users/activities/edit_delete_links', resource: activity %>
+
+	</div>
+	<%= render 'users/activities/activity_date', resource: activity %>
+</div>

@@ -44,3 +44,36 @@ div.users-index-body {
  *
  */
 .user-profile-name { font-weight: bold;}
+.user-info-belt {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(242, 242, 242);
+  font-size: 13px;
+
+  dt {
+    display: inline-block;
+    font-weight: normal;
+    color: rgb(153, 153, 153);
+    margin-left: 10px;
+  }
+
+  dd {
+    display: inline;
+  }
+}
+
+.activity-heading {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.activities-navbar {
+  font-size: 20px;
+  li {
+    list-style: none;
+    margin: 10px;
+  }
+  a {
+    color: #7a7a7a;
+  }
+}

@@ -1,12 +1,12 @@
-/* Global CSS */
-$main-theme-color: #79589F;
-
 /* Default behaviour for app links */
 body {
-  font-family: Helvetica, Arial, sans-serif;
+
   a {
     color: $main-theme-color;
+    &:link { text-decoration: none; }
     &:hover { text-decoration: none; }
+    &:active { text-decoration: none; }
+    &:visited { text-decoration: none; }
   }
 }
 
@@ -34,4 +34,24 @@ body {
  background: black;
  margin-top: 30px;
  margin-left: 20px;
+}
+
+/* To distance site content from navbar. */
+.km-body-container { margin-top: 4.5em; }
+
+/* New category/topic/post button */
+.new_btn { margin: 20px 45px; }
+
+.edit-delete-links {
+	a { color: $gray; font-weight: bolder; }
+	a:hover { color: black; }
+}
+
+.navbar-logo {
+  color: #FFFFFF;
+  font-size: 1.7em;
+  padding-top: 0.4em;
+  &:hover {
+    color: #FFFFFF;
+  }
 }

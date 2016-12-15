@@ -11,26 +11,14 @@
  * It is generally better to create a new file per style scope.
  */
 
-@import "global";
+$main-theme-color: #79589F;
 @import "bootstrap_customization";
- /*
- *= require_self
- */
-
+@import "global";
 @import "forms";
-
-/* To distance site content from navbar. */
-.km-body-container { margin-top: 4.5em; }
-
-/* New category/topic/post button */
-.new_btn { margin: 20px 45px; }
-
 @import "posts";
 @import "topics";
 @import "categories";
 @import "users";
-
-.edit-delete-links {
-	a { color: $gray; font-weight: bolder; }
-	a:hover { color: black; }
-}
+/*
+*= require_self
+*/
