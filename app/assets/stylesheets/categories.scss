@@ -27,8 +27,8 @@
   @extend .col-lg-2, .col-md-2, .col-sm-5, .col-xs-5;
 }
 
-/* Head row for categories list */
 div.categories-index-head {
+  @extend .row;
   font-size: 14px; color: #919191;
   /* Creates pseudo element just to create bottom border for this row. */
   &:after { content: ""; display: block; border-bottom: 2px solid #ccc;
@@ -41,7 +41,8 @@ div.categories-index-head {
   .cat-head-5 { @extend .cat-5; text-align: center; }
 }
 
-div.categories-index-body {
+div.categories-index-row {
+  @extend .row;
   /* Thanks to those two verses vertical aligment is possible. */
   display: flex; align-items: center;
   border-bottom: 1px solid #ccc;
