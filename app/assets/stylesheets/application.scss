@@ -12,13 +12,14 @@
  */
 
 $main-theme-color: #79589F;
-@import "bootstrap_customization";
+@import "bootstrap_related";
 @import "global";
 @import "forms";
 @import "posts";
 @import "topics";
 @import "categories";
 @import "users";
+@import "static_pages";
 /*
 *= require_self
 */
