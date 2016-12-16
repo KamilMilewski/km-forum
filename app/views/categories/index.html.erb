@@ -34,17 +34,16 @@
 
 
 <% if @categories.empty? %>
-	<div class="row">
-		<div class="col-lg-12">
-			<%= render 'shared/no_content_notice',
-								 notice: "There are no categories." %>
-		</div>
-	</div>
+	<%= render 'shared/no_content_notice', notice: "There are no categories yet." %>
 <% else %>
-	<!-- Categories index body -->
 	<%= render @categories %>
 <% end %>
 
 <br>
 
-<%= render 'new_category_button' %>
+<!-- Pagination and new button -->
+<div class="row">
+  <div class="col-lg-12">
+    <%= render 'new_category_button' %>
+  </div>
+</div>

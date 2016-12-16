@@ -56,6 +56,22 @@
   </div>
 </div>
 
+<!-- 'Last activities header' row -->
+<div id="last-activities-header">
+  <div class="col-lg-2"><!-- Just distancer --></div>
+  <div class="col-lg-10">
+    <h2>Last 10
+      <% if params[:activities] == 'all' || params[:activities].nil? %>
+        activities:
+      <% elsif params[:activities] == 'topics' %>
+        topics:
+      <% elsif params[:activities] == 'posts' %>
+        posts:
+      <% end %>
+    </h2>
+  </div>
+</div>
+
 <!-- User last activities (post and topics) -->
 <div class="row user-last-activities">
   <!-- Activities navbar -->

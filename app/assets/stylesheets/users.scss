@@ -4,18 +4,20 @@
  *
  */
 
- /* Rules that apply both to header and regular cells on users index */
- .user-1 { @extend .col-lg-1, .col-md-1, .col-sm-1, .col-xs-2;  }
- .user-2 { @extend .col-lg-5, .col-md-5, .col-sm-5, .col-xs-10; }
- .user-3 { @extend .col-lg-2, .col-md-2, .col-sm-2, .hidden-xs; }
- .user-4 { @extend .col-lg-2, .col-md-2, .col-sm-2, .hidden-xs; }
- .user-5 { @extend .col-lg-2, .col-md-2, .col-sm-2, .hidden-xs; }
+/* Rules that apply both to header and regular rows on users index */
+/* Avatar column */
+.user-1 { @extend .col-lg-1, .col-md-1, .col-sm-1, .col-xs-2;  }
+/* Name column */
+.user-2 { @extend .col-lg-5, .col-md-5, .col-sm-5, .col-xs-10; }
+/* Joinded date column */
+.user-3 { @extend .col-lg-2, .col-md-2, .col-sm-2, .hidden-xs; }
+/* Posts column */
+.user-4 { @extend .col-lg-2, .col-md-2, .col-sm-2, .hidden-xs; }
+/* Topics column */
+.user-5 { @extend .col-lg-2, .col-md-2, .col-sm-2, .hidden-xs; }
 
 /* Head row for users list */
-div.users-header {
-  @extend .row;
-  font-size: 14px;
-  color: #919191;
+div.users-header { @extend .row; font-size: 14px; color: #919191;
   /* Creates pseudo element just to create bottom border for this row. */
   &:after { content: ""; display: block; border-bottom: 2px solid #ccc;
             margin: 0 0 15px 0; }
@@ -30,21 +32,15 @@ div.user-row {
   @extend .row;
   /* Thanks to those two verses vertival aligment is possible. */
   display: flex; align-items: center;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ccc; margin-bottom: 5px;
   &:hover { background-color: $gray-lighter; }
-  div { margin-bottom: 5px; }
-  /* User's avatar */
   .user-cell-1 { @extend .user-1;
     img { width: 36px; height: 36px; margin: 5px; } }
-  /* User's name */
   .user-cell-2 { @extend .user-2;
     h4 { a { color: black; } }
   }
-  /* User joinded */
   .user-cell-3 { @extend .user-3; text-align: center; color: #919191; }
-  /* User's posts */
   .user-cell-4 { @extend .user-4; text-align: center; color: #919191; }
-  /* User's topics */
   .user-cell-5 { @extend .user-5; text-align: center; color: #919191; }
 }
 
@@ -56,26 +52,18 @@ div.user-row {
 .user-profile-name { font-weight: bold;}
 .user-info-belt {
   margin-top: 10px;
-  margin-bottom: 10px;
   background-color: rgb(242, 242, 242);
   font-size: 13px;
-
   dt {
     display: inline-block;
     font-weight: normal;
     color: rgb(153, 153, 153);
     margin-left: 10px;
   }
-
-  dd {
-    display: inline;
-  }
+  dd { display: inline; }
 }
 
-.activity-heading {
-  font-size: 15px;
-  font-weight: bold;
-}
+.activity-heading { font-size: 15px; font-weight: bold; }
 
 .activities-navbar {
   font-size: 20px;
@@ -85,4 +73,9 @@ div.user-row {
 
 #user_profile_avatar {
   img { height: 120px; width: 120px; }
+}
+
+#last-activities-header {
+  @extend .row;
+  margin-bottom: 30px;
 }

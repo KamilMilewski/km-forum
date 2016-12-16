@@ -3,33 +3,42 @@
  * Topics index (Category show)
  *
  */
-table.topics-table {
-	border-collapse: collapse;
-	font-size: 14px;
-	text-align: center;
-  overflow-x: auto;
-	thead {
-		.topic { text-align: left; width: 50%; min-width: 200px; color: #919191; }
-		.author 	{ color: #919191; }
-		.posts 		{ color: #919191; }
-		.activity { color: #919191; }
+
+/* Rules that apply both to header and regular cells on categories index */
+/* Topic column */
+.topic-1 { @extend .col-lg-5, .col-md-5, .col-sm-5, .col-xs-6; }
+/* Posts column */
+.topic-2 { @extend .col-lg-1, .col-md-1, .col-sm-1, .hidden-xs; }
+/* Author column */
+.topic-3 { @extend .col-lg-2, .col-md-2, .col-sm-2, .hidden-xs; }
+/* Activity column */
+.topic-4 { @extend .col-lg-4, .col-md-4, .col-sm-4, .col-xs-6; }
+
+div.topics-index-head { @extend .row;
+	/* Creates pseudo element just to create bottom border for this row. */
+	&:after { content: ""; display: block; border-bottom: 2px solid #ccc;
+						margin: 0 0px 15px 0px; }
+	/* Topics index header cells */
+	.topic-head-1 { @extend .topic-1; color: #919191; }
+	.topic-head-2 { @extend .topic-2; color: #919191; text-align: center; }
+	.topic-head-3 { @extend .topic-3; color: #919191; text-align: center; }
+	.topic-head-4 { @extend .topic-4; color: #919191; text-align: center; }
+}
+
+div.topics-index-row {
+	@extend .row;
+	/* Thanks to those two verses vertical aligment is possible. */
+	display: flex; align-items: center;
+	border-bottom: 1px solid #ccc; margin-bottom: 5px;
+	&:hover { background-color: $gray-lighter; }
+	a { color: #444444; }
+	.topic-cell-1 { @extend .topic-1; }
+	.topic-cell-2 { @extend .topic-2; text-align: center; }
+	.topic-cell-3 { @extend .topic-3; text-align: center;
+    a { font-size: 12px; }
+		img { display: block; margin-left: auto; margin-right: auto;
+      		height: 30px; width: 30px; }
+    .glyphicon { font-size: 30px; }
 	}
-	tbody {
-		td { vertical-align: middle; }
-		.topic { text-align: left; width: 50%; min-width: 200px; color: black}
-		.author {
-      text-align: center;
-      a { color: black; font-size: 12px; }
-			img { display: block; margin-left: auto; margin-right: auto;
-        		height: 30px; width: 30px; }
-      .glyphicon { font-size: 30px; }
-		}
-		.posts { color: #919191 }
-		.activity {
-      text-align: left;
-      color: #919191;
-      .post-preview { font-style: italic; }
-			a { color: black; }
-		}
-	}
+	.topic-cell-4 { @extend .topic-4; color: #919191; }
 }

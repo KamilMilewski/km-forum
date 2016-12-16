@@ -7,25 +7,20 @@
  /* Jumbotron sandbox notice on the main page */
  div.sandbox-notice {
    text-align: center;
-   table { text-align: left; margin-left: auto; margin-right: auto; width: 30%;}
+   table { text-align: left; margin-left: auto; margin-right: auto; width: 30%; }
  }
 
-/* Rules that apply both to header and regular cells on categories index */
-.cat-1 {
-  @extend .col-lg-1, .col-md-1, .col-sm-1, .hidden-xs;
-}
-.cat-2 {
-  @extend .col-lg-6, .col-md-6, .col-sm-6, .col-xs-7;
-}
-.cat-3 {
-  @extend .col-lg-1, .col-md-1, .hidden-sm, .hidden-xs;
-}
-.cat-4 {
-  @extend .col-lg-2, .col-md-2, .hidden-sm, .hidden-xs;
-}
-.cat-5 {
-  @extend .col-lg-2, .col-md-2, .col-sm-5, .col-xs-5;
-}
+/* Rules that apply both to header and regular rows on categories index */
+/* Icon column */
+.cat-1 { @extend .col-lg-1, .col-md-1, .col-sm-1,  .hidden-xs; }
+/* Title & description column */
+.cat-2 { @extend .col-lg-6, .col-md-6, .col-sm-6,  .col-xs-7;  }
+/* Posts count column */
+.cat-3 { @extend .col-lg-1, .col-md-1, .hidden-sm, .hidden-xs; }
+/* User avatar column */
+.cat-4 { @extend .col-lg-2, .col-md-2, .hidden-sm, .hidden-xs; }
+/* Activity column */
+.cat-5 { @extend .col-lg-2, .col-md-2, .col-sm-5,  .col-xs-5;  }
 
 div.categories-index-head {
   @extend .row;
@@ -33,7 +28,7 @@ div.categories-index-head {
   /* Creates pseudo element just to create bottom border for this row. */
   &:after { content: ""; display: block; border-bottom: 2px solid #ccc;
             margin: 0 0px 15px 0px; }
-  /* Category index header cells */
+  /* Categories index header cells */
   .cat-head-1 { @extend .cat-1; }
   .cat-head-2 { @extend .cat-2; }
   .cat-head-3 { @extend .cat-3; text-align: center; }
@@ -45,34 +40,24 @@ div.categories-index-row {
   @extend .row;
   /* Thanks to those two verses vertical aligment is possible. */
   display: flex; align-items: center;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ccc; margin-bottom: 5px;
   &:hover { background-color: $gray-lighter; }
-  div { margin-bottom: 5px; }
-  /* Icon cell */
   .cat-cell-1 {
     @extend .cat-1;
     img { width: 36px; height: 36px; margin: 5px }
   }
-  /* Title & description cell */
   .cat-cell-2 { @extend .cat-2; }
-  /* Posts count cell */
-  .cat-cell-3 { @extend .cat-3;
-    text-align: center; font-size: 14px; color: #919191; }
-  /* User avatar cell */
-  .cat-cell-4 {
-    @extend .cat-4;
-    text-align: center;
+  .cat-cell-3 { @extend .cat-3; text-align: center; font-size: 14px;
+                color: #919191; }
+  .cat-cell-4 { @extend .cat-4; text-align: center;
     a { color: black; font-size: 12px; }
     img { display: block; margin-left: auto; margin-right: auto;
           width: 36px; height: 36px; }
     .glyphicon { font-size: 35px; }
   }
-  /* Last activity cell */
-  .cat-cell-5 {
-    @extend .cat-5;
-    font-size: 14px;
-    a { color: black; }
+  .cat-cell-5 { @extend .cat-5; font-size: 14px;
     span { color: #919191; }
+    a { color: black; }
     a.post-preview { font-style: italic; }
   }
 }

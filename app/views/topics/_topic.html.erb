@@ -1,18 +1,18 @@
-<tr>
+<div class="topics-index-row">
 
 	<!-- Topic -->
-	<td class="topic">
+	<div class="topic-cell-1">
 		<%= link_to topic.title, topic, class: "topic" %><br>
 		<%= render 'topics/edit_delete_topic_links', topic: topic %>
-	</td>
+	</div>
 
-	<!-- Replies -->
-	<td class="posts">
+	<!-- Posts -->
+	<div class="topic-cell-2">
 		<span><%= topic.posts.count %></snap>
-	</td>
+	</div>
 
 	<!-- Author -->
-	<td class="author">
+	<div class="topic-cell-3">
 		<% user = topic.user %>
 		<%= render 'shared/user_avatar', user: user %>
 		<% # Deleted user handling %>
@@ -21,45 +21,44 @@
 		<% else %>
 			<%= link_to user.name, user  %>
 		<% end %>
-	</td>
+	</div>
 
-	<!-- Last activity -->
-	<td class="activity">
-		<% unless topic.posts.empty? %>
-			<% last_post = topic.posts.last %>
-			<%= link_to truncate(last_post.content, length: 40),
-			 						topic_path(topic, anchor: last_post.anchor, page: topic.last_page),
-									tooltip: CGI.unescapeHTML("Post: #{truncate(last_post.content, length: 100)}"),
-									class: 'post-preview' %>
-			<br>
-			<span>by
-				<% # Deleted user handling %>
-				<% user = last_post.user %>
-				<% if user.nil? %>
-					<%= link_to 'user deleted', '#' %>
-				<% else %>
-					<%= link_to user.name, user %>
-				<% end %>
+		<!-- Activity -->
+		<div class="topic-cell-4">
+			<% unless topic.posts.empty? %>
+				<% last_post = topic.posts.last %>
+				<%= link_to truncate(last_post.content, length: 40),
+										topic_path(topic, anchor: last_post.anchor, page: topic.last_page),
+										tooltip: CGI.unescapeHTML("Post: #{truncate(last_post.content, length: 100)}"),
+										class: 'post-preview' %>
+				<br>
+				<span>by
+					<% # Deleted user handling %>
+					<% user = last_post.user %>
+					<% if user.nil? %>
+						<%= link_to 'user deleted', '#' %>
+					<% else %>
+						<%= link_to user.name, user %>
+					<% end %>
+				</span>
+			<% else %>
+				<%= link_to truncate(topic.content, length: 40),
+										topic_path(topic),
+										tooltip: CGI.unescapeHTML("Topic: #{truncate(topic.content, length: 100)}"),
+										class: 'post-preview' %>
+				<br>
+				<span>by
+					<% # Deleted user handling %>
+					<% user = topic.user %>
+					<% if user.nil? %>
+						<%= link_to 'user deleted', '#' %>
+					<% else %>
+						<%= link_to user.name, user %>
+					<% end %>
+				</span>
+			<% end %>
+			<span tooltip="<%= topic.last_activity.strftime(KmForum::DATEFORMAT) %>">
+				<%= time_ago_in_words(topic.last_activity) %> ago
 			</span>
-		<% else %>
-			<%= link_to truncate(topic.content, length: 40),
-									topic_path(topic),
-									tooltip: CGI.unescapeHTML("Topic: #{truncate(topic.content, length: 100)}"),
-									class: 'post-preview' %>
-			<br>
-			<span>by
-				<% # Deleted user handling %>
-				<% user = topic.user %>
-				<% if user.nil? %>
-					<%= link_to 'user deleted', '#' %>
-				<% else %>
-					<%= link_to user.name, user %>
-				<% end %>
-			</span>
-		<% end %>
-		<span tooltip="<%= topic.last_activity.strftime(KmForum::DATEFORMAT) %>">
-			<%= time_ago_in_words(topic.last_activity) %> ago
-		</span>
-	</td>
-
-</tr>
+		</div>
+</div>
