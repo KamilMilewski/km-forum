@@ -7,7 +7,7 @@ class UserMailerTest < ActionMailer::TestCase
     # so we couldn't handle it in fixture file.
     user.activation_token = User.new_token
     mail = UserMailer.account_activation(user)
-    assert_equal 'KM-Forum account activation', mail.subject
+    assert_equal 'KMForum account activation', mail.subject
     assert_equal [user.email],                  mail.to
     assert_equal ['km.web.smtp@gmail.com'],     mail.from
     assert_match user.name,                     mail.body.encoded
@@ -22,7 +22,7 @@ class UserMailerTest < ActionMailer::TestCase
     # so we couldn't handle it in fixture file.
     user.password_reset_token = User.new_token
     mail = UserMailer.password_reset(user)
-    assert_equal 'KM-Forum password reset', mail.subject
+    assert_equal 'KMForum password reset', mail.subject
     assert_equal [user.email],                  mail.to
     assert_equal ['km.web.smtp@gmail.com'],     mail.from
     assert_match user.name,                     mail.body.encoded

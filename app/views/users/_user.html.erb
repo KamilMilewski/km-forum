@@ -1,12 +1,12 @@
-<div class="row users-index-body">
+<div class="user-row">
 
   <!-- User's avatar -->
-  <div class="col-lg-1 user-cell-1">
+  <div class="user-cell-1">
     <%= render 'shared/user_avatar', user: user %>
   </div>
 
   <!-- User's name -->
-  <div class="col-lg-4 user-cell-2">
+  <div class="user-cell-2">
     <h4>
       <%= link_to user.name, user %>
     </h4>
@@ -14,21 +14,21 @@
   </div>
 
   <!-- User joinded -->
-  <div class="col-lg-3 user-cell-3">
+  <div class="user-cell-3">
     <span tooltip="<%= user.activated_at %>">
       <%= time_ago_in_words(user.activated_at) %> ago
     </span>
   </div>
 
   <!-- User's posts -->
-  <div class="col-lg-2 user-cell-4">
+  <div class="user-cell-4">
     <span>
       <%= user.posts.count %>
     </span>
   </div>
 
   <!-- User's topics -->
-  <div class="col-lg-2 user-cell-5">
+  <div class="user-cell-5">
     <span>
       <%= user.topics.count %>
     </span>

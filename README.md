@@ -1,10 +1,10 @@
-# Welcome to KM-forum!
+# Welcome to KMForum!
 
-## What is KM-forum?
+## What is KMForum?
 
-KM-forum is a discussion board application written in ROR.
+KMForum is a discussion board application written in ROR.
 
-## What is purpose of KM-forum?
+## What is purpose of KMForum?
 
 From [wikipedia](https://en.wikipedia.org/wiki/Internet_forum):
 
@@ -179,4 +179,4 @@ topics as well.
 
 ## License
 
-KM-forum is released under the [MIT License](http://www.opensource.org/licenses/MIT).
+KMForum is released under the [MIT License](http://www.opensource.org/licenses/MIT).

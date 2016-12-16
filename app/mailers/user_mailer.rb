@@ -4,13 +4,13 @@ class UserMailer < ApplicationMailer
     @user = user
     @greeting = "Hi #{@user.name}"
 
-    mail to: @user.email, subject: 'KM-Forum account activation'
+    mail to: @user.email, subject: 'KMForum account activation'
   end
 
   def password_reset(user)
     @user = user
     @greeting = "Hi #{@user.name}"
 
-    mail to: @user.email, subject: 'KM-Forum password reset'
+    mail to: @user.email, subject: 'KMForum password reset'
   end
 end

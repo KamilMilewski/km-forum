@@ -14,7 +14,7 @@
 				<span class="icon-bar"></span>
 			</button>
 
-			<%= link_to 'KM-Forum', root_path, class: 'pull-left logo' %>
+			<%= link_to 'KMForum', root_path, class: 'pull-left logo' %>
 
 		</div>
 
@@ -53,13 +53,29 @@
 							Account<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
-							<li><%= link_to 'Show profile', current_user %></li>
-							<li><%= link_to 'Account Settings', edit_user_path(current_user) %></li>
-							<li><%= link_to 'Log out', logout_path, method: :delete %></li>
+							<li>
+								<%= link_to current_user do %>
+									<span class="glyphicon glyphicon-user" aria-hidden="true"></span> Show profile
+								<% end %>
+							</li>
+							<li>
+								<%= link_to edit_user_path(current_user) do %>
+								<span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Account settings
+							<% end %>
+							</li>
+							<li>
+								<%= link_to logout_path, method: :delete do %>
+									<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Log out
+								<% end %>
+							</li>
 						</ul>
 					</li>
 				<% else %>
-					<li><%= link_to 'Log in', login_path %></li>
+					<li>
+						<%= link_to login_path do %>
+							<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Log in
+						<% end %>
+					</li>
 				<% end %>
 			</ul>
 		</div>
