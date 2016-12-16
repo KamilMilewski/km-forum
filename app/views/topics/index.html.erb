@@ -8,28 +8,37 @@
   (<%= "Page: #{@topics.current_page}/#{@topics.total_pages}" %>)
 </h3>
 
+<!-- Topics table heading. -->
+<table class="table table-hover topics-table">
+  <thead>
+    <tr>
+      <td class="topic">Topic</td>
+      <td class="posts">Posts</td>
+      <td class="author">Topic owner</td>
+      <td class="activity">Activity</td>
+    </tr>
+  </thead>
+
 <% if @topics.empty? %>
 
-  <%= render 'shared/no_content_notice',
-             notice: "There are no topics yet in this category." %>
+  <!-- table end -->
+  </table>
+  <hr>
+
+  <div class="row">
+    <div class="col-lg-12">
+    	<%= render 'shared/no_content_notice',
+    						 notice: "There are no topics yet in this category." %>
+    </div>
+  </div>
 
 <% else %>
-  <!-- Topics table heading. -->
-  <table class="table table-hover topics-table">
-    <thead>
-      <tr>
-        <td class="topic">Topic</td>
-        <td class="posts">Posts</td>
-        <td class="author">Topic owner</td>
-        <td class="activity">Activity</td>
-      </tr>
-    </thead>
+
     <tbody>
-
-    <!-- Topics table rows. -->
-    <%= render @topics %>
-
+      <!-- Topics table rows. -->
+      <%= render @topics %>
     </tbody>
+
   </table>
 
 <% end %>

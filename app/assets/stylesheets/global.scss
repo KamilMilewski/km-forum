@@ -1,6 +1,5 @@
 /* Default behaviour for app links */
 body {
-
   a {
     color: $main-theme-color;
     &:link { text-decoration: none; }
@@ -47,11 +46,10 @@ body {
 	a:hover { color: black; }
 }
 
-.navbar-logo {
-  color: #FFFFFF;
-  font-size: 1.7em;
-  padding-top: 0.4em;
-  &:hover {
-    color: #FFFFFF;
-  }
+p.empty-resource-notice {
+  text-align: center;
+  font-size: 30px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  color: $gray-light;
 }

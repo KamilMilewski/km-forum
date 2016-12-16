@@ -4,7 +4,10 @@
 	border-bottom: 1px solid $gray-lighter; margin-bottom: 2px; padding: 5px;
 }
 /* Applies to left side of the resource, where user avatar is displayed.*/
-.resource-avatar { font-size: 80px; }
+.resource-avatar {
+	font-size: 80px;
+	img { height: 80px; width: 80px; }
+}
 /* Applies to right side of the resource, where post/topic content is */
 /* displayed. */
 .resource-body {}

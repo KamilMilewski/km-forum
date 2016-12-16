@@ -3,31 +3,25 @@
 /* Bootstrap navbar customization */
 $navbar-default-bg: $main-theme-color;
 $navbar-default-link-color: #FFFFFF;
-$navbar-default-link-active-color: #F8E6E4;
-$navbar-default-color: #F8E6E4;
+$navbar-default-link-active-color: #FFFFFF;
+$navbar-default-link-hover-color: #FFFFFF;
+$navbar-default-link-hover-bg: #694c8a;
+
+/* Bootstrap pagination customization */
+$pagination-hover-color: $main-theme-color;
+$pagination-active-bg: $main-theme-color;
+$pagination-active-border: $main-theme-color;
+$pagination-color: $main-theme-color;
+
+/* Bootstrap btn-primary customization */
+$btn-primary-bg: $main-theme-color;
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-
-/* Bootstrap primary-btn customization */
-.btn-primary {
-  @include button-variant(white, $main-theme-color, $main-theme-color);
-}
-
-/* Customizing bootstrap styling for will_paginate. */
-.pagination {
-  li.active {
-    span {
-      background-color: $main-theme-color;
-      border-color: $main-theme-color;
-      &:hover {
-        background-color: $main-theme-color;
-        border-color: $main-theme-color;
-      }
-    }
+.navbar li a {
+  font-size: 16px;
   }
-  li {
-    a { color: $main-theme-color; }
-  }
+.logo { color: #FFFFFF; font-size: 35px; font-family: 'Lobster', cursive;
+    &:hover { color: #FFFFFF; }
 }

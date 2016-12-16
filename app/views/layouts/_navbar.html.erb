@@ -14,9 +14,8 @@
 				<span class="icon-bar"></span>
 			</button>
 
-			<a class="pull-left navbar-logo" href="<%= root_path %>">
-				KM-Forum
-			</a>
+			<%= link_to 'KM-Forum', root_path, class: 'pull-left logo' %>
+
 		</div>
 
 		<!-- navbar actual body -->
@@ -24,20 +23,20 @@
 			<ul class="nav navbar-nav navbar-right">
 
 				<% if logged_in? %>
-					<li>
+					<li class="<%= 'active' if params[:action] == 'index' and params[:controller] == 'users' %>">
 						<a href="<%= users_path %>">
 							Users<span class="sr-only">Users</span>
 						</a>
 					</li>
 				<% end %>
 
-				<li class="active">
+				<li class="<%= 'active' if params[:action] == 'contact' %>">
 					<a href="<%= contact_path %>">
 						Contact<span class="sr-only">Contact</span>
 					</a>
 				</li>
 
-				<li>
+				<li class="<%= 'active' if params[:action] == 'about' %>">
 					<a href="<%= about_path %>">
 						About<span class="sr-only">About</span>
 					</a>
