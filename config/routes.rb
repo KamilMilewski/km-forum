@@ -44,4 +44,8 @@ Rails.application.routes.draw do
   # new users.
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
+
+  # SANDBOX only. For database reset and seed with fake data.
+  delete '/reset_kmf', to: 'sandbox_db_resets#reset'
+  post '/seed_kmf', to: 'sandbox_db_resets#seed'
 end

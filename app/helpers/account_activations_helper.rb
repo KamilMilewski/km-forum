@@ -1,3 +1,0 @@
-# :nodoc:
-module AccountActivationsHelper
-end

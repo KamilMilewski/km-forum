@@ -41,5 +41,10 @@
 									role: 'button',
 									class: 'btn btn-primary btn-lg' %>
 		</p>
+
+		<%= link_to 'reset KMForum', reset_kmf_path, method: :delete %>
+			<br>
+		<%= link_to 'populate KMForum', seed_kmf_path, method: :post %>
+		
 	</div>
 <% end %>
