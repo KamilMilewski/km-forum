@@ -20,6 +20,8 @@ gem 'will_paginate-bootstrap', '1.0.1'
 gem 'carrierwave', '0.11.2'
 # and image resize
 gem 'mini_magick', '4.5.1'
+# Maintanance mode
+gem 'turnout'
 
 group :development, :test do
   gem 'byebug', platform: :mri

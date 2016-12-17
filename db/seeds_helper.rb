@@ -50,27 +50,46 @@ module SeedsHelper
   def self.create_users
     50.times do |i|
       # All normal users are superheroes genrated by faker gem.
-      name = Faker::Superhero.name.truncate(25, omission: '')
 
       # faker gem sometimes creates strings with symbols forbidden in emails
-      # (such as "Al'Rashid"). When this happens, the user is recreated
-      # - in loop below.
-      user = User.new
-      until user.valid?
-        user = User.new(
-          name: name,
-          email: "#{name}#{rand(99)}@#{Faker::Superhero.power}.com"
-                 .tr(' ', '.'),
-          password: 'uuuuuu',
-          password_confirmation: 'uuuuuu',
-          permissions: 'user',
-          activated: true,
-          activated_at: Time.zone.now,
-          activation_token_digest: User.digest(User.new_token)
-        )
+      # (such as "Al'Rashid"). When this happens and method could not replace
+      # those symbols with space then use name is regenerated.
+      # user = User.new
+      # until user.valid?
+      #   name = Faker::Superhero.name.truncate(25, omission: '')
+      #   user = User.new(
+      #     name: name,
+      #     email: "#{name}#{rand(99)}@#{Faker::Superhero.power}.com"
+      #            .tr(' ', '.').tr('\'', '.'),
+      #     password: 'uuuuuu',
+      #     password_confirmation: 'uuuuuu',
+      #     permissions: 'user',
+      #     activated: true,
+      #     activated_at: Time.zone.now,
+      #     activation_token_digest: User.digest(User.new_token)
+      #   )
+      # end
+      # user.save
+      name = Faker::Superhero.name.truncate(25, omission: '')
+                             .tr(' ', '').tr('\'', '')
+      superpower = Faker::Superhero.power.tr(' ', '').tr('\'', '')
+      if User.create(
+        name: name.to_s,
+        email: "#{name}#{rand(99)}@#{superpower}.com",
+        password: 'uuuuuu',
+        password_confirmation: 'uuuuuu',
+        permissions: 'user',
+        activated: true,
+        activated_at: Time.zone.now,
+        activation_token_digest: User.digest(User.new_token)
+      )
+        puts "  Regular user ##{i} created with name: #{name} and power:" \
+             " #{superpower}"
+      else
+        # Lets just skip him if he still is invalid.
+        puts " Could not crete user with name: #{name} and #{superpower}"
+        next
       end
-      user.save
-      puts "  Regular user ##{i} with name #{user.name} created."
     end
   end
 
@@ -123,10 +142,7 @@ module SeedsHelper
         # Generate post author.
         author = User.order('RANDOM()').first
         # Create post.
-        topic.posts.create!(
-          content: content,
-          user_id: author.id
-        )
+        topic.posts.create!(content: content, user_id: author.id)
       end
     end
   end

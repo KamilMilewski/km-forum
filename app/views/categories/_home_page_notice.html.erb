@@ -41,10 +41,13 @@
 									role: 'button',
 									class: 'btn btn-primary btn-lg' %>
 		</p>
-
-		<%= link_to 'reset KMForum', reset_kmf_path, method: :delete %>
+		<% confirm_notice = "This action will DELETE ALL current data in KMForum database.\n" \
+												"But since it\'s just a sandbox you shouldn\'t care that much ;)" %>
+		<%= link_to 'reset KMForum', reset_kmf_path, method: :delete,
+		 						data: { confirm: confirm_notice } %>
 			<br>
-		<%= link_to 'populate KMForum', seed_kmf_path, method: :post %>
-		
+		<%= link_to 'populate KMForum', seed_kmf_path, method: :post,
+		 						data: { confirm: confirm_notice }  %>
+
 	</div>
 <% end %>

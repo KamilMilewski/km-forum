@@ -3,12 +3,19 @@ class SandboxDbResetsController < ApplicationController
   # Resets KMForum database to this app speciffic starting point - with three
   # users created - admin, moderator and regular user.
   def reset
-    load(Rails.root.join('db', 'reset_kmf.rb'))
+    # Reset KMForum db.
+    system 'bundle exec rake reset_kmf &'
+    flash[:info] = 'Database reset pending. Site will be in maintenance mode' \
+                   'for less than a minute'
+    redirect_to root_url
   end
 
   # Populates KMForum database with sample, fake data.
   def seed
-    load(Rails.root.join('db', 'reset_kmf.rb'))
-    load(Rails.root.join('db', 'populate_kmf.rb'))
+    # Reset and seed KMForum db.
+    system 'bundle exec rake populate_kmf &'
+    flash[:info] = 'Database is populating itself with sample data. Site will' \
+                   ' turn into maintenance mode for few minutes.'
+    redirect_to root_url
   end
 end
