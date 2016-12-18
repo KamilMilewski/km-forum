@@ -1,7 +1,7 @@
 <!-- form errors moved to partial shared/notices -->
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
-		<%= form_for @category do |f| %>
+		<%= form_for @category, id: 'category_form' do |f| %>
 
         <%= render 'shared/form_errors_notices', entity: f.object %>
 

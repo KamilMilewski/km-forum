@@ -1,10 +1,10 @@
 <% unless logged_in? %>
-	<div class="jumbotron sandbox-notice">
+	<div class="sandbox-notice">
 		<h1 class="jumbotron-heading">
-			Welcome to KMForum!
+			Welcome to <span class="KMForum-logo">KMForum!</span>
 		</h1>
-		<p class="lead text-muted">
-			Its in a sandbox mode and you can play around!<br>
+		<p id="lead-text">
+			It's in a sandbox mode and you can play around!<br>
 			Sign up or use one of the predefined user accounts:<br>
 		</p>
 
@@ -41,13 +41,25 @@
 									role: 'button',
 									class: 'btn btn-primary btn-lg' %>
 		</p>
-		<% confirm_notice = "This action will DELETE ALL current data in KMForum database.\n" \
-												"But since it\'s just a sandbox you shouldn\'t care that much ;)" %>
-		<%= link_to 'reset KMForum', reset_kmf_path, method: :delete,
-		 						data: { confirm: confirm_notice } %>
-			<br>
-		<%= link_to 'populate KMForum', seed_kmf_path, method: :post,
-		 						data: { confirm: confirm_notice }  %>
 
+		<br>
+
+		<p id="reset-text">
+			If you want to see how clean KMForum looks like, or <br>
+			populate it with sample data: <br>
+		</p>
+
+		<p class="text-center">
+			<% confirm_notice = "This action will DELETE ALL current data in KMForum database.\n" \
+													"But since it\'s just a sandbox you shouldn\'t care that much ;)" %>
+			<%= link_to 'reset KMForum', reset_kmf_path, method: :delete,
+			 						data: { confirm: confirm_notice },
+									role: 'button',
+									class: 'btn btn-warning btn-sm' %>
+			<%= link_to 'populate KMForum', seed_kmf_path, method: :post,
+			 						data: { confirm: confirm_notice },
+									role: 'button',
+									class: 'btn btn-warning btn-sm'  %>
+		<p class="text-center">
 	</div>
 <% end %>

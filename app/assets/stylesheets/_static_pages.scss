@@ -6,7 +6,7 @@
 .page-title {
   text-align: center;
   margin: 50px;
-  span { font-family: 'Lobster', cursive; font-size: 45px; color: $main-theme-color;}
+  span { @extend .KMForum-logo; font-size: 45px; color: $main-theme-color;}
 }
 
 /*

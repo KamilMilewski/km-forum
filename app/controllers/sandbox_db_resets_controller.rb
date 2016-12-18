@@ -6,7 +6,7 @@ class SandboxDbResetsController < ApplicationController
     # Reset KMForum db.
     system 'bundle exec rake reset_kmf &'
     flash[:info] = 'Database reset pending. Site will be in maintenance mode' \
-                   'for less than a minute'
+                   ' for less than a minute'
     redirect_to root_url
   end
 

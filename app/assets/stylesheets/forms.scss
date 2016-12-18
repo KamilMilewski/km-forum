@@ -6,3 +6,23 @@
 	color: red;
 }
 .form-title { text-align: center; font-weight: 600; }
+
+
+.form-common {
+	textarea {
+		resize: vertical;
+		min-height: 300px;
+	}
+}
+
+.new_category, .edit_category {
+	@extend .form-common;
+}
+
+.new_topic, .edit_topic {
+	@extend .form-common;
+}
+
+.new_post, .edit_post {
+	@extend .form-common;
+}

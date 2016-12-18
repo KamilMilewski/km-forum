@@ -35,6 +35,11 @@ body {
  margin-left: 20px;
 }
 
+.KMForum-logo {
+  font-family: 'Lobster', cursive;
+}
+
+
 /* To distance site content from navbar. */
 .km-body-container { margin-top: 4.5em; }
 
@@ -61,6 +66,6 @@ footer {
   color: #919191;
   #footer-logo {
     font-size: 15px;
-    font-family: 'Lobster', cursive;
+    @extend .KMForum-logo;
   }
 }

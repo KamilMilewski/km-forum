@@ -6,8 +6,16 @@
 
  /* Jumbotron sandbox notice on the main page */
  div.sandbox-notice {
+   @extend .jumbotron;
    text-align: center;
    table { text-align: left; margin-left: auto; margin-right: auto; width: 30%; }
+   #lead-text {
+     @extend .lead, .text-muted;
+   }
+   #reset-text {
+     @extend .text-muted;
+     font-size: 14px;
+   }
  }
 
 /* Rules that apply both to header and regular rows on categories index */
