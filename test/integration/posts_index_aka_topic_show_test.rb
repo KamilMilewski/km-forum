@@ -156,18 +156,18 @@ class PostsIndexAkaTopicShowTest < ActionDispatch::IntegrationTest
   # Assert if there is topic title and content.
   def assert_topic_body_for(topic, present: true)
     if present
-      assert_match    CGI.escapeHTML(topic.content), response.body
+      assert_match    markdown(topic.content), response.body
     else
-      assert_no_match CGI.escapeHTML(topic.content), response.body
+      assert_no_match markdown(topic.content), response.body
     end
   end
 
   # Assert if there is post content.
   def assert_post_body_for(post, present: true)
     if present
-      assert_match    CGI.escapeHTML(post.content), response.body
+      assert_match    markdown(post.content), response.body
     else
-      assert_no_match CGI.escapeHTML(post.content), response.body
+      assert_no_match markdown(post.content), response.body
     end
   end
 end

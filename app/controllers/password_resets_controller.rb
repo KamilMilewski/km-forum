@@ -4,8 +4,7 @@ class PasswordResetsController < ApplicationController
   before_action :redirect_if_invalid_token, only: [:edit, :update]
   before_action :redirect_if_token_expired, only: [:edit, :update]
 
-  def new
-  end
+  def new; end
 
   def create
     @user = User.find_by(email: params[:password_reset][:email])

@@ -2,12 +2,15 @@
 
   <%= render 'posts/resource_heading', user: resource.user %>
 
-  <p><%= resource.content %></p>
+  <p><%= markdown(resource.content) %></p>
 
   <% # Display picture if any has been uploaded for this resource %>
-  <% if resource.picture? %>
-    <%= image_tag resource.picture.url %><br>
-  <% end %>
+  <div class="resource-picture">
+    <% if resource.picture? %>
+      <%= image_tag resource.picture.url %><br>
+      <aside><%= File.basename(resource.picture.to_s) %></aside>
+    <% end %>
+  </div>
 
   <%= render 'posts/edit_delete_links', resource: resource %>
 </div>

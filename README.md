@@ -2,7 +2,7 @@
 
 ## What is KMForum?
 
-KMForum is a discussion board application written in ROR.
+KMForum is a discussion board application written in [Ruby on Rails](http://rubyonrails.org/) and [Bootstrap](http://getbootstrap.com/).
 
 ## What is purpose of KMForum?
 
@@ -10,6 +10,13 @@ From [wikipedia](https://en.wikipedia.org/wiki/Internet_forum):
 
     "An Internet forum, or message board, is an online discussion site where
     people can hold conversations in the form of posted messages."
+
+## Features
+
+* Markdown formating for posts.
+* Code blocks with syntax highlighting.
+* Custom user avatars with [Gravatar](http://en.gravatar.com/) as a default.
+* Responsivness to mobile devices.
 
 ## Getting started
 
@@ -23,7 +30,7 @@ At the command prompt:
 
         $ git clone https://github.com/KamilMilewski/km-forum.git
 
-3. Enter forum directory. If you cloned it to 'myforym' directory, then:
+3. Enter forum directory. If you cloned it to 'myforym' directory, then go:
 
         $ cd myforum
 
@@ -94,7 +101,6 @@ topics as well.
   * I try to access topic edit page.
   * I try to access post edit page.
   * I try to access users index page.
-  * I try to access admin control panel.
 
 * As an anonymous I'm being redirected to main page (ACCESS CONTROL) when
   * I try to issue UPDATE or DELETE request to User resource.
@@ -175,8 +181,13 @@ topics as well.
 * Others
 	* contact page
 	* about page
-	* admin control panel
 
-## License
+## Legal stuff
 
-KMForum is released under the [MIT License](http://www.opensource.org/licenses/MIT).
+KMForum is available under an [MIT](http://www.opensource.org/licenses/MIT)-style license. Copyright © 2016 Kamil Milewski
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 

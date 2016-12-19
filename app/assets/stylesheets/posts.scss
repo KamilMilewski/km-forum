@@ -10,7 +10,15 @@
 }
 /* Applies to right side of the resource, where post/topic content is */
 /* displayed. */
-.resource-body {}
+.resource-body { }
+
+.resource-picture {
+	margin: 50px;
+	aside {
+		margin-top: 5px;
+		@extend .text-muted;
+	}
+}
 /* Resource date. Post created_at for example. */
 .resource-date { float: right; vertical-align: bottom; }
 /* Resource heading. Here user name is displayed. */
