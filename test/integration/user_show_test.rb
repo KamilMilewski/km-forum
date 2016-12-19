@@ -35,7 +35,7 @@ class UserShowTest < ActionDispatch::IntegrationTest
 
     # Recent activities. Activity is topic or post user created.
     @another_user.recent_activities.each do |activity|
-      assert_match CGI.escapeHTML(activity.content), response.body,
+      assert_match markdown(activity.content), response.body,
                    'Activity content should be present'
       assert_match CGI.escapeHTML(time_ago_in_words(activity.created_at)),
                    response.body,
