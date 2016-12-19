@@ -19,7 +19,6 @@ class UsersController < ApplicationController
     # If given user isn't activated then only admin can see his profile.
     redirect_to(root_url) && return unless @user.activated? ||
                                            current_user.admin?
-    # debugger
     if params[:activities] == 'topics'
       # Only last topics
       @activities = @user.recent_topics
@@ -40,6 +39,8 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    # Newly created user can have only 'user' level permissions.
+    @user.permissions = 'user'
     if @user.save
       @user.send_activation_email
       flash[:info] = 'Please check your email for an activation link.'
@@ -73,8 +74,15 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :avatar,
-                                 :password, :password_confirmation)
+    if logged_in? && current_user.admin?
+      params.require(:user).permit(:name, :email, :avatar,
+                                   :password, :password_confirmation,
+                                   # Only admin can edit user permissions.
+                                   :permissions)
+    else
+      params.require(:user).permit(:name, :email, :avatar,
+                                   :password, :password_confirmation)
+    end
   end
 
   def find_user

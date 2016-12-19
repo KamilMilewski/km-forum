@@ -23,7 +23,7 @@
 			<ul class="nav navbar-nav navbar-right">
 
 				<% if logged_in? %>
-					<li class="<%= 'active' if params[:action] == 'index' and params[:controller] == 'users' %>">
+					<li class="<%= 'active' if params[:action] == 'index' && params[:controller] == 'users' %>">
 						<a href="<%= users_path %>">
 							Users<span class="sr-only">Users</span>
 						</a>

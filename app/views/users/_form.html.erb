@@ -36,12 +36,25 @@
 
     <br>
 
+    <% # elevate permissions form tag %>
+      <% if logged_in? && current_user.admin? && !@user.admin? %>
+      <%= f.label :permissions %>
+      <% options = options_for_select([ ['user', 'user'], ['moderator', 'moderator'] ], @user.permissions) %>
+      <%= f.select :permissions, options %>
+      <aside>
+        <span class="text-muted">Current permisssions level: </span><%= @user.permissions %>
+      </aside>
+    <% end %>
+
+    <br>
+    <br>
+
     <%= f.submit (yield :form_button_text),
                           class: 'btn btn-primary form-control' %>
 
     <br>
 
-    <% # Avatar form. %>
+    <% # Avatar form tag %>
     <% if action == :edit %>
       <hr>
       <p>You can upload custom avatar for your profile...</p>
