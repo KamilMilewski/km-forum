@@ -15,9 +15,14 @@
 
   <!-- User joinded -->
   <div class="user-cell-3">
-    <span tooltip="<%= user.activated_at %>">
-      <%= time_ago_in_words(user.activated_at) %> ago
+    <% if user.activated == true %>
+      <span tooltip="<%= user.activated_at %>">
+        <%= time_ago_in_words(user.activated_at) %> ago
+      </span>
+    <% else %>
+    <span>Not activated
     </span>
+    <% end %>
   </div>
 
   <!-- User's posts -->

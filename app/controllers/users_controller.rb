@@ -9,10 +9,15 @@ class UsersController < ApplicationController
                                                               :destroy]
 
   def index
-    # Index only activated users.
-    @users = User.where(activated: true)
-                 .paginate(page: params[:page],
-                           per_page: KmForum::USERS_PER_PAGE)
+    per_page = KmForum::USERS_PER_PAGE
+    if current_user.admin?
+      # Index activated and not activated users for admin.
+      @users = User.paginate(page: params[:page], per_page: per_page)
+    else
+      # Index only activated users for regular user.
+      @users = User.where(activated: true)
+                   .paginate(page: params[:page], per_page: per_page)
+    end
   end
 
   def show
