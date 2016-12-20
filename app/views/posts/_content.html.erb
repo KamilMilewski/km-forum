@@ -1,0 +1,10 @@
+<% # Display resource markdown text. %>
+<p><%= markdown(resource.content) %></p>
+
+<% # Display picture if any has been uploaded for this resource. %>
+<div class="resource-picture">
+  <% if resource.picture? %>
+    <%= image_tag resource.picture.url %><br>
+    <aside><%= File.basename(resource.picture.to_s) %></aside>
+  <% end %>
+</div>

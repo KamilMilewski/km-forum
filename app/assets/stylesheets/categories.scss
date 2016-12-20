@@ -5,7 +5,7 @@
  */
 
  /* Jumbotron sandbox notice on the main page */
- div.sandbox-notice {
+ .sandbox-notice {
    @extend .jumbotron;
    text-align: center;
    table { text-align: left; margin-left: auto; margin-right: auto; width: 30%; }
@@ -30,7 +30,7 @@
 /* Activity column */
 .cat-5 { @extend .col-lg-2, .col-md-2, .col-sm-5,  .col-xs-5;  }
 
-div.categories-index-head {
+.categories-index-head {
   @extend .row;
   font-size: 14px; color: #919191;
   /* Creates pseudo element just to create bottom border for this row. */
@@ -44,7 +44,7 @@ div.categories-index-head {
   .cat-head-5 { @extend .cat-5; text-align: center; }
 }
 
-div.categories-index-row {
+.categories-index-row {
   @extend .row;
   /* Thanks to those two verses vertical aligment is possible. */
   display: flex; align-items: center;

@@ -47,11 +47,12 @@ body {
 .new_btn { margin: 20px 45px; }
 
 .edit-delete-links {
-	a { color: $gray; font-weight: bolder; font-size: 13px; }
-	a:hover { color: black; }
+	a { color: $gray; font-weight: bolder; font-size: 13px;
+      &:hover { color: black; }
+  }
 }
 
-p.empty-resource-notice {
+.empty-resource-notice {
   text-align: center;
   font-size: 30px;
   margin-top: 100px;

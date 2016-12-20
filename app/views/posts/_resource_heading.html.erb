@@ -1,8 +1,0 @@
-<h4 class="media-heading resource-heading">
-  <% # Deleted user handling %>
-  <% if user.nil? %>
-    <%= link_to 'user deleted', '#', class: 'resource-user-name' %>
-  <% else %>
-    <%= link_to user.name, user, class: 'resource-user-name' %>
-  <% end %>
-</h4>

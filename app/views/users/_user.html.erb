@@ -2,7 +2,7 @@
 
   <!-- User's avatar -->
   <div class="user-cell-1">
-    <%= render 'shared/user_avatar', user: user %>
+    <%= render 'shared/avatar', user: user %>
   </div>
 
   <!-- User's name -->
@@ -10,7 +10,7 @@
     <h4>
       <%= link_to user.name, user %>
     </h4>
-    <%= render 'users/edit_delete_user_links', user: user %>
+    <%= render 'users/edit_delete_links', user: user %>
   </div>
 
   <!-- User joinded -->

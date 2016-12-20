@@ -3,7 +3,7 @@
 	<!-- Topic -->
 	<div class="topic-cell-1">
 		<%= link_to topic.title, topic, class: "topic" %><br>
-		<%= render 'topics/edit_delete_topic_links', topic: topic %>
+		<%= render 'topics/edit_delete_links', topic: topic %>
 	</div>
 
 	<!-- Posts -->
@@ -14,7 +14,7 @@
 	<!-- Author -->
 	<div class="topic-cell-3">
 		<% user = topic.user %>
-		<%= render 'shared/user_avatar', user: user %>
+		<%= render 'shared/avatar', user: user %>
 		<% # Deleted user handling %>
 		<% if user.nil? %>
 			<br><%= link_to 'user deleted', '#' %>

@@ -17,7 +17,7 @@
 .user-5 { @extend .col-lg-2, .col-md-2, .col-sm-2, .hidden-xs; }
 
 /* Head row for users list */
-div.users-header { @extend .row; font-size: 14px; color: #919191;
+.users-header { @extend .row; font-size: 14px; color: #919191;
   /* Creates pseudo element just to create bottom border for this row. */
   &:after { content: ""; display: block; border-bottom: 2px solid #ccc;
             margin: 0 0 15px 0; }
@@ -28,7 +28,7 @@ div.users-header { @extend .row; font-size: 14px; color: #919191;
   .user-head-5 { @extend .user-5; text-align: center; }
 }
 
-div.user-row {
+.user-row {
   @extend .row;
   /* Thanks to those two verses vertival aligment is possible. */
   display: flex; align-items: center;

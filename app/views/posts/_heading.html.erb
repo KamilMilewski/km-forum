@@ -1,0 +1,20 @@
+<h4 class="media-heading resource-heading">
+  <% if object.class == User %>
+      <!-- User name heading -->
+      <%= link_to object.name, object, class: 'resource-user-name' %>
+  <% elsif object.nil? %>
+      <!-- Deleted user handling -->
+      <%= link_to 'user deleted', '#', class: 'resource-user-name' %>
+  <% elsif object.class == Post %>
+      <!-- Activity heading -->
+      <%= link_to 'Home page', root_path %> /
+      <%= link_to object.topic.category.title, object.topic.category %> /
+      <%= link_to object.topic.title, object.topic %> /
+      <%= link_to "Page: #{object.page}", object.full_path %>
+  <% elsif object.class == Topic %>
+      <%= link_to 'Home page', root_path %> /
+      <%= link_to object.category.title, object.category %> /
+      <%= link_to object.title, object %> /
+      <%= link_to "Page: 1", topic_path(object, anchor: object.anchor) %>
+  <% end %>
+</h4>

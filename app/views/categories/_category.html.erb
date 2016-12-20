@@ -22,7 +22,7 @@
   <% # Avatar of the author of the last post dosent make sense of course. %>
     <% unless category.topics.empty? %>
       <% user = category.last_resource.user %>
-      <%= render 'shared/user_avatar', user: category.last_resource.user %>
+      <%= render 'shared/avatar', user: category.last_resource.user %>
       <% # Deleted user handling %>
       <% if user.nil? %>
         <br><%= link_to 'user deleted', '#' %>

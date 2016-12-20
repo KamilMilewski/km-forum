@@ -10,11 +10,15 @@
 
 <hr>
 
+<!-- Render topic if it's a first page -->
 <% if params[:page] == nil || params[:page] == 1 %>
-  <%= render 'posts/topic' %>
+  <%= render 'posts/resource', resource: @topic %>
 <% end %>
 
-<%= render @posts %>
+<!-- Render posts -->
+<% @posts.each do |post| %>
+  <%= render 'posts/resource', resource: post %>
+<% end %>
 
 <div class="row">
 

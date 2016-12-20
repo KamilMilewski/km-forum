@@ -1,0 +1,20 @@
+<% # Resource can be either topic or post %>
+<div class="resource" id="<%= resource.anchor %>">
+
+	<div class="resource-avatar">
+	  <%= render 'shared/avatar', user: resource.user %>
+	</div>
+
+	<div class="resource-body">
+		<% if params[:controller] == 'topics' %>
+			<%= render 'posts/heading', object: resource.user %>
+		<% elsif params[:controller] == 'users' %>
+			<%= render 'posts/heading', object: resource %>
+		<% end %>
+		<%= render 'posts/content', resource: resource %>
+		<%= render 'posts/edit_delete_links', resource: resource %>
+	</div>
+
+	<%= render 'posts/date', resource: resource %>
+
+</div>
