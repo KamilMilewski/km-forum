@@ -5,7 +5,7 @@ class AccountActivationsController < ApplicationController
     # User will be activated only when:
     # 1. User with given email exist at all (first condition)
     # 2. User hasn't been activated already. Otherwise attacker that obtained
-    # activation_token could send account activation link and then log right
+    # activation_token could send account activation link and then log in right
     # away.
     if user && !user.activated? && user.authenticated?(:activation, params[:id])
       user.activate

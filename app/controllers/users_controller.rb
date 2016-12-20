@@ -94,20 +94,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  # Friendly forwarding works only for non logged in user and only for
-  # HTTP GET requests.
-  def friendly_forwarding
-    return if logged_in?
-    # Store for desired url for friendly forwarding.
-    store_intended_url
-    flash[:danger] = 'You must be logged in.'
-    redirect_to login_path
-  end
-
-  # Should be used only for non-GET HTTP requests. Otherwise use
-  # friendly_forwarding instead.
-  def redirect_if_not_logged_in
-    return if logged_in?
+  # If someone is trying to access admin profile(@user.admin) and himself is
+  # not an admin (!current_user.admin?), he should be redirected.
+  def redirect_if_not_an_admin
+    return unless @user.admin? && !current_user.admin?
     flash[:danger] = 'Access denied.'
     redirect_to root_path
   end
@@ -117,14 +107,6 @@ class UsersController < ApplicationController
     return if current_user == @user ||
               current_user.admin? ||
               current_user.moderator?
-    flash[:danger] = 'Access denied.'
-    redirect_to root_path
-  end
-
-  # If someone is trying to access admin profile(@user.admin) and himself is
-  # not an admin (!current_user.admin?), he should be redirected.
-  def redirect_if_not_an_admin
-    return unless @user.admin? && !current_user.admin?
     flash[:danger] = 'Access denied.'
     redirect_to root_path
   end

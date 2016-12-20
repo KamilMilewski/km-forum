@@ -65,16 +65,10 @@ class TopicsController < ApplicationController
     @category = Category.find(params[:category_id])
   end
 
-  def friendly_forwarding
-    return if logged_in?
-    # Store for desired url for friendly forwarding.
-    store_intended_url
-    flash[:danger] = 'You must be logged in.'
-    redirect_to login_path
-  end
-
-  def redirect_if_not_logged_in
-    return if logged_in?
+  # If someone is trying to access admin's topic edit and himself is
+  # not an admin (!current_user.admin?), he should be redirected.
+  def redirect_if_not_an_admin
+    return unless @topic.user.admin? && !current_user.admin?
     flash[:danger] = 'Access denied.'
     redirect_to root_path
   end
@@ -83,14 +77,6 @@ class TopicsController < ApplicationController
     return if @topic.user_id == current_user.id ||
               current_user.admin? ||
               current_user.moderator?
-    flash[:danger] = 'Access denied.'
-    redirect_to root_path
-  end
-
-  # If someone is trying to access admin's topic and himself is
-  # not an admin (!current_user.admin?), he should be redirected.
-  def redirect_if_not_an_admin
-    return unless @topic.user.admin? && !current_user.admin?
     flash[:danger] = 'Access denied.'
     redirect_to root_path
   end

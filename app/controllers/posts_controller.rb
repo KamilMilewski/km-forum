@@ -59,20 +59,6 @@ class PostsController < ApplicationController
     @topic = Topic.find(params[:topic_id])
   end
 
-  def friendly_forwarding
-    return if logged_in?
-    # Store for desired url for friendly forwarding.
-    store_intended_url
-    flash[:danger] = 'You must be logged in.'
-    redirect_to login_path
-  end
-
-  def redirect_if_not_logged_in
-    return if logged_in?
-    flash[:danger] = 'Access denied.'
-    redirect_to root_path
-  end
-
   def redirect_if_insufficient_permissions
     return if @post.user_id == current_user.id ||
               current_user.admin? ||
