@@ -3,6 +3,7 @@ include ActionView::Helpers::DateHelper
 
 class UserShowTest < ActionDispatch::IntegrationTest
   def setup
+    @admin = users(:admin)
     @user = users(:user)
     @another_user = users(:user_4)
   end
@@ -50,5 +51,14 @@ class UserShowTest < ActionDispatch::IntegrationTest
         assert_select 'a[href=?]', topic_path(activity.topic)
       end
     end
+  end
+
+  test 'not activated user show page' do
+    @another_user.update_columns(activated: false, activated_at: nil)
+    @another_user.reload
+    log_in_as(@admin)
+    get user_path(@another_user)
+    # Assert there is info that user is not activated.
+    assert_match 'not activated', response.body
   end
 end

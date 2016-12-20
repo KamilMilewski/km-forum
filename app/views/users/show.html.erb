@@ -22,9 +22,13 @@
       <dl>
         <!-- Joinded -->
         <dt>Joined: </dt>
-        <dd tooltip="<%= @user.activated_at.strftime(KmForum::DATEFORMAT) %>">
-          <%= time_ago_in_words(@user.activated_at) %> ago
-        </dd>
+        <% unless @user.activated_at.nil? %>
+          <dd tooltip="<%= @user.activated_at.strftime(KmForum::DATEFORMAT) %>">
+            <%= time_ago_in_words(@user.activated_at) %> ago
+          </dd>
+        <% else %>
+          <dd>not activated</dd>
+        <% end %>
 
         <!-- Last activity -->
         <% unless @user.recent_activity.nil? %>
