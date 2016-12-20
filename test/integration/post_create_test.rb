@@ -47,7 +47,7 @@ class PostCreateTest < ActionDispatch::IntegrationTest
         }
       end
 
-      assert_redirected_to topic_path(@topic)
+      assert_redirected_to assigns(:post).full_path
       follow_redirect!
       assert_flash_notices success: { count: 1 }
     end

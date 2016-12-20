@@ -34,6 +34,12 @@ class Post < ApplicationRecord
     end
   end
 
+  # Returns full path to this post in topic.
+  def full_path
+    Rails.application.routes.url_helpers
+         .topic_path(topic, page: page, anchor: anchor)
+  end
+
   private
 
   def update_topic_last_activity

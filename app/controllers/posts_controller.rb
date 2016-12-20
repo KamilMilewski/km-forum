@@ -19,7 +19,7 @@ class PostsController < ApplicationController
     @post.user_id = current_user.id
     if @post.save
       flash[:success] = 'Post successfully created.'
-      redirect_to @topic
+      redirect_to @post.full_path
     else
       render 'new'
     end
@@ -30,7 +30,7 @@ class PostsController < ApplicationController
   def update
     if @post.update(post_params)
       flash[:success] = 'Post successfully updated.'
-      redirect_to @post.topic
+      redirect_to @post.full_path
     else
       render 'edit'
     end
