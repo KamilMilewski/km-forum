@@ -2,6 +2,7 @@
 class Post < ApplicationRecord
   belongs_to :user
   belongs_to :topic
+  has_many :post_votes
 
   # Newest posts are displayed on the bottom of the last page in topic show.
   default_scope -> { order(created_at: :asc) }
@@ -34,10 +35,25 @@ class Post < ApplicationRecord
     end
   end
 
-  # Returns full path to this post in topic.
+  # Returns full path to this post in topic (with page param and anchor).
   def full_path
     Rails.application.routes.url_helpers
          .topic_path(topic, page: page, anchor: anchor)
+  end
+
+  # Returns upvotes count this post has.
+  def upvotes_count
+    post_votes.where(vote: 1).sum(:vote)
+  end
+
+  # Returns downvotes count this post has.
+  def downvotes_count
+    post_votes.where(vote: -1).sum(:vote) * -1
+  end
+
+  # Return resultant downvotes count this post has
+  def resultant_votes_count
+    post_votes.sum(:vote)
   end
 
   private

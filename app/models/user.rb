@@ -22,6 +22,7 @@ class User < ApplicationRecord
   # Model relations:
   has_many :topics
   has_many :posts
+  has_many :post_votes
 
   # Mounts PictureUploader on 'picture' column to allow images upload associated
   # with this model. Provided by carrierwave gem.
@@ -167,6 +168,12 @@ class User < ApplicationRecord
     activities = posts + topics
     activities.sort! { |x, y| y.updated_at <=> x.updated_at }
     activities.first(count)
+  end
+
+  # Returns user vote on given resource. If user hasn't voted then nil is
+  # returned.
+  def has_voted_on(resource)
+    PostVote.find_by(user_id: id, post_id: resource.id)
   end
 
   private

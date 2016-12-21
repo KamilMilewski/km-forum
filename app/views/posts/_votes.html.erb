@@ -1,0 +1,49 @@
+<% if resource.class == Post && logged_in? %>
+  <aside>
+
+    <% vote = current_user.has_voted_on(resource) %>
+
+    <!-- upvote thumb-->
+    <% if vote.nil? || vote.vote == -1 %>
+      <%= link_to post_post_votes_path(resource, value: 'up'), method: :post, remote: true, class: 'upvote' do %>
+        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+      <% end %>
+    <% else %>
+      <%= link_to post_post_votes_path(resource, value: 'up'), method: :post, remote: true, class: 'upvote-clicked' do %>
+        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+      <% end %>
+    <% end %>
+
+    <!-- upvote count -->
+    <span id="<%= "#{resource.anchor}-upvotes-count" %>">
+        <% count = resource.upvotes_count %>
+        <% if count == 0 %>
+          <%= count %>
+        <% else %>
+          <span class="upvote-clicked"><%= count %></span>
+        <% end %>
+    </span>
+
+    <!-- downvote thumb -->
+    <% if vote.nil? || vote.vote == 1 %>
+      <%= link_to post_post_votes_path(resource, value: 'down'), method: :post, remote: true, class: 'downvote' do %>
+        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+      <% end %>
+    <% else %>
+      <%= link_to post_post_votes_path(resource, value: 'down'), method: :post, remote: true, class: 'downvote-clicked' do %>
+        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+      <% end %>
+    <% end %>
+
+    <!-- downvote count -->
+    <span id="<%= "#{resource.anchor}-downvotes-count" %>">
+      <% count = resource.downvotes_count %>
+      <% if count == 0 %>
+        <%= count %>
+      <% else %>
+        <span class="downvote-clicked"><%= count %></span>
+      <% end %>
+    </span>
+
+  </aside>
+<% end %>

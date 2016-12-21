@@ -1,0 +1,14 @@
+first:
+  user: admin
+  post: first
+  vote: -1
+
+second:
+  user: moderator
+  post: first
+  vote: 1
+
+third:
+  user: user
+  post: first
+  vote: 1

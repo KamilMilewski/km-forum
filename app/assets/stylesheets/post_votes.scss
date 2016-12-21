@@ -1,0 +1,14 @@
+.upvote, .downvote {
+  color: black;
+  &:hover { color: #555555; }
+}
+
+.upvote-clicked {
+  color: green;
+  &:hover { color: #555555; }
+}
+
+.downvote-clicked {
+  color: red;
+  &:hover { color: #555555; }
+}

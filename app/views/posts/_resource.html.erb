@@ -15,6 +15,9 @@
 		<%= render 'posts/edit_delete_links', resource: resource %>
 	</div>
 
+	<span id="<%= resource.anchor %>-vote">
+		<%= render 'posts/votes', resource: resource %>
+	</span>
 	<%= render 'posts/date', resource: resource %>
 
 </div>

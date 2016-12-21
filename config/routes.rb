@@ -28,7 +28,9 @@ Rails.application.routes.draw do
                       except: [:index, :show, :edit, :update, :destroy]
   end
 
-  resources :posts, only: [:edit, :update, :destroy]
+  resources :posts, only: [:edit, :update, :destroy] do
+    resources :post_votes, only: [:create, :destroy]
+  end
 
   resources :users
   # Custom user resources.
