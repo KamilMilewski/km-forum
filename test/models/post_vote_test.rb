@@ -11,12 +11,12 @@ class PostVoteTest < ActiveSupport::TestCase
   end
 
   test 'vote can be either +1 or -1' do
-    @vote.vote = -5
+    @vote.value = -5
     assert_not @vote.valid?
   end
 
   test 'vote can NOT be nil' do
-    @vote.vote = nil
+    @vote.value = nil
     assert_not @vote.valid?
   end
 
@@ -24,7 +24,7 @@ class PostVoteTest < ActiveSupport::TestCase
     # Duplicated vote
     @duplicated_vote = PostVote.new(user_id: @vote.user_id,
                                     post_id: @vote.post_id,
-                                    vote: @vote.vote)
+                                    value: @vote.value)
 
     # Try to save duplicated post vote.
     assert_no_difference 'PostVote.count' do

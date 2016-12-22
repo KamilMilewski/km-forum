@@ -1,42 +1,66 @@
-<% if resource.class == Post && logged_in? %>
+<% if resource.class == Post %>
   <aside>
 
-    <% vote = current_user.find_vote_on(resource) %>
+    <% vote = current_user.find_vote_on(resource) if logged_in? %>
 
-    <% if vote.nil? %>
+    <% if !logged_in? %>
+        <% # User has to be logged in to vote. %>
 
-        <%= link_to post_votes_path(post_id: resource.id, value: '1'), method: :post, remote: true, class: 'upvote' do %>
-          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><% end %>
-
+        <% # Dummy link. %>
+        <%= link_to '#', remote: true, class: 'upvote', tooltip: 'You must be logged in to vote' do %>
+          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+        <% end %>
         <%= render 'post_votes/upvotes_count', resource: resource %>
 
-        <%= link_to post_votes_path(post_id: resource.id, value: '-1'), method: :post, remote: true, class: 'downvote' do %>
-          <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span><% end %>
-
+        <% # Dummy link. %>
+        <%= link_to '#', remote: true, class: 'downvote', tooltip: 'You must be logged in to vote' do %>
+          <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+        <% end %>
         <%= render 'post_votes/downvotes_count', resource: resource %>
 
-    <% elsif vote.vote == 1 %>
+    <% elsif vote.nil? %>
+        <% # User hasn't voted yet on this post. %>
 
-        <%= link_to post_vote_path(vote), method: :delete, remote: true, class: 'upvote-clicked' do %>
-          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><% end %>
-
+        <% # Link to post_votes#create %>
+        <%= link_to post_votes_path(post_id: resource.id, value: '1'), method: :post, remote: true, class: 'upvote', tooltip: 'I like this' do %>
+          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+        <% end %>
         <%= render 'post_votes/upvotes_count', resource: resource %>
 
-        <%= link_to post_vote_path(vote), method: :put, remote: true, class: 'downvote' do %>
-          <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span><% end %>
-
+        <% # Link to post_votes#create %>
+        <%= link_to post_votes_path(post_id: resource.id, value: '-1'), method: :post, remote: true, class: 'downvote', tooltip: 'I dislike this' do %>
+          <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+        <% end %>
         <%= render 'post_votes/downvotes_count', resource: resource %>
 
-    <% elsif vote.vote == -1 %>
+    <% elsif vote.value == 1 %>
+        <% # User already upvoted this post. %>
 
-      <%= link_to post_vote_path(vote), method: :put, remote: true, class: 'upvote' do %>
-        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><% end %>
+        <% # Link to post_votes#destroy %>
+        <%= link_to post_vote_path(vote), method: :delete, remote: true, class: 'upvote-clicked', tooltip: 'Unlike' do %>
+          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+        <% end %>
+        <%= render 'post_votes/upvotes_count', resource: resource %>
 
+        <% # Link to post_votes#update %>
+        <%= link_to post_vote_path(vote), method: :put, remote: true, class: 'downvote', tooltip: 'I dislike this' do %>
+          <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+        <% end %>
+        <%= render 'post_votes/downvotes_count', resource: resource %>
+
+    <% elsif vote.value == -1 %>
+      <% # User already downvoted this post. %>
+
+      <% # Link to post_votes#update %>
+      <%= link_to post_vote_path(vote), method: :put, remote: true, class: 'upvote', tooltip: 'I like this' do %>
+        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+      <% end %>
       <%= render 'post_votes/upvotes_count', resource: resource %>
 
-      <%= link_to post_vote_path(vote), method: :delete, remote: true, class: 'downvote-clicked' do %>
-        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span><% end %>
-
+      <% # Link to post_votes#destroy %>
+      <%= link_to post_vote_path(vote), method: :delete, remote: true, class: 'downvote-clicked', tooltip: 'I no longer dislike this' do %>
+        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+      <% end %>
       <%= render 'post_votes/downvotes_count', resource: resource %>
 
     <% else %>

@@ -43,17 +43,17 @@ class Post < ApplicationRecord
 
   # Returns upvotes count this post has.
   def upvotes_count
-    post_votes.where(vote: 1).sum(:vote)
+    post_votes.where(value: 1).sum(:value)
   end
 
   # Returns downvotes count this post has.
   def downvotes_count
-    post_votes.where(vote: -1).sum(:vote) * -1
+    post_votes.where(value: -1).sum(:value) * -1
   end
 
   # Return resultant downvotes count this post has
   def resultant_votes_count
-    post_votes.sum(:vote)
+    post_votes.sum(:value)
   end
 
   private

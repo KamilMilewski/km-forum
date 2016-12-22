@@ -5,7 +5,7 @@ class PostVotesController < ApplicationController
 
     if PostVote.create(post_id: params[:post_id],
                        user_id: current_user.id,
-                       vote: params[:value].to_i)
+                       value: params[:value].to_i)
       # something
     end
 
@@ -17,7 +17,7 @@ class PostVotesController < ApplicationController
   def update
     @vote = PostVote.find(params[:id])
     @post = Post.find(@vote.post_id)
-    @vote.vote *= -1
+    @vote.value *= -1
     @vote.save
 
     respond_to do |format|
