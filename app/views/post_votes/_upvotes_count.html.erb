@@ -1,0 +1,6 @@
+<% count = resource.upvotes_count %>
+<% if count == 0 %>
+  <span><%= count %><span>
+<% else %>
+  <span class="upvote-clicked"><%= count %></span>
+<% end %>

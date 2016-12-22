@@ -1,3 +1,5 @@
+# KM-Forum user can vote one time for each post. He can upvote (+1) or
+# downvote (-1)
 class PostVote < ApplicationRecord
   belongs_to :user
   belongs_to :post

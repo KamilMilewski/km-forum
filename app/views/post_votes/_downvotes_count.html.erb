@@ -1,0 +1,6 @@
+<% count = resource.downvotes_count %>
+<% if count == 0 %>
+  <span class="downvote"><%= count %></span>
+<% else %>
+  <span class="downvote-clicked"><%= count %></span>
+<% end %>
