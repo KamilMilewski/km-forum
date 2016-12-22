@@ -1,0 +1,69 @@
+<aside>
+
+  <% vote = current_user.find_vote_on(resource) if logged_in? %>
+
+  <% if !logged_in? %>
+      <% # User has to be logged in to vote. %>
+
+      <% # Dummy link. %>
+      <%= link_to '#', remote: true, class: 'upvote', tooltip: 'You must be logged in to vote' do %>
+        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+      <% end %>
+      <%= render 'shared/votes/upvotes_count', resource: resource %>
+
+      <% # Dummy link. %>
+      <%= link_to '#', remote: true, class: 'downvote', tooltip: 'You must be logged in to vote' do %>
+        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+      <% end %>
+      <%= render 'shared/votes/downvotes_count', resource: resource %>
+
+  <% elsif vote.nil? %>
+      <% # User hasn't voted yet on this resource. %>
+
+      <% # Link to {resource}_votes#create %>
+      <%= link_to send("#{resource.class.to_s.downcase}_votes_path", resource_id: resource.id, value: '1'), method: :post, remote: true, class: 'upvote', tooltip: 'I like this' do %>
+        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+      <% end %>
+      <%= render 'shared/votes/upvotes_count', resource: resource %>
+
+      <% # Link to {resource}_votes#create %>
+      <%= link_to send("#{resource.class.to_s.downcase}_votes_path", resource_id: resource.id, value: '-1'), method: :post, remote: true, class: 'downvote', tooltip: 'I dislike this' do %>
+        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+      <% end %>
+      <%= render 'shared/votes/downvotes_count', resource: resource %>
+
+  <% elsif vote.value == 1 %>
+      <% # User already upvoted this resource. %>
+
+      <% # Link to {resource}_votes#destroy %>
+      <%= link_to send("#{resource.class.to_s.downcase}_vote_path", vote), method: :delete, remote: true, class: 'upvote-clicked', tooltip: 'Unlike' do %>
+        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+      <% end %>
+      <%= render 'shared/votes/upvotes_count', resource: resource %>
+
+      <% # Link to {resource}_votes#update %>
+      <%= link_to send("#{resource.class.to_s.downcase}_vote_path", vote), method: :put, remote: true, class: 'downvote', tooltip: 'I dislike this' do %>
+        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+      <% end %>
+      <%= render 'shared/votes/downvotes_count', resource: resource %>
+
+  <% elsif vote.value == -1 %>
+    <% # User already downvoted this resource. %>
+
+    <% # Link to {resource}_votes#update %>
+    <%= link_to send("#{resource.class.to_s.downcase}_vote_path", vote), method: :put, remote: true, class: 'upvote', tooltip: 'I like this' do %>
+      <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+    <% end %>
+    <%= render 'shared/votes/upvotes_count', resource: resource %>
+
+    <% # Link to {resource}_votes#destroy %>
+    <%= link_to send("#{resource.class.to_s.downcase}_vote_path", vote), method: :delete, remote: true, class: 'downvote-clicked', tooltip: 'I no longer dislike this' do %>
+      <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+    <% end %>
+    <%= render 'shared/votes/downvotes_count', resource: resource %>
+
+  <% else %>
+    <span>Error!</span>
+  <% end %>
+
+</aside>

@@ -3,6 +3,7 @@ class Topic < ApplicationRecord
   has_many :posts, dependent: :destroy
   belongs_to :user
   belongs_to :category
+  has_many :topic_votes, dependent: :destroy
 
   # Newest topics are on top of the page.
   default_scope -> { order(last_activity: :desc) }
@@ -33,6 +34,16 @@ class Topic < ApplicationRecord
     else
       count / per_page + 1
     end
+  end
+
+  # Returns upvotes count this topic has.
+  def upvotes_count
+    topic_votes.where(value: 1).sum(:value)
+  end
+
+  # Returns downvotes count this topic has.
+  def downvotes_count
+    topic_votes.where(value: -1).sum(:value) * -1
   end
 
   private

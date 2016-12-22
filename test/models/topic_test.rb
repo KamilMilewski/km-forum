@@ -38,4 +38,15 @@ class TopicTest < ActiveSupport::TestCase
                                    category_id: category.id)
     assert_not_nil topic.reload.last_activity
   end
+
+  test 'upvotes_count should return all topic upvotes count' do
+    # First fixture topic has sum of +2 upvotes.
+    assert_equal 2, @topic.upvotes_count
+  end
+
+  test 'downvotes_count should return all topic downvotes count' do
+    # First fixture topic has sum of -1 downvotes. Function has to return
+    # unsigned int though.
+    assert_equal 1, @topic.downvotes_count
+  end
 end

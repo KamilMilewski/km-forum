@@ -2,7 +2,7 @@
 class Post < ApplicationRecord
   belongs_to :user
   belongs_to :topic
-  has_many :post_votes
+  has_many :post_votes, dependent: :destroy
 
   # Newest posts are displayed on the bottom of the last page in topic show.
   default_scope -> { order(created_at: :asc) }
@@ -49,11 +49,6 @@ class Post < ApplicationRecord
   # Returns downvotes count this post has.
   def downvotes_count
     post_votes.where(value: -1).sum(:value) * -1
-  end
-
-  # Return resultant downvotes count this post has
-  def resultant_votes_count
-    post_votes.sum(:value)
   end
 
   private

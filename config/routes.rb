@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     resources :posts, name_prefix: 'topic_',
                       except: [:index, :show, :edit, :update, :destroy]
   end
+  resources :topic_votes, only: [:create, :update, :destroy]
 
   resources :posts, only: [:edit, :update, :destroy]
   resources :post_votes, only: [:create, :update, :destroy]

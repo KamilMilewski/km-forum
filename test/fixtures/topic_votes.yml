@@ -1,0 +1,14 @@
+first:
+  user: admin
+  topic: first
+  value: -1
+
+second:
+  user: moderator
+  topic: first
+  value: 1
+
+third:
+  user: user
+  topic: first
+  value: 1

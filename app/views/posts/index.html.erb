@@ -11,7 +11,7 @@
 <hr>
 
 <!-- Render topic if it's a first page -->
-<% if params[:page] == nil || params[:page] == 1 %>
+<% if params[:page].nil? || params[:page] == '1' %>
   <%= render 'posts/resource', resource: @topic %>
 <% end %>
 

@@ -39,10 +39,4 @@ class PostTest < ActiveSupport::TestCase
     # unsigned int though.
     assert_equal 1, @post.downvotes_count
   end
-
-  test 'resultant_votes_count should return resultant votes' do
-    # If upvotes count is 2 and downvotes count is -1, then
-    # resultant_votes_count should return 1.
-    assert_equal 1, @post.resultant_votes_count
-  end
 end

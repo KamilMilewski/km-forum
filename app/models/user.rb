@@ -173,7 +173,11 @@ class User < ApplicationRecord
   # Returns user vote on given resource. If user hasn't voted then nil is
   # returned.
   def find_vote_on(resource)
-    PostVote.find_by(user_id: id, post_id: resource.id)
+    if resource.class == Post
+      PostVote.find_by(user_id: id, post_id: resource.id)
+    elsif resource.class == Topic
+      TopicVote.find_by(user_id: id, topic_id: resource.id)
+    end
   end
 
   private
