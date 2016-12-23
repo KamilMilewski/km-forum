@@ -1,6 +1,8 @@
 # Module with helper methods used in seeds.rb file.
 module SeedsHelper
   def self.clean_db
+    TopicVote.delete_all
+    PostVote.delete_all
     Post.delete_all
     Topic.delete_all
     Category.delete_all
