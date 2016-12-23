@@ -3,7 +3,7 @@ class CreatePostVotes < ActiveRecord::Migration[5.0]
     create_table :post_votes do |t|
       t.references :user, foreign_key: true
       t.references :post, foreign_key: true
-      t.integer :value
+      t.integer :vote
 
       t.timestamps
     end

@@ -16,6 +16,11 @@ From [wikipedia](https://en.wikipedia.org/wiki/Internet_forum):
 * Markdown formating for posts.
 * Code blocks with syntax highlighting.
 * Custom user avatars with [Gravatar](http://en.gravatar.com/) as a default.
+* Custom built authentication system.
+* Custom built authorization system.
+* Account activatin via email.
+* Password reset via email.
+* Custom built voting system.
 * Responsivness to mobile devices.
 
 ## Getting started
@@ -79,6 +84,7 @@ topics as well.
   * I want to reset my password (via email).
   * I want to upload picture for my post and topic.
   * I want to upload my custom avatar picture or use Gravatar.
+  * I want to vote for posts and topics.
   * I need to activate my account before use (via email).
 
 * As a moderator,
@@ -115,72 +121,82 @@ topics as well.
 ## Data models
 
 * Category
-  * title:string
-  * description:text
+ * title:string
+ * description:text
 * Topic
-	* title:string
-	* content:text
-  * picture:string
-  * user_id:integer
-  * category_id:integer
-  * last_activity:datetime
+ * title:string
+ * content:text
+ * picture:string
+ * user_id:integer
+ * category_id:integer
+ * last_activity:datetime
 * Post
-  * content:text
-  * picture:string
-  * user_id:integer
-  * topic_id:integer
+ * content:text
+ * picture:string
+ * user_id:integer
+ * topic_id:integer
 * User
-  * name:string
-  * email:string
-  * password_digest:string
-  * remember_token_digest:string
-  * activation_token_digest:string
-  * password_reset_token_digest:string
-  * permissions:string
-  * avatar:string
+ * name:string
+ * email:string
+ * password_digest:string
+ * remember_token_digest:string
+ * activation_token_digest:string
+ * password_reset_token_digest:string
+ * permissions:string
+ * avatar:string
 
 ## Data model relations
 
 * Category
-	* has many topics
+ * has many topics
 * Topic
-	* has many posts
-	* belongs to user
-	* belongs to category
+ * belongs to ser
+ * belongs to category
+ * has many posts
+ * has many topic_votes
 * Post
-	* belongs to user
-	* belongs to topic
+ * belongs to user
+ * belongs to topic
+ * has many post_votes
 * User
-	* has many topics
-	* has many posts
+ * has many topics
+ * has many posts
+ * has many post_votes
+ * has many topic_votes
+* TopicVotes
+ * belongs to user
+ * belongs to topic
+* PostVotes
+ * belongs to user
+ * belongs to post
 
 ## Pages
 
 * Categories
-	* categories index (root)
-	* new category
-	* edit category
-  * show category (topics index)
+ * categories index (root)
+ * new category
+ * edit category
+ * show category (topics index)
 * Topics
-	* new topic
-	* edit topic
-  * show topic (posts index)
+ * new topic
+ * edit topic
+ * show topic (posts index)
 * Posts
-	* new post
-	* edit post
+ * new post
+ * edit post
 * Users
-	* users index
-	* show user (user profile page)
-	* edit user (edit user profile page)
-	* new user (signup page)
+ * users index
+ * show user (user profile page)
+ * edit user (edit user profile page)
+ * new user (signup page)
 * Sessions
-	* new session (login page)
+ * new session (login page)
 * Password resets
-  * enter your email (password resets new)
-  * change your password (password resets edit)
+ * enter your email (password resets new)
+ * change your password (password resets edit)
 * Others
-	* contact page
-	* about page
+ * contact page
+ * about page
 
 ## Legal stuff
 
@@ -190,4 +206,4 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
