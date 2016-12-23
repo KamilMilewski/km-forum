@@ -6,7 +6,7 @@ class UserMailerTest < ActionMailer::TestCase
     # activation_token is a virtual field,
     # so we couldn't handle it in fixture file.
     user.activation_token = User.new_token
-    mail = UserMailer.account_activation(user)
+    mail = UserMailer.account_activation(user, user.activation_token)
     assert_equal 'KMForum account activation', mail.subject
     assert_equal [user.email],                  mail.to
     assert_equal ['kmf.kmf@o2.pl'],             mail.from

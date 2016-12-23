@@ -1,7 +1,8 @@
 # :nodoc:
 class UserMailer < ApplicationMailer
-  def account_activation(user)
+  def account_activation(user, activation_token)
     @user = user
+    @activation_token = activation_token
     @greeting = "Hi #{@user.name}"
 
     mail to: @user.email, subject: 'KMForum account activation'

@@ -85,7 +85,7 @@ class User < ApplicationRecord
 
   # Sends an account activation email.
   def send_activation_email
-    UserMailer.account_activation(self).deliver_now
+    UserMailer.account_activation(self, activation_token).deliver_later
   end
 
   # Sends an password reset email.

@@ -26,6 +26,9 @@ gem 'redcarpet', '~> 3.2.2'
 # Exposes the python pygments syntax highlighter to Ruby.
 gem 'pygments.rb', '~> 0.6.0'
 gem 'rails',        '5.0.0.1'
+# Background process:
+gem 'delayed_job_active_record'
+
 
 group :development, :test do
   gem 'byebug', platform: :mri
