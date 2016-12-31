@@ -29,8 +29,8 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per
   # environment)
-  config.active_job.queue_adapter     = :delayed_job
-  config.active_job.queue_name_prefix = "km-forum_#{Rails.env}"
+  # config.active_job.queue_adapter     = :delayed_job
+  # config.active_job.queue_name_prefix = "km-forum_#{Rails.env}"
 
 
   host = 'localhost:3000'
