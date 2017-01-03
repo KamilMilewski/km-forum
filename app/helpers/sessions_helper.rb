@@ -5,8 +5,8 @@ module SessionsHelper
   end
 
   def logout
+    forget(current_user) if logged_in?
     session.delete(:user_id)
-    forget(@current_user) if logged_in?
     @current_user = nil
   end
 
