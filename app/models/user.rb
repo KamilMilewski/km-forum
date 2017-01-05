@@ -85,14 +85,14 @@ class User < ApplicationRecord
 
   # Sends an account activation email.
   def send_activation_email
-    UserMailer.account_activation(self, activation_token).deliver_now
+    UserMailer.account_activation(self, activation_token).deliver_later
   end
 
   # Sends an password reset email.
   def send_password_reset_email
     create_password_reset_digest
     update_attribute(:sent_reset_at, Time.zone.now)
-    UserMailer.password_reset(self).deliver_now
+    UserMailer.password_reset(self).deliver_later
   end
 
   # Checks if password reset request expired.
