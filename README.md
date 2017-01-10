@@ -4,6 +4,10 @@
 
 KMForum is a discussion board application written in [Ruby on Rails](http://rubyonrails.org/) and [Bootstrap](http://getbootstrap.com/).
 
+## Working example
+
+You can play with sandbox version [here](https://km-forum.herokuapp.com/).
+
 ## What is purpose of KMForum?
 
 From [wikipedia](https://en.wikipedia.org/wiki/Internet_forum):
